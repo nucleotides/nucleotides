@@ -6,7 +6,7 @@ set -o nounset
 echo "Publish changes to heroku (yes|no) ?"
 read INPUT
 
-if [[ "${INPUT}" -ne "yes" ]]; then
+if [[ "${INPUT}" != 'yes' ]]; then
     echo "Aborting."
     exit 1
 fi
@@ -17,6 +17,7 @@ trap "git branch -D ${BRANCH}" SIGHUP SIGINT SIGTERM
 
 git push
 git checkout -b ${BRANCH} master
+./script/build
 git add -f build
 git commit -m "Rebuild updated site"
 git push -f heroku ${BRANCH}:refs/heads/master
