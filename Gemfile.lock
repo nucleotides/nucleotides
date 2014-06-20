@@ -108,4 +108,5 @@ PLATFORMS
 DEPENDENCIES
   middleman (~> 3.2)
   puma (~> 2.7)
+  rack
   rake (~> 10.1)
