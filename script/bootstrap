@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -o errexit
+
+git remote add heroku git@heroku.com:nucleotides-site.git
