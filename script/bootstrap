@@ -22,5 +22,6 @@ fetch_results(){
   ${CMD} sync ${DIR} ${DST}
 }
 
+bundle install
 add_heroku_remote
 fetch_results data
