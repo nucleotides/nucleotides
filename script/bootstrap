@@ -1,5 +1,26 @@
 #!/bin/bash
 
 set -o errexit
+set -o nounset
+set -o xtrace
 
-git remote add heroku git@heroku.com:nucleotides-site.git
+add_heroku_remote(){
+  git remote add heroku git@heroku.com:nucleotides-site.git
+}
+
+fetch_results(){
+  set -o errexit
+  set -o nounset
+  set -o xtrace
+
+  DST=$1
+
+  CMD="s3cmd --config ${HOME}/.nucleotides.s3cfg"
+  S3=$(${CMD} ls s3://nucleotid-es/results/)
+  DIR=$(echo "$S3" | grep DIR | tr -s ' ' | cut -f 3 -d ' ' | sort | tail -n 1)
+  mkdir -p ${DST}
+  ${CMD} sync ${DIR} ${DST}
+}
+
+add_heroku_remote
+fetch_results data
