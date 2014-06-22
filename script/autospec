@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -o errexit
+
+fswatch lib:spec 'clear && ./script/spec'
