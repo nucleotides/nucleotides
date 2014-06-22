@@ -5,4 +5,13 @@
   %body
     %header
       %h1= 'Nucleotides Genome Assembly Evaluation'
-    %section
+    - data.results.each do |data_set|
+      %h2= data_set.name
+      %table
+        %tr
+          %td= 'tool'
+          %td= 'score'
+        - data_set.values.last.each do |value|
+          %tr
+            %td= value.namespace + '/' + value.tool
+            %td= value.score
