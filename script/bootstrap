@@ -22,6 +22,16 @@ fetch_results(){
   ${CMD} sync ${DIR} ${DST}
 }
 
+format_results(){
+  ruby \
+    -I lib \
+    -rdata_processor \
+    -e 'include DataProcessor' \
+    -e 'format_results' \
+    > data/results.yml
+}
+
 bundle install
 add_heroku_remote
-fetch_results data
+fetch_results tmp
+format_results

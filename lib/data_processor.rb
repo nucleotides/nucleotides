@@ -2,7 +2,7 @@ module DataProcessor
 
   private
 
-  DATA_DIR = 'data/'
+  DATA_DIR = 'tmp/'
 
   def files
     Dir[DATA_DIR + '*'].map do |file|
@@ -14,7 +14,19 @@ module DataProcessor
   public
 
   def results
-    files.group_by{|i| i[:data] }
+    files.group_by{|i| i[:data] }.map do |dataset, values|
+      outputs = values.map do |v|
+        results = parse_result File.read(v[:file])
+        results.merge v
+       end
+      {:name   => dataset,
+       :values => outputs}
+    end
+  end
+
+  def format_results
+    require 'yaml'
+    puts YAML.dump results
   end
 
   FIELDS = {
