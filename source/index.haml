@@ -1,0 +1,25 @@
+!!! 5
+%HTML
+  %head
+    %title= 'Nucleotides Genome Assembly Evaluation'
+  %body
+    %header
+      %h1= 'Nucleotides Genome Assembly Evaluation'
+    - data.results.each do |data_set|
+      %h2= 'Dataset: ' + data_set.name
+      %table
+        %tr
+          %td
+          %td= 'Contigs (> 1000bp)'
+          %td= 'Genome Fraction (%)'
+          %td= 'Mismatches (per 100kbp)'
+          %td= 'Ns (per 100kbp)'
+          %td= 'Indels (per 100kbp)'
+        - data_set.values.last.each do |value|
+          %tr
+            %td= value.namespace + '/' + value.tool
+            %td= value.n_contigs_gt_1000.to_i
+            %td= value.genome_fraction
+            %td= value.mismatches_per_100k
+            %td= value.ns_per_100k
+            %td= value.indels_per_100k
