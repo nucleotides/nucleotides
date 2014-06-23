@@ -23,6 +23,7 @@ fetch_results(){
 }
 
 format_results(){
+  mkdir -p data
   ruby \
     -I lib \
     -rdata_processor \
