@@ -4,26 +4,30 @@
     %title= 'Nucleotides Genome Assembly Evaluation'
     %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
   %body
-    %header
-      %h1
-        Nucleotides
-        %small
-          continuous genome assembler evaluation
-    - data.results.each do |data_set|
-      %h2= 'Dataset: ' + data_set.name
-      %table{:class => "table table-condensed" }
-        %tr
-          %td
-          %td.text-right= 'Contigs (> 1000bp)'
-          %td.text-right= 'Genome Fraction (%)'
-          %td.text-right= 'Mismatches (per 100kbp)'
-          %td.text-right= 'Ns (per 100kbp)'
-          %td.text-right= 'Indels (per 100kbp)'
-        - data_set.values.last.each do |value|
-          %tr
-            %td.text-left= value.namespace + '/' + value.tool
-            %td.text-right= value.n_contigs_gt_1000.to_i
-            %td.text-right= value.genome_fraction
-            %td.text-right= value.mismatches_per_100k
-            %td.text-right= value.ns_per_100k
-            %td.text-right= value.indels_per_100k
+    .container-fluid
+      .col-md-1
+      .col-md-8
+        %header
+          %h1
+            Nucleotides
+            %small
+              continuous genome assembler evaluation
+        - data.results.each do |data_set|
+          %h2= 'Dataset: ' + data_set.name
+          %table{:class => "table table-condensed" }
+            %tr
+              %td
+              %td.text-right= 'Contigs (> 1000bp)'
+              %td.text-right= 'Genome Fraction (%)'
+              %td.text-right= 'Mismatches (per 100kbp)'
+              %td.text-right= 'Ns (per 100kbp)'
+              %td.text-right= 'Indels (per 100kbp)'
+            - data_set.values.last.each do |value|
+              %tr
+                %td.text-left= value.namespace + '/' + value.tool
+                %td.text-right= value.n_contigs_gt_1000.to_i
+                %td.text-right= value.genome_fraction
+                %td.text-right= value.mismatches_per_100k
+                %td.text-right= value.ns_per_100k
+                %td.text-right= value.indels_per_100k
+      .col-md-1
