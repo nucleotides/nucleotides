@@ -2,24 +2,28 @@
 %HTML
   %head
     %title= 'Nucleotides Genome Assembly Evaluation'
+    %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
   %body
     %header
-      %h1= 'Nucleotides Genome Assembly Evaluation'
+      %h1
+        Nucleotides
+        %small
+          continuous genome assembler evaluation
     - data.results.each do |data_set|
       %h2= 'Dataset: ' + data_set.name
-      %table
+      %table{:class => "table table-condensed" }
         %tr
           %td
-          %td= 'Contigs (> 1000bp)'
-          %td= 'Genome Fraction (%)'
-          %td= 'Mismatches (per 100kbp)'
-          %td= 'Ns (per 100kbp)'
-          %td= 'Indels (per 100kbp)'
+          %td.text-right= 'Contigs (> 1000bp)'
+          %td.text-right= 'Genome Fraction (%)'
+          %td.text-right= 'Mismatches (per 100kbp)'
+          %td.text-right= 'Ns (per 100kbp)'
+          %td.text-right= 'Indels (per 100kbp)'
         - data_set.values.last.each do |value|
           %tr
-            %td= value.namespace + '/' + value.tool
-            %td= value.n_contigs_gt_1000.to_i
-            %td= value.genome_fraction
-            %td= value.mismatches_per_100k
-            %td= value.ns_per_100k
-            %td= value.indels_per_100k
+            %td.text-left= value.namespace + '/' + value.tool
+            %td.text-right= value.n_contigs_gt_1000.to_i
+            %td.text-right= value.genome_fraction
+            %td.text-right= value.mismatches_per_100k
+            %td.text-right= value.ns_per_100k
+            %td.text-right= value.indels_per_100k
