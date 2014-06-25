@@ -10,8 +10,9 @@
         %header
           %h1
             Nucleotides
-            %small
-              continuous genome assembler evaluation
+            %p
+              %small
+                continuous genome assembler evaluation
         - data.results.each do |data_set|
           %h2= 'Dataset: ' + data_set.name
           %table{:class => "table table-condensed" }
