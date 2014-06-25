@@ -17,11 +17,31 @@
           %table{:class => "table table-condensed" }
             %tr
               %td
-              %td.text-right= 'Contigs (> 1000bp)'
-              %td.text-right= 'Genome Fraction (%)'
-              %td.text-right= 'Mismatches (per 100kbp)'
-              %td.text-right= 'Ns (per 100kbp)'
-              %td.text-right= 'Indels (per 100kbp)'
+                %td.text-right
+                  %p
+                    Contigs
+                  %p
+                    (> 1000bp)
+              %td.text-right
+                %p
+                  Genome Fraction
+                %p
+                  (%)
+              %td.text-right
+                %p
+                  Mismatches
+                %p
+                  (per 100kbp)
+              %td.text-right
+                %p
+                  Ns
+                %p
+                  (per 100kbp)
+              %td.text-right
+                %p
+                  Indels
+                %p
+                  (per 100kbp)
             - data_set.values.last.each do |value|
               %tr
                 %td.text-left= value.namespace + '/' + value.tool
