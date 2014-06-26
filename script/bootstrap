@@ -28,7 +28,7 @@ format_results(){
     -I lib \
     -rdata_processor \
     -e 'include DataProcessor' \
-    -e 'format_results' \
+    -e 'execute!' \
     > data/results.yml
 }
 
