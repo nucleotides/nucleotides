@@ -14,41 +14,42 @@
               %small
                 continuous genome assembler evaluation
         - data.results.each do |data_set|
-          %h2= 'Dataset: ' + data_set.name
-          %table{:class => "table table-condensed" }
-            %tr
-              %td
+          %div{:class => "panel panel-default"}
+            .panel-heading= 'Read Set ' + data_set.name
+            %table{:class => "table table-condensed" }
+              %tr
+                %td
+                  %td.text-right
+                    %p
+                      Assembled Contigs
+                    %p
+                      (> 1000bp)
                 %td.text-right
                   %p
-                    Contigs
+                    Unassembled
                   %p
-                    (> 1000bp)
-              %td.text-right
-                %p
-                  Genome Fraction
-                %p
-                  (%)
-              %td.text-right
-                %p
-                  Mismatches
-                %p
-                  (per 100kbp)
-              %td.text-right
-                %p
-                  Ns
-                %p
-                  (per 100kbp)
-              %td.text-right
-                %p
-                  Indels
-                %p
-                  (per 100kbp)
-            - data_set.values.last.each do |value|
-              %tr
-                %td.text-left= value.namespace + '/' + value.tool
-                %td.text-right= value.n_contigs_gt_1000.to_i
-                %td.text-right= value.genome_fraction
-                %td.text-right= value.mismatches_per_100k
-                %td.text-right= value.ns_per_100k
-                %td.text-right= value.indels_per_100k
+                    (%)
+                %td.text-right
+                  %p
+                    Incorrect
+                  %p
+                    (per 100kbp)
+                %td.text-right
+                  %p
+                    Unresolved
+                  %p
+                    (per 100kbp)
+                %td.text-right
+                  %p
+                    Inserted/Deleted
+                  %p
+                    (per 100kbp)
+              - data_set.values.last.each do |value|
+                %tr
+                  %td.text-left= value.namespace + '/' + value.tool
+                  %td.text-right= value.n_contigs_gt_1000.to_i
+                  %td.text-right= value.genome_fraction
+                  %td.text-right= value.mismatches_per_100k
+                  %td.text-right= value.ns_per_100k
+                  %td.text-right= value.indels_per_100k
       .col-md-1
