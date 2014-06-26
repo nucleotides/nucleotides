@@ -12,6 +12,11 @@ module DataProcessor
     '# indels per 100 kbp'     => :indels_per_100k
   }
 
+  FORMATTERS = {
+    :genome_fraction => lambda{|i| (100 - i.to_f).round(2)}
+  }
+
+
   def files
     Dir[DATA_DIR + '*'].map do |file|
       data, namespace, tool = file.gsub(DATA_DIR, '').split('_')
@@ -24,7 +29,10 @@ module DataProcessor
     csv = CSV.parse(result, col_sep: "\t")
     csv.inject({}) do |hash, (k, v)|
       field = FIELDS[k]
-      hash[field] = v.to_f if field
+      if field
+        v = FORMATTERS[field].call(v) if FORMATTERS[field]
+        hash[field] = v
+      end
       hash
     end
   end
