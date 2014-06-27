@@ -6,8 +6,8 @@
     %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
   %body
     .container-fluid
-      .col-md-1
-      .col-md-8
+      .col-md-2
+      .col-md-7
         .page-header
           %h1
             %a{:href => '/'}
@@ -17,9 +17,6 @@
                 continuous genome assembler benchmarking
       .col-md-2
     .container-fluid
-      .col-md-1
-      .col-md-8
-        = yield
       .col-md-2
         %ul{:class => "nav"}
           %li
@@ -34,3 +31,5 @@
           %li
             %a{:href => "/submit-an-assembler/"}
               Submit an assembler
+      .col-md-7
+        = yield
