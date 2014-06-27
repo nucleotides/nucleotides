@@ -1,0 +1,36 @@
+!!! 5
+%HTML
+  %head
+    %title
+      = current_page.data.title
+    %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
+  %body
+    .container-fluid
+      .col-md-1
+      .col-md-8
+        .page-header
+          %h1
+            %a{:href => '/'}
+              Nucleotides
+            %p
+              %small
+                continuous genome assembler evaluation
+      .col-md-2
+    .container-fluid
+      .col-md-1
+      .col-md-8
+        = yield
+      .col-md-2
+        %ul{:class => "nav"}
+          %li
+            %a{:href => "/"}
+              Scoring
+          %li
+            %a{:href => "./about/"}
+              About
+          %li
+            %a{:href => "./contributing/"}
+              Contributing
+          %li
+            %a{:href => "./submit-an-assembler/"}
+              Submit an assembler
