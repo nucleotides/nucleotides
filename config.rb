@@ -13,3 +13,5 @@ end
 
 # silence i18n warning
 ::I18n.config.enforce_available_locales = false
+
+page "*", :layout => "layout/default"
