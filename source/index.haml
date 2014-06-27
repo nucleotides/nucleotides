@@ -1,6 +1,7 @@
 - data.results.each do |data_set|
   %div{:class => "panel panel-default"}
-    .panel-heading= 'Read Set ' + data_set.name
+    .panel-heading
+      %b= 'Read Set ' + data_set.name
     %table{:class => "table table-condensed" }
       %tr
         %td
