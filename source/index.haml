@@ -2,39 +2,41 @@
   %div{:class => "panel panel-default"}
     .panel-heading
       %b= 'Read Set ' + data_set.name
-    %table{:class => "table table-condensed" }
-      %tr
-        %td
-          %td.text-right
-            %p
-              Assembled Contigs
-            %p
-              (> 1000bp)
-        %td.text-right
-          %p
-            Unassembled
-          %p
-            (%)
-        %td.text-right
-          %p
-            Incorrect
-          %p
-            (per 100kbp)
-        %td.text-right
-          %p
-            Unresolved
-          %p
-            (per 100kbp)
-        %td.text-right
-          %p
-            Inserted/Deleted
-          %p
-            (per 100kbp)
-      - data_set.values.last.each do |value|
+    %table{:class => "table table-condensed tablesorter", :id => 'score'}
+      %thead
         %tr
-          %td.text-left= value.namespace + '/' + value.tool
-          %td.text-right= value.n_contigs_gt_1000.to_i
-          %td.text-right= value.genome_fraction
-          %td.text-right= value.mismatches_per_100k
-          %td.text-right= value.ns_per_100k
-          %td.text-right= value.indels_per_100k
+          %td
+            %th.text-right
+              %p
+                Assembled Contigs
+              %p
+                (> 1000bp)
+          %th.text-right
+            %p
+              Unassembled
+            %p
+              (%)
+          %th.text-right
+            %p
+              Incorrect
+            %p
+              (per 100kbp)
+          %th.text-right
+            %p
+              Unresolved
+            %p
+              (per 100kbp)
+          %th.text-right
+            %p
+              Inserted/Deleted
+            %p
+              (per 100kbp)
+      %tbody
+        - data_set.values.last.each do |value|
+          %tr
+            %td.text-left= value.namespace + '/' + value.tool
+            %td.text-right= value.n_contigs_gt_1000.to_i
+            %td.text-right= value.genome_fraction
+            %td.text-right= value.mismatches_per_100k
+            %td.text-right= value.ns_per_100k
+            %td.text-right= value.indels_per_100k
