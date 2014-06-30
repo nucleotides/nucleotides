@@ -13,6 +13,10 @@ is_ready(){
     fi
 }
 
+push(){
+  git push
+}
+
 build(){
     echo "Building site ..."
     ./script/build > /dev/null
@@ -40,5 +44,6 @@ publish(){
 }
 
 is_ready
+push
 build
 publish
