@@ -1,0 +1,64 @@
+---
+  title: Image API
+---
+
+The Nucleotides Project actively welcomes you to submit your own assembler and
+assembly pipeline for benchmarking. This pages describes the API that an
+assembly image should implement so that the assembler can be benchmarked. The
+entry point in each docker container should be a script that can accept two
+arguements:
+
+  * A location of a gzipped interleaved fastq file of reads
+  * An output directory
+
+This script should then assemble these reads and create the file contigs.fa in
+the output directory. The container can take whichever actions are required to
+assemble the reads as long the assembly is created in the target output
+location. One exception is that the reads will be read-only and so if you need
+to edit them, they should be copied to another location in the container first.
+The created contigs.fa file will be compared by us against the reference
+organism genome to calculate the assembler benchmarks.
+
+## Example entrypoint for velvet 
+
+~~~
+
+#!/bin/bash
+
+# It's good practice to set these variables. This
+# will make it easier to debug your assember if
+# you encouter any problems.
+set -o errexit
+set -o xtrace
+set -o nounset
+
+# The first argument is the location of the reads
+# in the container filesystem. The will be present
+# in a read-only directory
+READS=$1
+
+# The second argument is a directory with
+# write-access where the final assembly should be
+# written to.
+DIR=$2
+
+# The assembly should be written to the file
+# "contigs.fa" in the output directory.
+ASSEMBLY=$DIR/contigs.fa
+
+# Recording all outputs makes debugging easier
+LOG=$DIR/log.txt
+exec  > $LOG
+exec 2> $LOG
+
+# Create a temporary directory to run the assembly
+TMP_DIR=$(mktemp -d)
+
+# Build the velvet assembly
+velveth $TMP_DIR 31 -fastq -shortPaired $READS
+velvetg $TMP_DIR
+
+# Copy contigs to target directory
+cp $TMP_DIR/contigs.fa $ASSEMBLY
+
+~~~
