@@ -3,22 +3,42 @@
 set -o errexit
 set -o nounset
 
-echo "Publish changes to heroku (yes|no) ?"
-read INPUT
+is_ready(){
+    echo -n "Publish changes to S3 (yes|no) ? "
+    read INPUT
 
-if [[ "${INPUT}" != 'yes' ]]; then
-    echo "Aborting."
-    exit 1
-fi
+    if [[ "${INPUT}" != 'yes' ]]; then
+        echo "Aborting."
+        exit 1
+    fi
+}
 
-echo "Pushing changes ..."
-BRANCH="heroku-$(date +%s)"
-trap "git branch -D ${BRANCH}" SIGHUP SIGINT SIGTERM
+build(){
+    echo "Building site ..."
+    ./script/build > /dev/null
+    readonly status=$?
+    if [ $status -ne 0 ]; then
+        echo "Error building site." >&2
+        exit 1
+    fi
+}
 
-git push
-git checkout -b ${BRANCH} master
-./script/build
-git add -f build
-git commit -m "Rebuild updated site"
-git push -f heroku ${BRANCH}:refs/heads/master
-git checkout master
+publish(){
+    echo "Pushing site ..."
+
+    readonly local cmd="s3cmd --config ${HOME}/.nucleotides.s3cfg"
+    readonly local bucket="s3://nucleotides-site/"
+    readonly local src="build/*"
+
+    ${cmd} sync --delete-removed ${src} ${bucket}
+    if [ $status -ne 0 ]; then
+        echo "Error pushing site." >&2
+        exit 1
+    fi
+    echo "Complete."
+
+}
+
+is_ready
+build
+publish
