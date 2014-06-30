@@ -1,49 +1,10 @@
 !!! 5
 %HTML
-  %head
-    %title
-      = current_page.data.title
-    %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
-    %script{:src => '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'}
-    %script{:src => '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'}
-    %script{:src => '/javascripts/jquery.tablesorter.js'}
-    :javascript
-      $(document).ready(function()
-        {
-          $("#score").tablesorter({
-            sortList: [[2,0]],
-            cssAsc: 'bg-primary',
-            cssDesc: 'bg-primary'
-          });
-          $('#score').tooltip();
-        }
-      );
+  = partial "header"
   %body
+    = partial "title"
     .container-fluid
       .col-md-2
-      .col-md-8
-        .page-header
-          %h1
-            %a{:href => '/'}
-              Nucleotides
-            %p
-              %small
-                continuous genome assembler benchmarking
-      .col-md-2
-    .container-fluid
-      .col-md-2
-        %ul{:class => "nav"}
-          %li
-            %a{:href => "/"}
-              Home
-          %li
-            %a{:href => "/about/"}
-              About
-          %li
-            %a{:href => "/contributing/"}
-              Contributing
-          %li
-            %a{:href => "/submit-an-assembler/"}
-              Submit an assembler
+        = partial "navigation"
       .col-md-8
         = yield
