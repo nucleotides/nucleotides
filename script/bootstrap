@@ -4,10 +4,6 @@ set -o errexit
 set -o nounset
 set -o xtrace
 
-add_heroku_remote(){
-  git remote add heroku git@heroku.com:nucleotides-site.git
-}
-
 fetch_results(){
   set -o errexit
   set -o nounset
@@ -33,6 +29,5 @@ format_results(){
 }
 
 bundle install
-add_heroku_remote
 fetch_results tmp
 format_results
