@@ -27,10 +27,10 @@ publish(){
     echo "Pushing site ..."
 
     readonly local cmd="s3cmd --config ${HOME}/.nucleotides.s3cfg"
-    readonly local bucket="s3://nucleotides-site/"
+    readonly local bucket="s3://nucleotid.es/"
     readonly local src="build/*"
 
-    ${cmd} sync --delete-removed ${src} ${bucket}
+    ${cmd} sync --delete-removed ${src} ${bucket} 2> /dev/null
     if [ $status -ne 0 ]; then
         echo "Error pushing site." >&2
         exit 1
