@@ -5,30 +5,30 @@
     %table{:class => "table table-condensed tablesorter", :id => 'score'}
       %thead
         %tr
-          %td
-            %th.text-right
-              %p
-                Assembled Contigs
-              %p
-                (> 1000bp)
-          %th.text-right
+          %th{:class => "text-left col-md-2"}
+          %th{:class => "text-right col-md-2"}
+            %p
+              Contigs
+            %p
+              (> 1000bp)
+          %th{:class => "text-right col-md-2"}
             %p
               Unassembled
             %p
               (%)
-          %th.text-right
+          %th{:class => "text-right col-md-2"}
             %p
               Incorrect
             %p
               (per 100kbp)
-          %th.text-right
+          %th{:class => "text-right col-md-2"}
             %p
               Unresolved
             %p
               (per 100kbp)
-          %th.text-right
+          %th{:class => "text-right col-md-2"}
             %p
-              Inserted/Deleted
+              Indels
             %p
               (per 100kbp)
       %tbody
