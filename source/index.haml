@@ -9,33 +9,19 @@
           %th{:class => "text-right col-md-2"}
             %p
               %span{:class => "glyphicon glyphicon-sort"}
-              Contigs
-            %p
-              (> 1000bp)
+              Contigs (> 1000bp)
           %th{:class => "text-right col-md-2"}
             %p
               %span{:class => "glyphicon glyphicon-sort"}
-              Unassembled
-            %p
-              (%)
+              Unassembled (%)
           %th{:class => "text-right col-md-2"}
             %p
               %span{:class => "glyphicon glyphicon-sort"}
-              Incorrect
-            %p
-              (per 100kbp)
+              Incorrect (per 100kbp)
           %th{:class => "text-right col-md-2"}
             %p
               %span{:class => "glyphicon glyphicon-sort"}
-              Unresolved
-            %p
-              (per 100kbp)
-          %th{:class => "text-right col-md-2"}
-            %p
-              %span{:class => "glyphicon glyphicon-sort"}
-              Indels
-            %p
-              (per 100kbp)
+              Indels (per 100kbp)
       %tbody
         - data_set.values.last.each do |value|
           %tr
@@ -43,5 +29,4 @@
             %td.text-right= value.n_contigs_gt_1000.to_i
             %td.text-right= value.genome_fraction
             %td.text-right= value.mismatches_per_100k
-            %td.text-right= value.ns_per_100k
             %td.text-right= value.indels_per_100k
