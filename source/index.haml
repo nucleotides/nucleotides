@@ -5,23 +5,31 @@
     %table{:class => "table table-condensed tablesorter", :id => 'score'}
       %thead
         %tr
-          %th{:class => "text-left col-md-2"}
+          %th{:class => "text-left col-md-4"}
           %th{:class => "text-right col-md-2"}
-            %p
-              %span{:class => "glyphicon glyphicon-sort"}
-              Contigs (> 1000bp)
+            %span{"data-toggle"    => "tooltip",
+                  "data-placement" => "top",
+                  "title"          => "Contigs over 1000bp in length."}
+              Contigs
+            %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-2"}
-            %p
-              %span{:class => "glyphicon glyphicon-sort"}
-              Unassembled (%)
+            %span{"data-toggle"    => "tooltip",
+                  "data-placement" => "top",
+                  "title"          => "Percentage of reference genome unassembled."}
+              Unassembled
+            %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-2"}
-            %p
-              %span{:class => "glyphicon glyphicon-sort"}
-              Incorrect (per 100kbp)
+            %span{"data-toggle"    => "tooltip",
+                  "data-placement" => "top",
+                  "title"          => "Number of incorrectly assembled bases per 100kbp."}
+              Incorrect
+            %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-2"}
-            %p
-              %span{:class => "glyphicon glyphicon-sort"}
-              Indels (per 100kbp)
+            %span{"data-toggle"    => "tooltip",
+                  "data-placement" => "top",
+                  "title"          => "Number of incorrectly inserted and deleted bases per 100kbp."}
+              Indels
+            %span{:class => "glyphicon glyphicon-sort"}
       %tbody
         - data_set.values.last.each do |value|
           %tr
