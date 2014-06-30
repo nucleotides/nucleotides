@@ -9,13 +9,15 @@
     :javascript
       $(document).ready(function()
         {
-          $("#score").tablesorter();
+          $("#score").tablesorter({
+            sortList: [[2,0]]
+          });
         }
       );
   %body
     .container-fluid
       .col-md-2
-      .col-md-7
+      .col-md-8
         .page-header
           %h1
             %a{:href => '/'}
@@ -39,5 +41,5 @@
           %li
             %a{:href => "/submit-an-assembler/"}
               Submit an assembler
-      .col-md-7
+      .col-md-8
         = yield
