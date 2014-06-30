@@ -1,0 +1,10 @@
+!!! 5
+%HTML
+  = partial "header"
+  %body
+    = partial "title"
+    .container-fluid
+      .col-md-2
+        = partial "navigation"
+      .col-md-8
+        = yield

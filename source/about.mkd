@@ -1,0 +1,46 @@
+---
+  title: About
+---
+
+The recent [Assemblathon 1][asm1] and [Assemblathon 2][asm2] collectives aimed
+to evaluate the current state of genome assembly. The method for this approach
+was to release a set of reads and ask the genomics community to submit their
+best assembly. The quality and accuracy of each of the submitted assemblies was
+estimated and used to evaluate the current state of genome assemblies.
+
+The [Genome Assembly Gold-Standard Evaluations (GAGE)][gage] took several
+genome assemblers and ran them against four different read datasets. The
+results of each assembler were then evaluated for performance. The aim of this
+was determine which assember gave the best results.
+
+This project aims to improve on these approaches in two ways:
+
+  * Assembly benchmarks will be run on a weekly basis. This will allow the
+    lastest developments and publications in genome assembly to be evaluated
+    against the current corpus of assemblers.
+
+  * The genome assemblers and pipelines evaluated will be easily usable by the
+    wider bioinformatics community. Evaluating an assembler is pointless if the
+    results cannot be reproduced, or require complex installation and setup.
+
+These two goals are made possible using [Linux Containers][lxc] via
+[Docker][docker]. All genome assemblers and associated pipeline should be build
+within a docker image and then hosted on [Docker Hub][hub]. Our benchmarking
+pipeline will then pull the image and run it against an array of reference data
+sets. The produced assembly is evaluated against the reference using
+[Quast][quast]. The assembly metrics are then posted on this site.
+
+
+[asm1]: http://www.ncbi.nlm.nih.gov/pubmed/21926179
+
+[asm2]: http://www.ncbi.nlm.nih.gov/pubmed/23870653
+
+[gage]: http://www.ncbi.nlm.nih.gov/pubmed/22147368
+
+[lxc]: https://linuxcontainers.org/
+
+[docker]: http://www.docker.com/
+
+[hub]: https://hub.docker.com/
+
+[quast]: http://www.ncbi.nlm.nih.gov/pubmed/23422339
