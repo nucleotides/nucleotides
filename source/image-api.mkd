@@ -2,24 +2,24 @@
   title: Image API
 ---
 
-The Nucleotides Project actively welcomes you to submit your own assembler and
-assembly pipeline for benchmarking. This pages describes the API that an
-assembly image should implement so that the assembler can be benchmarked. The
-entry point in each docker container should be a script that can accept two
-arguements:
+The Nucleotides Project actively welcomes anyone to submit your own assembler
+or custom assembly pipeline for benchmarking. This pages describes the API that
+a Docker assembly image should implement so that the assembler can be
+benchmarked. The entry point for each docker container should be a script that
+accepts two arguments:
 
   * A location of a gzipped interleaved fastq file of reads
   * An output directory
 
 This script should then assemble these reads and create the file contigs.fa in
-the output directory. The container can take whichever actions are required to
-assemble the reads as long the assembly is created in the target output
-location. One exception is that the reads will be read-only and so if you need
-to edit them, they should be copied to another location in the container first.
-The created contigs.fa file will be compared by us against the reference
-organism genome to calculate the assembler benchmarks.
+the output directory. The container can perform whichever actions are required
+to assemble the reads as long the assembly is created in the target output
+location. One exception is that the reads will be located in a read-only
+directory and so if you need to edit them, they should be copied to another
+location inside the container. The created contigs.fa file will be compared by
+us against the reference sequence to calculate the benchmarks.
 
-## Example entrypoint for velvet 
+## Example entrypoint for velvet
 
 ~~~
 
