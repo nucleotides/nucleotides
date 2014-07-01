@@ -10,6 +10,7 @@ fetch_results(){
   set -o xtrace
 
   DST=$1
+  rm -rf ${DST}
 
   CMD="s3cmd --config ${HOME}/.nucleotides.s3cfg"
   S3=$(${CMD} ls s3://nucleotid-es/results/)
