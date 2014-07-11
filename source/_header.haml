@@ -1,18 +1,29 @@
 %head
   %title
     = title
+
+  // Metadata
+  %meta{charset: "UTF-8"}
+  %meta{name: "keywords", content: "docker,linux containers,bioinformatics,genomics,assembly"}
+  %meta{name: "author", content: "Michael Barton"}
+
+  // CSS
   %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
+  %link{:rel => "stylesheet", :href => "/stylesheets/prism.css" }
+
+  // Javascript
   %script{:src => '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'}
   %script{:src => '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'}
   %script{:src => '/javascripts/jquery.tablesorter.js'}
+  %script{:src => '/javascripts/prism.js'}
   :javascript
     $(document).ready(function()
       {
-        $("#score").tablesorter({
+        $(".score").tablesorter({
           sortList: [[2,0]],
           cssAsc: 'bg-primary',
           cssDesc: 'bg-primary'
         });
-        $('#score').tooltip();
+        $('.score').tooltip();
       }
     );
