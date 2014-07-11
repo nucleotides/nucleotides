@@ -44,7 +44,7 @@ module DataProcessor
         results.merge v
        end
       {:name   => dataset,
-       :values => outputs.sort{|i| i[:genome_fraction]}.reverse }
+       :values => outputs }
     end
   end
 
