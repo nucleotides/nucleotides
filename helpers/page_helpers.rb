@@ -5,7 +5,7 @@ module PageHelpers
     if current_page.data['title']
       titles.unshift current_page.data['title']
     end
-    titles.join(' • ')
+    titles.join(' &middot; ')
   end
 
 end
