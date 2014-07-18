@@ -11,8 +11,8 @@
           %th{:class => "text-right col-md-2"}
             %span{"data-toggle"    => "tooltip",
                   "data-placement" => "top",
-                  "title"          => "Contigs over 1000bp in length."}
-              Contigs
+                  "title"          => "Number of contigs in 50% of assembly."}
+              N50
             %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-2"}
             %span{"data-toggle"    => "tooltip",
@@ -36,7 +36,7 @@
         - data_set.values.last.each do |value|
           %tr
             %td.text-left= value.namespace + '/' + value.tool
-            %td.text-right= value.n_contigs_gt_1000.to_i
+            %td.text-right= value.l50.to_i
             %td.text-right= value.genome_fraction
             %td.text-right= value.mismatches_per_100k
             %td.text-right= value.indels_per_100k
