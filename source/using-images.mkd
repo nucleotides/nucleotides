@@ -2,16 +2,16 @@
   title: Using Images
 ---
 
-<div class="alert alert-info" role="alert"> Please treat all downloaded images
-as you would any other third-party software downloaded from the web. Keep
-backups up your data. Read the security documentation for <a
-href="https://docs.docker.com/articles/security/running"> Docker images</a>.
-All software is listed under its respective software license.</div>
+<div class="alert alert-info" role="alert"> Please treat all images as you
+would any other third-party software downloaded from the web. Keep backups of
+your data. Read the security documentation for <a
+href="https://docs.docker.com/articles/security/running">Docker images</a>. All
+software is listed under its respective software license.</div>
 
-If you have docker installed on your system, you can use any of the assembly
-images without requiring any further dependencies. The following script
-provides an example of how a set of reads may be assembled using one of the
-benchmarked images.
+If you have docker installed on your system, you can use any of the benchmarked
+assembly images without requiring any further dependencies. The following
+script provides an example of how a set of reads may be assembled using one an
+image.
 
 ~~~
 
