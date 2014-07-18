@@ -1,0 +1,70 @@
+---
+  title: Using Images
+---
+
+<div class="alert alert-info" role="alert"> Please treat all downloaded images
+as you would any other third-party software downloaded from the web. Keep
+backups up your data. Read the security documentation for <a
+href="https://docs.docker.com/articles/security/running"> Docker images</a>.
+All software is listed under its respective software license.</div>
+
+If you have docker installed on your system, you can use any of the assembly
+images without requiring any further dependencies. The following script
+provides an example of how a set of reads may be assembled using one of the
+benchmarked images.
+
+~~~
+
+#!/bin/bash
+
+# Exit this script if any subsequent command fails
+set -o errexit
+
+# Exit if any of the variables are unset
+set -o nounset
+
+# Verbose logging
+set -o xtrace
+
+# Name of assembler image
+readonly IMAGE=$1
+
+# Location of the fastq.gz file of reads
+readonly READS=$(readlink -f $2)
+readonly SRC=$(dirname ${READS})
+readonly READ_FILE=$(basename ${READS})
+
+# The destination directory where output contigs should go
+readonly DST=$(readlink -f $3)
+mkdir -p $DST
+
+# Location of mounted volumes inside the container
+readonly CONTAINER_SRC_DIR=/inputs
+readonly CONTAINER_DST_DIR=/outputs
+
+readonly CONTAINER_FILE="$(mktemp -d)/container_id"
+
+# Assemble the reads using docker and the image
+docker run \
+  --volume ${DST}:${CONTAINER_DST_DIR}:rw \
+  --volume ${SRC}:${CONTAINER_SRC_DIR}:ro \
+  --detach=false \
+  --cidfile="${CONTAINER_FILE}" \
+  ${IMAGE} \
+  ${CONTAINER_SRC_DIR}/${READ_FILE} ${CONTAINER_DST_DIR}
+
+# Remove container after it has been used
+docker rm $(cat ${CONTAINER_FILE})
+~~~
+{: .language-bash}
+
+Assume this is a script with the above contents named 'assemble', with the
+correct permissions such as 700. This script can then be used to assemble a
+fastq file into a set of contigs in the current directory using idba_id as
+follows:
+
+~~~
+
+./assemble nucleotides/idba_ud /path/to/reads.fq.gz .
+~~~
+{: .language-bash}
