@@ -14,7 +14,8 @@ is_ready(){
 }
 
 push(){
-  git push
+    echo "Pushing git commits ..."
+    git push 2> /dev/null
 }
 
 build(){
@@ -34,7 +35,7 @@ publish(){
     readonly local bucket="s3://nucleotid.es/"
     readonly local src="build/*"
 
-    ${cmd} sync --delete-removed ${src} ${bucket} 2> /dev/null
+    ${cmd} sync --delete-removed ${src} ${bucket} > /dev/null
     if [ $status -ne 0 ]; then
         echo "Error pushing site." >&2
         exit 1
