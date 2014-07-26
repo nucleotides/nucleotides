@@ -4,7 +4,7 @@ sequence data. Each column is computed by comparing the generated assembly with
 the reference genome using Quast. Each listed column data corresponds to the
 following:
 
-  * **N50**: The number of contigs containing half or greater the length of the
+  * **L50**: The number of contigs containing half or greater the length of the
     assembly.
 
   * **Unassembled**: The percentage of the genome assembled. Computed from
