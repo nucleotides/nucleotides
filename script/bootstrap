@@ -13,8 +13,7 @@ fetch_results(){
   rm -rf ${DST}
 
   CMD="s3cmd --config ${HOME}/.amazon-aws.cfg"
-  S3=$(${CMD} ls s3://nucleotid-es/results/)
-  DIR=$(echo "$S3" | grep DIR | tr -s ' ' | cut -f 3 -d ' ' | sort | tail -n 1)
+  DIR="s3://nucleotid-es/evaluations/"
   mkdir -p ${DST}
   ${CMD} sync ${DIR} ${DST}
 }
@@ -31,4 +30,4 @@ format_results(){
 
 bundle install
 fetch_results tmp
-format_results
+#format_results
