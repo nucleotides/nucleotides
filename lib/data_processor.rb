@@ -19,7 +19,7 @@ module DataProcessor
   def dataset_map(file_contents)
     require 'csv'
     csv = CSV.parse(file_contents, col_sep: ",", headers: true)
-    csv.map(&:to_hash).group_by{|i| i['dataset']}
+    csv.map{|i| Hash[i.to_hash.map{|(k,v)| [k.to_sym,v]}]}.group_by{|i| i[:dataset]}
   end
 
   def parse_result(file_contents)
@@ -45,8 +45,8 @@ module DataProcessor
 
   def create_data(file_map, metrics)
     Hash[file_map.map do |data_set, config|
-      values = config.select{|i| metrics.include? i['digest'] }.map do |image|
-        image.merge(metrics[image['digest']])
+      values = config.select{|i| metrics.include? i[:digest] }.map do |image|
+        image.merge(metrics[image[:digest]])
       end
       [data_set, values]
     end]
