@@ -11,21 +11,24 @@ fetch_metrics(){
   ${CMD} sync ${SRC} ${DST}
 }
 
+fetch_master_list(){
+  readonly DST=$1
+  readonly CMD="s3cmd --config ${HOME}/.amazon-aws.cfg"
+  readonly SRC="s3://nucleotid-es/evaluation_master_list.csv"
+  ${CMD} get ${SRC} ${DST}
+}
+
 format_results(){
   mkdir -p data
-  ruby \
-    -I lib \
-    -rdata_processor \
-    -e "include DataProcessor" \
-    -e "execute! ${DIR}" \
-    > data/results.yml
+  ./lib/data_processor.rb ${1} ${2} > data/results.yml
 }
 
 bundle install
 
-DIR=tmp/metrics/
+DIR=tmp/metrics
 mkdir -p ${DIR}
 MASTER=tmp/master.csv
 
-fetch_metrics ${DIR}
-#format_results ${DIR} ${MASTER}
+#fetch_metrics ${DIR}
+#fetch_master_list ${MASTER}
+format_results ${DIR} ${MASTER}
