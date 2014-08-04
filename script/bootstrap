@@ -1,34 +1,6 @@
 #!/bin/bash
 
 set -o errexit
-set -o nounset
-set -o xtrace
-
-fetch_metrics(){
-  readonly DST=$1
-  readonly CMD="s3cmd --config ${HOME}/.amazon-aws.cfg"
-  readonly SRC="s3://nucleotid-es/metrics/quast/"
-  ${CMD} sync ${SRC} ${DST}
-}
-
-fetch_master_list(){
-  readonly DST=$1
-  readonly CMD="s3cmd --config ${HOME}/.amazon-aws.cfg"
-  readonly SRC="s3://nucleotid-es/evaluation_master_list.csv"
-  ${CMD} get ${SRC} ${DST}
-}
-
-format_results(){
-  mkdir -p data
-  ./lib/data_processor.rb ${1} ${2} > data/results.yml
-}
 
 bundle install
-
-DIR=tmp/metrics
-mkdir -p ${DIR}
-MASTER=tmp/master.csv
-
-#fetch_metrics ${DIR}
-#fetch_master_list ${MASTER}
-format_results ${DIR} ${MASTER}
+make
