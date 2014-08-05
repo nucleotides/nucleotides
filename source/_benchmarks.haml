@@ -9,29 +9,36 @@
         %tr
           %th{:class => "text-left col-md-3"}
           %th{:class => "text-left col-md-2"}
-          %th{:class => "text-right col-md-2"}
+          %th{:class => "text-right col-md-1"}
             %span{"data-toggle"    => "tooltip",
                   "data-placement" => "top",
-                  "title"          => "Number of contigs in 50% of assembly."}
-              N50
+                  "title"          => "NG50"}
+              \%NG50
             %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-2"}
+          %th{:class => "text-right col-md-1"}
+            %span{"data-toggle"    => "tooltip",
+                  "data-placement" => "top",
+                  "title"          => "LG50"}
+              LG50
+            %span{:class => "glyphicon glyphicon-sort"}
+          %th{:class => "text-right col-md-1"}
             %span{"data-toggle"    => "tooltip",
                   "data-placement" => "top",
                   "title"          => "Percentage of reference genome unassembled."}
-              Unassembled
+              UN
             %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-2"}
+          %th{:class => "text-right col-md-1"}
             %span{"data-toggle"    => "tooltip",
                   "data-placement" => "top",
                   "title"          => "Number of incorrect, indels, and ambiguous bases per 100kbp."}
-              Incorrect
+              IB
             %span{:class => "glyphicon glyphicon-sort"}
       %tbody
         - values.each do |value|
           %tr
             %td.text-left= value.image
             %td.text-left= value.proc
-            %td.text-right= value.l50.to_i
+            %td.text-right= value.percent_ng50
+            %td.text-right= value.lg50
             %td.text-right= value.genome_fraction
             %td.text-right= value.incorrect
