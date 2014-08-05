@@ -13,7 +13,13 @@ module DataProcessor
   }
 
   FORMATTERS = {
-    :genome_fraction => lambda{|i| (100 - i.to_f).round(2)}
+    :genome_fraction     => lambda{|i| (100 - i.to_f).round(2)},
+    :mismatches_per_100k => lambda{|i| i.to_f },
+    :n_contigs_gt_1000   => lambda{|i| i.to_i },
+    :n50                 => lambda{|i| i.to_i },
+    :l50                 => lambda{|i| i.to_i },
+    :ns_per_100k         => lambda{|i| i.to_f },
+    :indels_per_100k     => lambda{|i| i.to_f }
   }
 
   def dataset_map(file_contents)
@@ -25,7 +31,7 @@ module DataProcessor
   def parse_result(file_contents)
     require 'csv'
     csv = CSV.parse(file_contents, col_sep: "\t")
-    csv.inject({}) do |hash, (k, v)|
+    result = csv.inject({}) do |hash, (k, v)|
       field = FIELDS[k]
       if field
         v = FORMATTERS[field].call(v) if FORMATTERS[field]
@@ -33,6 +39,15 @@ module DataProcessor
       end
       hash
     end
+    if result[:mismatches_per_100k]
+      result[:incorrect] = calculate_incorrect_bases(result)
+    end
+    result
+  end
+
+  def calculate_incorrect_bases(v)
+    values = [:indels_per_100k, :mismatches_per_100k, :ns_per_100k]
+    values.map{|i| v[i] * 1000}.inject(:+) / 1000
   end
 
   def metrics(dir)
