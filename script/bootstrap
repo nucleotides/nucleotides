@@ -1,34 +1,6 @@
 #!/bin/bash
 
 set -o errexit
-set -o nounset
-set -o xtrace
-
-fetch_results(){
-  set -o errexit
-  set -o nounset
-  set -o xtrace
-
-  DST=$1
-  rm -rf ${DST}
-
-  CMD="s3cmd --config ${HOME}/.amazon-aws.cfg"
-  S3=$(${CMD} ls s3://nucleotid-es/results/)
-  DIR=$(echo "$S3" | grep DIR | tr -s ' ' | cut -f 3 -d ' ' | sort | tail -n 1)
-  mkdir -p ${DST}
-  ${CMD} sync ${DIR} ${DST}
-}
-
-format_results(){
-  mkdir -p data
-  ruby \
-    -I lib \
-    -rdata_processor \
-    -e 'include DataProcessor' \
-    -e 'execute!' \
-    > data/results.yml
-}
 
 bundle install
-fetch_results tmp
-format_results
+make

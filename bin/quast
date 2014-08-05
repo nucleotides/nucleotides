@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o xtrace
+
+local readonly DIR=$3
+local readonly REFERENCE="${DIR}/references/${1}.fa"
+local readonly CONTIGS="${DIR}/contigs/${2}/contigs.fa"
+local readonly TMP=$(gmktemp -d)
+local readonly DST="${4}/${2}"
+
+/usr/local/bin/quast.py \
+  -R ${REFERENCE} \
+  --min-contig 1000 \
+  --output-dir ${TMP} \
+  --no-plots \
+  --threads 1 \
+  ${CONTIGS}
+
+mkdir -p ${DST}
+cp ${TMP}/report.tsv ${DST}
