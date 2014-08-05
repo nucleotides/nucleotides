@@ -5,8 +5,9 @@ module DataProcessor
   FIELDS = {
     '# contigs (>= 1000 bp)'   => :n_contigs_gt_1000,
     'Genome fraction (%)'      => :genome_fraction,
-    'N50'                      => :n50,
-    'L50'                      => :l50,
+    'NG50'                     => :ng50,
+    'LG50'                     => :lg50,
+    'Reference length'         => :reference_length,
     '# mismatches per 100 kbp' => :mismatches_per_100k,
     '# N\'s per 100 kbp'       => :ns_per_100k,
     '# indels per 100 kbp'     => :indels_per_100k
@@ -16,8 +17,8 @@ module DataProcessor
     :genome_fraction     => lambda{|i| (100 - i.to_f).round(2)},
     :mismatches_per_100k => lambda{|i| i.to_f },
     :n_contigs_gt_1000   => lambda{|i| i.to_i },
-    :n50                 => lambda{|i| i.to_i },
-    :l50                 => lambda{|i| i.to_i },
+    :ng50                => lambda{|i| i.to_i },
+    :lg50                => lambda{|i| i.to_i },
     :ns_per_100k         => lambda{|i| i.to_f },
     :indels_per_100k     => lambda{|i| i.to_f }
   }
@@ -39,15 +40,25 @@ module DataProcessor
       end
       hash
     end
+
     if result[:mismatches_per_100k]
       result[:incorrect] = calculate_incorrect_bases(result)
     end
+
+    if result[:reference_length] and result[:ng50]
+      result[:percent_ng50] = calculate_percent_ng50(result)
+    end
+
     result
   end
 
   def calculate_incorrect_bases(v)
     values = [:indels_per_100k, :mismatches_per_100k, :ns_per_100k]
     values.map{|i| v[i] * 1000}.inject(:+) / 1000
+  end
+
+  def calculate_percent_ng50(v)
+    (v[:ng50] / v[:reference_length].to_f * 100).round(2)
   end
 
   def metrics(dir)
