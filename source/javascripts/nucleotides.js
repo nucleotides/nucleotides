@@ -10,7 +10,7 @@ $(document).ready(function()
     $('.key').popover({
       placement: 'right',
       container: 'body',
-      trigger: 'focus',
+      trigger: 'hover',
       html: true
       });
   }
