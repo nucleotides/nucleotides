@@ -64,7 +64,8 @@ module DataProcessor
   def metrics(dir)
     Dir["#{dir}/*/report.tsv"].inject({}) do |hash, file|
       _, _, digest, _ = file.split('/')
-      hash[digest] = parse_result File.read(file)
+      result = parse_result File.read(file)
+      hash[digest] = result if result[:ng50]
       hash
     end
   end

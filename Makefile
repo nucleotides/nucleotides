@@ -17,7 +17,7 @@ $(dir)/metrics: tmp
 $(dir)/master.csv: tmp
 	$(s3) get --force $(bucket)/evaluation_master_list.csv $@
 
-data/benchmarks.yml: ./lib/data_processor.rb $(dir)/metrics $(dir)/master.csv
+data/benchmarks.yml: ./bin/data_processor.rb $(dir)/metrics $(dir)/master.csv
 	 $^ > $@
 
 $(dir)/contigs/: tmp
@@ -32,11 +32,11 @@ $(dir)/reference: tmp
 $(dir)/quast: $(dir)/master.csv $(dir)/contigs $(dir)/reference
 	mkdir -p $@
 	parallel \
-    	  --max-procs 8 \
-    	  --col-sep ',' \
-    	  --header 1 \
-    	  "./bin/quast {dataset} {digest} $@ $(dir)"\
-    	  :::: $<
+	  --max-procs 8 \
+	  --col-sep ',' \
+	  --header 1 \
+	  "./bin/quast {dataset} {digest} $@ $(dir)"\
+	  :::: $<
 
 $(dir)/.metrics: $(dir)/quast tmp
 	$(s3) sync $</ $(bucket)/metrics/quast/
