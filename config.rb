@@ -16,3 +16,4 @@ end
 
 page "*",                :layout => "layouts/default"
 page "/benchmarks.html", :layout => "layouts/scores"
+page "/",                :layout => "layouts/index"
