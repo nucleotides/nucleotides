@@ -4,11 +4,11 @@ set -o errexit
 set -o nounset
 set -o xtrace
 
-local readonly DIR=$3
-local readonly REFERENCE="${DIR}/references/${1}.fa"
-local readonly CONTIGS="${DIR}/contigs/${2}/contigs.fa"
-local readonly TMP=$(gmktemp -d)
-local readonly DST="${4}/${2}"
+readonly DIR=$4
+readonly REFERENCE="${DIR}/reference/${1}.fa"
+readonly CONTIGS="${DIR}/contigs/${2}/contigs.fa"
+readonly TMP=$(gmktemp -d)
+readonly DST="${3}/${2}"
 
 /usr/local/bin/quast.py \
   -R ${REFERENCE} \

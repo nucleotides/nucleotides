@@ -20,16 +20,16 @@ $(dir)/master.csv: tmp
 data/benchmarks.yml: ./lib/data_processor.rb $(dir)/metrics $(dir)/master.csv
 	 $^ > $@
 
-$(dir)/contigs: tmp
+$(dir)/contigs/: tmp
 	mkdir -p $@
-	$(s3) sync --rexclude=".+/log.txt" $(bucket)/evaluations/ $@
+	$(s3) sync --skip-existing --rexclude=".+/log.txt" $(bucket)/evaluations/ $@
 	find $@/*/contigs.fa -empty | xargs rm
 
 $(dir)/reference: tmp
 	mkdir -p $@
 	$(s3) sync $(bucket)/reference/ $@
 
-$(dir)/quast: tmp/master.csv
+$(dir)/quast: $(dir)/master.csv $(dir)/contigs $(dir)/reference
 	mkdir -p $@
 	parallel \
     	  --max-procs 8 \
@@ -38,6 +38,6 @@ $(dir)/quast: tmp/master.csv
     	  "./bin/quast {dataset} {digest} $@ $(dir)"\
     	  :::: $<
 
-$(dir)/.metrics: $(dir)/metrics tmp
+$(dir)/.metrics: $(dir)/quast tmp
 	$(s3) sync $</ $(bucket)/metrics/quast/
 	touch $@
