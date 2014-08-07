@@ -10,7 +10,7 @@ software is listed under its respective software license.</div>
 
 If you have docker installed on your system, you can use any of the benchmarked
 assembly images without requiring any further dependencies. The following
-script provides an example of how a set of reads may be assembled using one an
+script provides an example of how a set of reads may be assembled using one
 image.
 
 ~~~
@@ -28,6 +28,9 @@ set -o xtrace
 
 # Name of assembler image
 readonly IMAGE=$1
+
+# Name of config bundle to use
+readonly BUNDLE=$2
 
 # Location of the fastq.gz file of reads
 readonly READS=$(readlink -f $2)
@@ -51,6 +54,7 @@ docker run \
   --detach=false \
   --cidfile="${CONTAINER_FILE}" \
   ${IMAGE} \
+  ${BUNDLE} \
   ${CONTAINER_SRC_DIR}/${READ_FILE} ${CONTAINER_DST_DIR}
 
 # Remove container after it has been used
@@ -65,6 +69,6 @@ follows:
 
 ~~~
 
-./assemble nucleotides/idba_ud /path/to/reads.fq.gz .
+./assemble nucleotides/idba default /path/to/reads.fq.gz .
 ~~~
 {: .language-bash}
