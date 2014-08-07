@@ -2,9 +2,13 @@
 %HTML
   = partial "header"
   %body
-    = partial "title"
     .container-fluid
-      .col-md-2
-        = partial "navigation"
-      .col-md-5
-        = yield
+      .row
+        %nav{:class => "navbar navbar-default", :role => "navigation"}
+          .col-md-1
+          .col-md-8
+            = partial "navigation"
+      .row
+        .col-md-1
+        .col-md-6
+          = yield

@@ -1,42 +1,46 @@
-- data.results.each do |data_set|
+- data.benchmarks.each do |(data_set, values)|
   %div{:class => "panel panel-default"}
     .panel-heading
-      %b= 'Read Set ' + data_set.name
+      %b= 'Read Set ' + data_set
       %p
-        %small= data_description data_set.name
+        %small= data_description data_set
     %table{:class => "table table-condensed tablesorter score"}
       %thead
         %tr
-          %th{:class => "text-left col-md-4"}
-          %th{:class => "text-right col-md-2"}
+          %th{:class => "text-left col-md-3"}
+            Assembler Image
+          %th{:class => "text-left col-md-2"}
+            Procfile
+          %th{:class => "text-right col-md-1"}
             %span{"data-toggle"    => "tooltip",
                   "data-placement" => "top",
-                  "title"          => "Number of contigs in 50% of assembly."}
-              L50
+                  "title"          => "NG50"}
+              NG50
             %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-2"}
+          %th{:class => "text-right col-md-1"}
+            %span{"data-toggle"    => "tooltip",
+                  "data-placement" => "top",
+                  "title"          => "LG50"}
+              LG50
+            %span{:class => "glyphicon glyphicon-sort"}
+          %th{:class => "text-right col-md-1"}
             %span{"data-toggle"    => "tooltip",
                   "data-placement" => "top",
                   "title"          => "Percentage of reference genome unassembled."}
-              Unassembled
+              UN
             %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-2"}
+          %th{:class => "text-right col-md-1"}
             %span{"data-toggle"    => "tooltip",
                   "data-placement" => "top",
-                  "title"          => "Number of incorrectly assembled bases per 100kbp."}
-              Incorrect
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-2"}
-            %span{"data-toggle"    => "tooltip",
-                  "data-placement" => "top",
-                  "title"          => "Number of incorrectly inserted and deleted bases per 100kbp."}
-              Indels
+                  "title"          => "Number of incorrect, indels, and ambiguous bases per 100kbp."}
+              IB
             %span{:class => "glyphicon glyphicon-sort"}
       %tbody
-        - data_set.values.last.each do |value|
+        - values.select{|i| i[:ng50]}.each do |value|
           %tr
-            %td.text-left= value.namespace + '/' + value.tool
-            %td.text-right= value.l50.to_i
+            %td.text-left= value.image
+            %td.text-left= value.proc
+            %td.text-right= value.ng50
+            %td.text-right= value.lg50
             %td.text-right= value.genome_fraction
-            %td.text-right= value.mismatches_per_100k
-            %td.text-right= value.indels_per_100k
+            %td.text-right= value.incorrect

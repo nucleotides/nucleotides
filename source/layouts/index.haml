@@ -1,0 +1,24 @@
+!!! 5
+%HTML
+  = partial "header"
+  %body
+    .container-fluid
+      .row
+        %nav{:class => "navbar navbar-default", :role => "navigation"}
+          .col-md-1
+          .col-md-8
+            = partial "navigation"
+      .row
+        .col-md-1
+        .col-md-10
+          .jumbotron
+            .text-center
+              .row
+                .col-md-6
+                  %h2
+                    an assembler catalog
+                  %hr
+                  %p
+                    continuous, objective and reproducible evalution of genome assemblers using docker containers
+                .col-md-6
+                  %img{src: "/images/logo.png", width: 300}
