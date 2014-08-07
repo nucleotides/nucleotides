@@ -2,9 +2,12 @@
 %HTML
   = partial "header"
   %body
-    = partial "title"
+    = partial "navigation"
     .container-fluid
-      .col-md-2
-        = partial "navigation"
-      .col-md-5
+      .col-md-1
+      .col-md-8
+        = partial "title"
+    .container-fluid
+      .col-md-1
+      .col-md-6
         = yield

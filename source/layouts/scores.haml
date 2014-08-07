@@ -2,14 +2,18 @@
 %HTML
   = partial "header"
   %body
-    = partial "title"
+    = partial "navigation"
     .container-fluid
-      .col-md-2
-        = partial "navigation"
-      .col-md-5
-        = yield
-    %hr
-    .container-fluid
-      .col-md-2
+      .col-md-1
       .col-md-8
+        = partial "title"
+    .container-fluid
+      .col-md-1
+        %div{'data-spy' => 'affix'}
+          %button{'type'         => "button",
+                  'class'        => "btn btn-lg btn-primary key",
+                  'data-toggle'  => "popover",
+                  'data-content' => partial('key') }
+            %span{:class => "glyphicon glyphicon-question-sign"}
+      .col-md-10
         = partial "benchmarks"
