@@ -17,7 +17,7 @@ $(dir)/metrics: tmp
 $(dir)/master.csv: tmp
 	$(s3) get --force $(bucket)/evaluation_master_list.csv $@
 
-data/benchmarks.yml: ./lib/data_processor.rb $(dir)/metrics $(dir)/master.csv
+data/benchmarks.yml: ./bin/data_processor.rb $(dir)/metrics $(dir)/master.csv
 	 $^ > $@
 
 $(dir)/contigs/: tmp
