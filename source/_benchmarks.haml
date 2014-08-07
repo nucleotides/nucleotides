@@ -8,12 +8,14 @@
       %thead
         %tr
           %th{:class => "text-left col-md-3"}
+            Assembler Image
           %th{:class => "text-left col-md-2"}
+            Procfile
           %th{:class => "text-right col-md-1"}
             %span{"data-toggle"    => "tooltip",
                   "data-placement" => "top",
                   "title"          => "NG50"}
-              \%NG50
+              NG50
             %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-1"}
             %span{"data-toggle"    => "tooltip",
@@ -38,7 +40,7 @@
           %tr
             %td.text-left= value.image
             %td.text-left= value.proc
-            %td.text-right= value.percent_ng50
+            %td.text-right= value.ng50
             %td.text-right= value.lg50
             %td.text-right= value.genome_fraction
             %td.text-right= value.incorrect

@@ -24,6 +24,11 @@
           cssAsc: 'bg-primary',
           cssDesc: 'bg-primary'
         });
-        $('.score').tooltip();
+        $('.key').popover({
+          placement: 'right',
+          container: 'body',
+          trigger: 'focus',
+          html: true
+          });
       }
     );
