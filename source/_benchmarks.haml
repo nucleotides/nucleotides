@@ -12,28 +12,19 @@
           %th{:class => "text-left col-md-2"}
             Procfile
           %th{:class => "text-right col-md-1"}
-            %span{"data-toggle"    => "tooltip",
-                  "data-placement" => "top",
-                  "title"          => "NG50"}
-              NG50
+            NG50
             %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-1"}
-            %span{"data-toggle"    => "tooltip",
-                  "data-placement" => "top",
-                  "title"          => "LG50"}
-              LG50
+            LG50
             %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-1"}
-            %span{"data-toggle"    => "tooltip",
-                  "data-placement" => "top",
-                  "title"          => "Percentage of reference genome unassembled."}
-              UN
+            \#contigs
             %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-1"}
-            %span{"data-toggle"    => "tooltip",
-                  "data-placement" => "top",
-                  "title"          => "Number of incorrect, indels, and ambiguous bases per 100kbp."}
-              IB
+            UN
+            %span{:class => "glyphicon glyphicon-sort"}
+          %th{:class => "text-right col-md-1"}
+            IB
             %span{:class => "glyphicon glyphicon-sort"}
       %tbody
         - values.select{|i| i[:ng50]}.each do |value|
@@ -42,5 +33,6 @@
             %td.text-left= value.proc
             %td.text-right= value.ng50
             %td.text-right= value.lg50
+            %td.text-right= value.n_contigs_gt_1000
             %td.text-right= value.genome_fraction
             %td.text-right= value.incorrect
