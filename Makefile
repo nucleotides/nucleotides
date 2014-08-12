@@ -3,7 +3,7 @@ bucket = s3://nucleotid-es
 
 dir = ./tmp
 
-all: data/benchmarks.yml
+all: data/benchmarks.yml data/ng50_voting.yml
 
 quast: $(dir)/.metrics
 
@@ -19,6 +19,9 @@ $(dir)/master.csv: tmp
 
 data/benchmarks.yml: ./bin/data_processor.rb $(dir)/metrics $(dir)/master.csv
 	 $^ > $@
+
+data/ng50_voting.yml: ./bin/voting data/benchmarks.yml
+	 bundle exec $^ ng50 true > $@
 
 $(dir)/contigs/: tmp
 	mkdir -p $@

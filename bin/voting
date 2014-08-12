@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'vote-schulze'
+
+benchmark_file, var, reverse = ARGV
+
+data = YAML.load File.read('data/benchmarks.yml')
+
+candidates = data.map do |_, v|
+  v.map{|i| [i[:image], i[:proc]]}
+end.flatten(1).uniq
+
+votes = data.map do |_, values|
+  candidate_order = values.sort_by{|i| i[var.to_sym]}.map{|i| [i[:image], i[:proc]]}
+  candidate_order.reverse! if not reverse
+  candidates.map{|c| candidate_order.find_index(c) || 0}.compact
+end
+
+vs = SchulzeBasic.do votes, candidates.length
+score = vs.ranks_abc.map do |i|
+  letter = i.split(':').first
+  index  = ('A'..'Z').find_index(letter)
+  candidates[index]
+end
+
+puts YAML.dump(score)

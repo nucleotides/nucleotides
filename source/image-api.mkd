@@ -2,64 +2,132 @@
   title: Image API
 ---
 
-The Nucleotides Project actively welcomes anyone to submit your own assembler
-or custom assembly pipeline for benchmarking. This pages describes the API that
-a Docker assembly image should implement so that the assembler can be
-benchmarked. The entry point for each docker container should be a script that
-accepts two arguments:
+### Create an assembler image
 
-  * A location of a gzipped interleaved fastq file of reads
-  * An output directory
+This project actively encourages developers to submit their assemblers for
+benchmarking. A basic API is required so that all Docker assembler images can
+be tested consistently and in the same way. Therefore the [ENTRYPOINT][entry]
+for each assembler image should be a script, in any language, that accepts the
+following three arguments:
 
-This script should then assemble these reads and create the file contigs.fa in
-the output directory. The container can perform whichever actions are required
-to assemble the reads as long the assembly is created in the target output
-location. One exception is that the reads will be located in a read-only
-directory and so if you need to edit them, they should be copied to another
-location inside the container. The created contigs.fa file will be compared by
-us against the reference sequence to calculate the benchmarks.
+  * A command bundle - this is a short text handle than specifies different
+    ways an assembler can be run. These allow the developer to provide
+    different ways an assembler can be used. For example of this could be
+    `single-cell` or `default`.
+  * The location of a gzipped interleaved fastq. This will be passed as a
+    string path to a read-only file inside the container.
+  * A destination directory where the assembled contigs should be created. This
+    is a string path to a writable directory inside the container. The created
+    contigs file should be called `contigs.fa`.
 
-## Example entrypoint for velvet
+The following are examples of Docker images for two assemblers:
+
+  * [IDBA Image][idba]
+  * [Spades 3 Image][spades]
+
+<hr/>
+
+### Host your assembler image
+
+One you have created your Docker image, the source code for it should be hosted
+as a publicly viewable repository on either [github.com](http://github.com) or
+[bitbucket.org](http://bitbucket.org). These are the two code hosting sites
+currently supported by Docker. Once your code is uploaded and available, the
+next step is to create a [docker.com](http://docker.com) repository. Once you
+have a docker.com account select create new 'Automated Build' and select your
+repository. This will trigger Docker to build your assembler image, and all
+subsequent images whenever a change is made. This may take up to an hour. Any
+errors will be highlighted in the build log for your repository.
+
+<hr/>
+
+### Register your image
+
+Once your assembler image has been successfully built on docker.com it is ready
+for use in the nucletid.es benchmarks. The next step to have your assembler
+included in the benchmarks is to fork and clone the [list of assemblers][list].
+Then run `./script/add` in this repository. This will add an empty list item to
+the file `assembly.yml`. Update this
+[YAML](http://www.yaml.org/spec/1.2/spec.html) entry with as much detail as you
+can. Finally commit your changes then create a [pull request][pull]. Once this
+request is merged your assembler will be included in all further benchmarks.
+
+<hr/>
+
+### Join the mailing list
+
+All developers encouraged to join the nucleotid.es [mailing
+list](/mailing-list). This list will be used to communicate updates and changes
+in how the benchmarks are run. This list can also be used to ask questions or
+get help debugging your images.
+
+<hr/>
+
+### Example Script
+
+Below is a ENTRYPOINT bash script for running velvet. Detailed comments explain
+each line. Bash is used here as an example, but any language preferred by the
+author can be used as this script will run inside the container.
 
 ~~~
 
 #!/bin/bash
 
 # It's good practice to set these variables. This
-# will make it easier to debug your assember if
-# you encouter any problems.
+# will make it easier to debug your assembler if
+# you encounter any problems.
 set -o errexit
 set -o xtrace
 set -o nounset
 
-# The first argument is the location of the reads
+# The first argument is the mode to run the assembler.
+# This should match an entry in the Procfile.
+readonly PROC=$1
+
+# The second argument is the location of the reads
 # in the container filesystem. The will be present
 # in a read-only directory
-READS=$1
+readonly READS=$2
 
-# The second argument is a directory with
+# The third argument is a directory with
 # write-access where the final assembly should be
 # written to.
-DIR=$2
+readonly DIR=$3
 
 # The assembly should be written to the file
 # "contigs.fa" in the output directory.
-ASSEMBLY=$DIR/contigs.fa
+readonly ASSEMBLY=$DIR/contigs.fa
 
-# Recording all outputs makes debugging easier
+# Setup logging. This will make it easier to debug any problems.
 LOG=$DIR/log.txt
-exec  > $LOG
-exec 2> $LOG
+exec > >(tee ${LOG})
+exec 2>&1
 
 # Create a temporary directory to run the assembly
-TMP_DIR=$(mktemp -d)
+readonly TMP_DIR=$(mktemp -d)
 
-# Build the velvet assembly
-velveth $TMP_DIR 31 -fastq -shortPaired $READS
-velvetg $TMP_DIR
+# Determine which command to run by pulling from the Procfile
+CMD=$(egrep ^${PROC}: /Procfile | cut -f 2 -d ':')
+if [[ -z ${CMD} ]]; then
+    echo "Abort, no proc found for '${PROC}'."
+    exit 1
+fi
+
+# Here is where the assembler is actually run
+eval ${CMD}
 
 # Copy contigs to target directory
 cp $TMP_DIR/contigs.fa $ASSEMBLY
 
 ~~~
 {: .language-bash}
+
+[entry]: https://docs.docker.com/reference/builder/#entrypoint
+
+[idba]: https://github.com/nucleotides/docker-idba
+
+[spades]: https://github.com/nucleotides/docker-spades
+
+[list]: https://github.com/nucleotides/assembler-list
+
+[pull]: https://help.github.com/articles/creating-a-pull-request
