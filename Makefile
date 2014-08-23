@@ -17,7 +17,7 @@ $(dir)/metrics: tmp
 $(dir)/master.csv: tmp
 	$(s3) get --force $(bucket)/evaluation_master_list.csv $@
 
-data/benchmarks.yml: ./bin/data_processor.rb $(dir)/metrics $(dir)/master.csv
+data/benchmarks.yml: ./bin/data_processor $(dir)/metrics $(dir)/master.csv
 	 $^ > $@
 
 data/ng50_voting.yml: ./bin/voting data/benchmarks.yml
