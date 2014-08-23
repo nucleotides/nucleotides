@@ -8,6 +8,10 @@ module BenchmarkHelpers
     "Microbe - approx. size: #{size}MBp, approx. GC: #{gc}%"
   end
 
+  def datasets
+    data.benchmarks.reject{|(k, _)| data.ignore.include? k}
+  end
+
 end
 
 def round_gc(v)

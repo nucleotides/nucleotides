@@ -79,15 +79,11 @@ module DataProcessor
     end]
   end
 
-  def execute!(directory, master_list, ignore_str)
+  def execute!(directory, master_list)
     require 'yaml'
-    ignore   = ignore_str.split(',')
     file_map = dataset_map(File.read(master_list))
     metrics  = metrics(directory)
-    data = create_data(file_map, metrics).reject do |d|
-      ignore.include? d
-    end
-
+    data     = create_data(file_map, metrics)
     puts YAML.dump(data)
   end
 
