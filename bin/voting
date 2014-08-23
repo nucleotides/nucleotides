@@ -1,11 +1,18 @@
 #!/usr/bin/env ruby
 
-require 'yaml'
 require 'vote-schulze'
 
-benchmark_file, var, reverse = ARGV
+def benchmarks(benchmark_file, ignore_file)
+  require 'yaml'
+  bench  = YAML.load File.read benchmark_file
+  ignore = YAML.load File.read ignore_file
 
-data = YAML.load File.read('data/benchmarks.yml')
+  bench.reject{|(k, _)| ignore.include? k}
+end
+
+benchmark_file, ignore_file, var, reverse = ARGV
+
+data = benchmarks(benchmark_file, ignore_file)
 
 candidates = data.map do |_, v|
   v.map{|i| [i[:image], i[:proc]]}
