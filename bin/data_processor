@@ -83,7 +83,8 @@ module DataProcessor
     require 'yaml'
     file_map = dataset_map(File.read(master_list))
     metrics  = metrics(directory)
-    puts YAML.dump(create_data(file_map, metrics))
+    data     = create_data(file_map, metrics)
+    puts YAML.dump(data)
   end
 
 end
