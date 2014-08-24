@@ -18,5 +18,5 @@ $(dir)/master.csv: $(dir)
 data/benchmarks.yml: ./bin/data_processor $(dir)/metrics $(dir)/master.csv
 	 $^ > $@
 
-data/ng50_voting.yml: ./bin/voting data/benchmarks.yml
+data/ng50_voting.yml: ./bin/voting data/benchmarks.yml data/ignore.yml
 	 bundle exec $^ ng50 true > $@
