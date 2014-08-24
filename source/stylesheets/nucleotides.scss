@@ -1,3 +1,7 @@
 .jumbotron {
         background-color: #fff;
 }
+
+[class^="col"] {
+        outline: black, solid, medium;
+}
