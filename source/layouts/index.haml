@@ -24,8 +24,19 @@
                   %hr
                   %p
                     continuous, objective and reproducible evalution of genome assemblers using docker containers
-      .row
-        .div{:class => "col-sm-4 col-sm-offset-2"}
-          image here
-        .col-sm-4
-          Description here
+      .front-item
+        .row
+          .div{:class => "col-sm-4 col-sm-offset-2"}
+            image here
+          .col-sm-4
+            %h4
+              objective assessment
+            %hr
+            %p
+              Compare how different genome assemblers perform against a variety of test sequence data. Multiple different benchmarks shows the average performance of each assembler.
+            %p
+              Measured metrics include the size or accuracy of the assembly. Benchmarks include different %GC content and genome sizes. Choose the assembler that best suits your own requirements and data.
+            .text-center
+              %a{role: "button", class: "btn button-primary", href: "/benchmarks"}
+                View the benchmarks
+    .footer
