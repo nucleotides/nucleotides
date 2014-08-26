@@ -16,16 +16,68 @@
                   nucleotid.es
               .row
                 .jumboitem
-                  %img{src: "/images/logo.png", width: 175}
+                  %img.logo{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
               .row
                 .jumboitem
                   %h2
-                    an assembler catalog
+                    an assembler catalogue
                   %hr
                   %p
-                    continuous, objective and reproducible evalution of genome assemblers using docker containers
-      .row
-        .div{:class => "col-sm-4 col-sm-offset-2"}
-          image here
-        .col-sm-4
-          Description here
+                    continuous, objective and reproducible evaluation of genome assemblers using docker containers
+      .front-item
+        .row
+          .div{:class => "col-sm-4 col-sm-offset-2"}
+          .col-sm-4
+            %h3
+              objective assessment
+            %hr
+        .row
+          .div{:class => "col-sm-4 col-sm-offset-2"}
+            .text-center
+              %img.comparison{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
+          .col-sm-4
+            %p
+              Compare how different genome assemblers perform against a variety of test sequence data. Multiple different benchmarks shows the average performance of each assembler.
+            %p
+              Measured metrics include the size or accuracy of the assembly. Benchmarks include different %GC content and genome sizes. Choose the assembler that best suits your own requirements and data.
+            .text-center
+              %a{role: "button", class: "btn button-primary", href: "/benchmarks"}
+                View the benchmarks
+      .front-item
+        .row
+          .div{:class => "col-sm-4 col-sm-offset-2"}
+          .col-sm-4
+            %h3
+              reusable software
+            %hr
+        .row
+          .div{:class => "col-sm-4 col-sm-offset-2"}
+            .text-center
+              %img.assemble{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
+          .col-sm-4
+            %p
+              Every genome assembler is examined as a self-contained <a "href"="https://www.docker.com/">Docker</a> application. These containers eliminate the common problem in bioinformatics where the software won't compile or requires multiple additional dependencies. Everything needed to run the assembler is included in the container.
+            %p
+              You can pull an assembler from the docker repository and start using it immediately in your own research.
+            .text-center
+              %a{role: "button", class: "btn button-primary", href: "/using-images"}
+                Use an assembler
+      .front-item
+        .row
+          .div{:class => "col-sm-4 col-sm-offset-2"}
+          .col-sm-4
+            %h3
+              test your own assembler
+            %hr
+        .row
+          .div{:class => "col-sm-4 col-sm-offset-2"}
+            .text-center
+              %img.build{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
+          .col-sm-4
+            %p
+              Sending your assembler images is encouraged. Create a docker image of your assembler with all the required dependencies to assemble a fastq file. Once your assembler successfully builds on Docker Hub it can be included in the benchmarks.
+
+            .text-center
+              %a{role: "button", class: "btn button-primary", href: "/image-api"}
+                create an assembler image
+    .footer
