@@ -14,6 +14,7 @@ end
 # silence i18n warning
 ::I18n.config.enforce_available_locales = false
 
-page "*",                :layout => "layouts/default"
-page "/benchmarks.html", :layout => "layouts/scores"
-page "/",                :layout => "layouts/index"
+page "*",                  :layout => "layouts/default"
+page "/benchmarks.html",   :layout => "layouts/scores"
+page "/mailing-list.html", :layout => "layouts/mailing_list"
+page "/",                  :layout => "layouts/index"
