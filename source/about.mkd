@@ -2,37 +2,41 @@
   title: Why?
 ---
 
-New scientific software is created and released all the time. Software is
-published as a article in a journal. These software articles usually contain
-benchmarks and tests illustrating how the software improves over the existing
-state of the art.
+New scientific software is constantly created and published in journals. These
+publications usually illustrate how the software improves over the existing
+state of the field. These may take the form of comparing the authors' software
+against others using benchmarks, test data or both.
 
-The problem is that most comparisons are subjective. Researchers are subject to
-authorship bias and likely select the results that portray their software in
-the best way. How can you compare two different pieces of scientific software
-when their corresponding publications test them on two different data? The
-current state of software publication in bioinformatics makes it almost
-impossible for a researcher to objectively evaluate which software works best
-for their own data.
+The problem with these published comparisons is that they are subjective and
+not standardised across the community. Researchers are subject to authorship
+bias and likely select the results that portray their software in the best way.
+How can you compare two different pieces of scientific software when their
+corresponding publications test them on two different data? The current state
+of software publication in bioinformatics makes it difficult for a researcher
+to objectively evaluate which software works best for their own data.
 
-The previous [Assemblathon 1][asm1] and [Assemblathon 2][asm2] projects aimed
-to evaluate the current state of genome assembly. The method for their approach
-was to release a set of reads and ask the genomics community to submit their
-best assembly. The quality and accuracy of each of the submitted assemblies was
-then evaluated. The [Genome Assembly Gold-Standard Evaluations (GAGE)][gage]
-took several genome assemblers and ran them against four different read
-datasets. The results of each assembler were then evaluated for performance.
+Previous [Assemblathon 1][asm1], [Assemblathon 2][asm2], and [Genome Assembly
+Gold-Standard Evaluations (GAGE)][gage] projects aimed to resolve this by
+objectively evaluating the current state of genome assembly. The approach of
+the Assemblathon was to release a set of read data and ask the genomics
+community to submit their best genome assembly. The GAGE approach took several
+different genome assemblers and ran them against their own test datasets. In
+both cases the quality and accuracy of genome assemblies was evaluated for
+accuracy and performance.
 
 This project aims to improve on these approaches in two ways:
 
-  * Assembly benchmarks will be run on a weekly basis. This will allow the
-    lastest developments and publications in genome assembly to be evaluated
-    against the current corpus of assemblers.
+  * Assembly benchmarks will be run on a regular basis. This allows the latest
+    developments and publications in genome assembly to constantly be evaluated
+    against the current corpus of assemblers. This means new breakthroughs in
+    assembly can be quickly evaluated and thereby shared with the wider
+    bioinformatics community.
 
-  * The genome assemblers and pipelines will be submitted by the wider
-    bioinformatics community itself. This will allow large numbers of
-    assemblers to be evaluated simultaneously and without requiring manual
-    installation or setting of parameters.
+  * The genome assemblers and pipelines will be submitted by the bioinformatics
+    community itself. This will allow large numbers of assemblers to be
+    evaluated simultaneously and without requiring manual installation or
+    setting of parameters. This effectively crowd-sources genome assemblers
+    from anyone who wishes to participate.
 
 These two goals are made possible using [Linux Containers][lxc] via
 [Docker][docker]. All genome assemblers and associated pipeline should be built
