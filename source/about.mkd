@@ -1,17 +1,27 @@
 ---
-  title: About
+  title: Why?
 ---
 
-The recent [Assemblathon 1][asm1] and [Assemblathon 2][asm2] collectives aimed
+New scientific software is created and released all the time. Software is
+published as a article in a journal. These software articles usually contain
+benchmarks and tests illustrating how the software improves over the existing
+state of the art.
+
+The problem is that most comparisons are subjective. Researchers are subject to
+authorship bias and likely select the results that portray their software in
+the best way. How can you compare two different pieces of scientific software
+when their corresponding publications test them on two different data? The
+current state of software publication in bioinformatics makes it almost
+impossible for a researcher to objectively evaluate which software works best
+for their own data.
+
+The previous [Assemblathon 1][asm1] and [Assemblathon 2][asm2] projects aimed
 to evaluate the current state of genome assembly. The method for their approach
 was to release a set of reads and ask the genomics community to submit their
 best assembly. The quality and accuracy of each of the submitted assemblies was
-then evaluated.
-
-The [Genome Assembly Gold-Standard Evaluations (GAGE)][gage] took several
-genome assemblers and ran them against four different read datasets. The
-results of each assembler were then evaluated for performance. The aim of this
-was determine which assember gave the best results.
+then evaluated. The [Genome Assembly Gold-Standard Evaluations (GAGE)][gage]
+took several genome assemblers and ran them against four different read
+datasets. The results of each assembler were then evaluated for performance.
 
 This project aims to improve on these approaches in two ways:
 
