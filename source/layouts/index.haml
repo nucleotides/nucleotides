@@ -26,16 +26,15 @@
                     continuous, objective and reproducible evaluation of genome assemblers using docker containers
       .front-item
         .row
-          .div{:class => "col-md-4 col-md-offset-2 col-xs-offset-1 col-xs-6"}
-          .col-md-4
+          .div{:class => "col-md-4 col-md-offset-6 col-xs-6"}
             %h3
               objective assessment
             %hr
         .row
-          .div{:class => "col-md-4 col-md-offset-2 col-xs-offset-1 col-xs-6"}
+          .div{:class => "col-md-4 col-md-offset-2 col-xs-6"}
             .text-center
               %img.comparison{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
-          .col-md-4
+          .div{:class => "col-md-4 col-xs-6"}
             %p
               Compare how different genome assemblers perform against a variety of test sequence data. Multiple different benchmarks shows the average performance of each assembler.
             %p
@@ -45,16 +44,15 @@
                 View the benchmarks
       .front-item
         .row
-          .div{:class => "col-md-4 col-md-offset-2 col-xs-offset-1 col-xs-6"}
-          .col-md-4
+          .div{:class => "col-md-4 col-md-offset-6 col-xs-6"}
             %h3
               reusable software
             %hr
         .row
-          .div{:class => "col-md-4 col-md-offset-2 col-xs-offset-1 col-xs-6"}
+          .div{:class => "col-md-4 col-md-offset-2 col-xs-6"}
             .text-center
               %img.assemble{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
-          .col-md-4
+          .div{:class => "col-md-4 col-xs-6"}
             %p
               Every genome assembler is examined as a self-contained <a "href"="https://www.docker.com/">Docker</a> application. These containers eliminate the common problem in bioinformatics where the software won't compile or requires multiple additional dependencies. Everything needed to run the assembler is included in the container.
             %p
@@ -64,16 +62,15 @@
                 Use an assembler
       .front-item
         .row
-          .div{:class => "col-md-4 col-md-offset-2 col-xs-offset-1 col-xs-6"}
-          .col-md-4
+          .div{:class => "col-md-4 col-md-offset-6 col-xs-6"}
             %h3
               test your own assembler
             %hr
         .row
-          .div{:class => "col-md-4 col-md-offset-2 col-xs-offset-1 col-xs-6"}
+          .div{:class => "col-md-4 col-md-offset-2 col-xs-6"}
             .text-center
               %img.build{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
-          .col-md-4
+          .div{:class => "col-md-4 col-xs-6"}
             %p
               Sending your assembler images is encouraged. Create a docker image of your assembler with all the required dependencies to assemble a fastq file. Once your assembler successfully builds on Docker Hub it can be included in the benchmarks.
 
