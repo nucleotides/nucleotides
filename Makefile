@@ -3,7 +3,7 @@ bucket = s3://nucleotid-es
 
 dir = ./tmp
 
-all: data/benchmarks.yml data/ng50_voting.yml
+all: data/benchmarks.yml data/ng50_voting.yml data/assemblers.yml
 
 $(dir):
 	mkdir -p $@
@@ -20,3 +20,8 @@ data/benchmarks.yml: ./bin/data_processor $(dir)/metrics $(dir)/master.csv
 
 data/ng50_voting.yml: ./bin/voting data/benchmarks.yml data/ignore.yml
 	 bundle exec $^ ng50 true > $@
+
+data/assemblers.yml:
+	wget \
+		https://raw.githubusercontent.com/nucleotides/assembler-list/master/assembler.yml \
+		--output-document $@
