@@ -10,5 +10,4 @@ group :development do
   gem 'rake',         '~> 10.1'
   gem 'rspec',        '~> 2.0'
   gem 'rspec-its',    '~> 1.0'
-  gem 'vote-schulze', '~> 0.0'
 end
