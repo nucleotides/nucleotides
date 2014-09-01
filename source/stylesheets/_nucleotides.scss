@@ -11,32 +11,39 @@
     padding-top: 100px;
 }
 
-img.logo {
-    width: 175px;
-    height: 175px;
+img.logo_1 {
+    width: 200px;
+    height: 200px;
     background: url(/images/nucleotides.png) 0px 0px;
-    background-size : 400%;
+    background-size : 600%;
+}
+
+img.logo_2 {
+    width: 150px;
+    height: 150px;
+    background: url(/images/nucleotides.png) -600px 0px;
+    background-size : 600%;
 }
 
 img.comparison {
     width: 175px;
     height: 175px;
     background: url(/images/nucleotides.png) -175.5px 0px;
-    background-size : 400%;
+    background-size : 600%;
 }
 
 img.assemble {
     width: 175px;
     height: 175px;
     background: url(/images/nucleotides.png) -350px 0px;
-    background-size : 400%;
+    background-size : 600%;
 }
 
 img.build {
     width: 175px;
     height: 175px;
     background: url(/images/nucleotides.png) -525px 0px;
-    background-size : 400%;
+    background-size : 600%;
 }
 
 .assembler-item-good {
@@ -50,3 +57,19 @@ img.build {
 .assembler {
     padding-bottom: 50px;
 }
+
+
+.vote-award {
+    text-align: center;
+    .title {
+        font-size: 200%;
+        padding-top: 20px;
+    }
+    .image {
+        font-size: 250%;
+    }
+    .proc {
+        font-size: 150%;
+    }
+}
+

@@ -1,0 +1,13 @@
+.vote-award
+  %img.logo_2{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
+  .title
+    %p
+      Highest Voted Assembler from NG50
+  .image
+    %p
+      %a{href: link_to_assembler(winning_image(:ng50_voting)) }
+        = winning_image :ng50_voting
+  .proc
+    %p
+      using procfile entry:
+      = winning_proc :ng50_voting
