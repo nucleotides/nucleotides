@@ -39,4 +39,9 @@ module PageHelpers
     "https://registry.hub.docker.com/u/" + assembler[:image][:dockerhub]
   end
 
+  def assembler_id(docker_string)
+    chars = %w|_ /|
+    chars.inject(docker_string){|s, char| s.gsub(char, '-')}
+  end
+
 end

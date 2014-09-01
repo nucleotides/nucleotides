@@ -1,5 +1,5 @@
 - data.assemblers.each do |assembler|
-  .assembler
+  %div{class: "assembler", id: assembler_id(assembler[:image][:dockerhub])}
     %h3
       = assembler[:image][:dockerhub]
     %p
