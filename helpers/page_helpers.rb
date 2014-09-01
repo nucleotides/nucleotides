@@ -1,7 +1,3 @@
-def pubmed_url(assembler)
-  "https://www.ncbi.nlm.nih.gov/pubmed/" + assembler[:pmid].to_s
-end
-
 VALUES = [
   {avail: lambda{|i| ! i[:homepage].nil? },
    text:  ["Homepage", "No homepage available"],
@@ -37,6 +33,10 @@ module PageHelpers
 
   def dockerhub_url(assembler)
     "https://registry.hub.docker.com/u/" + assembler[:image][:dockerhub]
+  end
+
+  def pubmed_url(assembler)
+    "https://www.ncbi.nlm.nih.gov/pubmed/" + assembler[:pmid].to_s
   end
 
   def assembler_id(docker_string)
