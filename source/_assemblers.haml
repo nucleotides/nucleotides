@@ -1,0 +1,26 @@
+- data.assemblers.each do |assembler|
+  %div{class: "assembler", id: assembler_id(assembler[:image][:dockerhub])}
+    %h3
+      = assembler[:image][:dockerhub]
+    %p
+      = assembler[:description]
+    %table.table
+      %tr
+        %td
+          %span{class: "glyphicon glyphicon-cog" }
+        %td
+          %a{href: dockerhub_url(assembler)}
+            Docker Image
+      - assembler_values(assembler).each do |(avail, url, text)|
+        %tr
+          %td
+            - if avail
+              %span{class: "glyphicon glyphicon-ok assembler-item-good" }
+            - else
+              %span{class: "glyphicon glyphicon-remove assembler-item-bad" }
+          %td
+            - if avail
+              %a{href: url.to_s }
+                = text
+            - else
+              = text
