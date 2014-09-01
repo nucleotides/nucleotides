@@ -18,3 +18,6 @@ page "*",                  :layout => "layouts/default"
 page "/benchmarks.html",   :layout => "layouts/scores"
 page "/mailing-list.html", :layout => "layouts/mailing_list"
 page "/",                  :layout => "layouts/index"
+
+require "helpers/page_helpers"
+helpers PageHelpers
