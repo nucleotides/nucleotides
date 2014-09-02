@@ -1,9 +1,10 @@
 activate :automatic_image_sizes
 activate :directory_indexes
 
-set :css_dir,    'stylesheets'
-set :js_dir,     'javascripts'
-set :images_dir, 'images'
+set :css_dir,      'stylesheets'
+set :js_dir,       'javascripts'
+set :images_dir,   'images'
+set :partials_dir, 'partials'
 
 configure :build do
   activate :minify_css
