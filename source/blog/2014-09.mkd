@@ -2,61 +2,54 @@
   title: September 2014 Update
 ---
 
-Approximately a month ago nucleotid.es was only a single page showing a few
+Approximately a month ago nucleotid.es was a single page showing a handful of
 benchmark tables. Since then I have been able to add more features and the
-website has changed. I will aim regularly write announcements to summarise
-these changes as nucleotid.es continues to change and improve in the future.
+website has changed greatly. I will aim regularly write announcements to
+summarise these changes as nucleotid.es continues to change and improve in the
+future.
 
 ### Assembler command bundles
 
-A difficult problem I encountered early on was how to manage running the same
-assembler different ways. An example is the spades assembler which has the
+A problem I encountered early on was how to manage running the same assembler
+in different ways. An example is the spades assembler which has the
 `--single-cell` and `--careful` flags, both of which should be evaluated for
 their effect on assembly quality. My initial approach was to create a new
 Docker image for each way of running an assembler. This resulted in Docker
-images like nucleotides/spades-3-single-cell-careful where all the flags were
-listed in the name.
+images like nucleotides/spades-3-single-cell-careful where command line flags
+were listed in the name.
 
-This approach felt ungainly and I assumed that complex ways of running an
+This approach was ungainly and I assumed that more complex ways of running an
 assembler would generate longer and longer names. Furthermore if a new Docker
-image had to be created for each way of running an assembler this would result
-in an overabundance and confusion of images.
+image had to be created for each combination of command line flags then this
+would result in an overabundance and confusion of Docker images.
 
 Instead, I created Docker images with "command bundles." These command bundles
 allow the same Docker container to be run in multiple different ways. Using the
 spades example from above, the spades container can be called on the command
 line as follows `docker run nucleotides/spades default ...` or `docker run
-nucleotides/spades single-cell ...`. I believe that this simplifies the problem
-of benchmarking assemblers with multiple different command options. You can see
-these command bundles in the second column of each table on the [assembler
-benchmarks page][1].
+nucleotides/spades single-cell ...`. The first argument to each container
+should be the command bundle specifying how it should be run. I believe this
+simplifies the problem of benchmarking assemblers with multiple different
+command line options. You can see these command bundles in the second column of
+each table on the [assembler benchmarks page][1].
 
 ### Voting on the best assemblers
 
 I have added more reference genome read sets for benchmarking. There are now 16
 references, each with a corresponding table on the benchmarks page. A greater
 number of benchmarks provides more information on how the assemblers perform.
-If you browse these benchmarks there are trends as to which assemblers perform
-well. Viewing a large number of tables is however not an ideal way to compare
-assemblers.
+If you browse these benchmarks there are visible trends as to which assemblers
+perform well. Viewing a large number of tables is however not an ideal way to
+compare assemblers.
 
 I have tried to solve this visualisation problem by treating the benchmarks as
-a voting competition. Each reference genome can be thought as 'voting' for the
-Docker image which assembles their corresponding reads the best. The best
-assembler is then the one that is 'elected' by all the reference genomes. I use
-the Schulze method for tallying the votes. At present there are the results of
-two elections on the [assembler results][2] page. The first is for the Docker
-image that produces the best NG50 and the second is for the assembler that
-produces the least number of incorrect bases.
-
-### Improved website appearance
-
-I have spent some time improving the website appearance. I am poor when
-developing HTML and CSS and this shows when viewing the website on a mobile
-device. I have however tried to improve the front page of nucleotid.es to
-clarify the main goals of the project. I created some simple logos in Inkscape
-which are also visible on the front page. These logos are based on cogs or
-gears inside boxes, representing genome assemblers inside Docker containers.
+an election. Each reference genome can be thought as 'voting' for the Docker
+image which assembles their corresponding reads the best. The best assembler is
+then the one that is 'elected' by all the reference genomes. I use the Schulze
+method for tallying the votes. At present there are the results of two
+elections on the [assembler results][2] page. The first is for the Docker image
+that produces the best NG50 and the second is for the assembler that produces
+the least number of incorrect bases.
 
 ### List of assemblers
 
@@ -64,22 +57,34 @@ I have listed all the assembler Docker images on the [assemblers page][3]. This
 page shows each assembler Docker image and indicates whether an assembler has a
 homepage and a source code repository. You can see that if an assembler doesn't
 have a source code repository, such as github or bitbucket, then there is a
-little red cross. The aim of this is to encourage developers to provide certain
-resources for the bioinformaticians. In future I would like to add additional
-checks like also providing a mailing list, an issue tracker and documentation.
+small red cross. The aim of this is to encourage developers to provide
+resources related to their assembler for the bioinformaticians. In future I
+would like to add additional checks like providing a mailing list, an issue
+tracker and documentation.
+
+### Improved website appearance
+
+I have spent some time improving the website appearance. I have limited ability
+when developing HTML and CSS and this shows when viewing the website on a
+mobile device. I have however tried to improve the front page of nucleotid.es
+to clarify the main goals of the project. I created some simple logos in
+Inkscape which are also visible on the front page. These logos are based on
+cogs or gears inside boxes, representing genome assemblers inside Docker
+containers.
 
 ### No third-party assemblers have been submitted
 
 At present the only Docker images on nucleotid.es are those I have written
 myself. I would encourage any interested developers to write a Docker image for
-their own or another developer's assembler. Creating a working image often
-takes a non-trivial amount of time, especially for the more complex assemblers.
-If you would be interested in developing an assembler image I would be happy to
-help by providing support through the [nucleotid.es mailing list][4]. The more
-assemblers that are included the benchmarking, the more accurate a reflection
-of the state of genome assembly this project provides.
+their own or other assemblers. Creating a working image often takes a some time
+and so this project will progress slowly if I am writing all the Docker images
+myself. If you would be interested in developing an assembler image I would be
+happy to help by providing support through the [nucleotid.es mailing list][4].
+The more assemblers that are included the benchmarking, the more accurate a
+reflection of the state of genome assembly this project provides.
 
 [1]: http://nucleotid.es/benchmarks/
 [2]: http://nucleotid.es/results/
 [3]: http://nucleotid.es/assemblers/
 [4]: http://nucleotid.es/mailing-list/
+
