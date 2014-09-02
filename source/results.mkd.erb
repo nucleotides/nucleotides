@@ -2,6 +2,12 @@
   title: Results
 ---
 
-<%= partial '_voting', {locals: {vote_type: :ng50_voting, logo: :logo_2, title: "NG50"}} %>
+<%= partial '_voting', {locals: {
+  vote_type: :ng50_voting,
+  sprite:    "spr-5-md",
+  title:     "NG50"}} %>
 
-<%= partial '_voting', {locals: {vote_type: :accuracy_voting, logo: :logo_3, title: "Least Incorrect Bases"}} %>
+<%= partial '_voting', {locals: {
+  vote_type: :accuracy_voting,
+  sprite:    "spr-6-md",
+  title:     "Least Incorrect Bases"}} %>
