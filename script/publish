@@ -20,6 +20,7 @@ push(){
 
 build(){
     echo "Building site ..."
+    ./script/bootstrap > /dev/null
     ./script/build > /dev/null
     readonly status=$?
     if [ $status -ne 0 ]; then
