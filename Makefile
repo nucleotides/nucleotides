@@ -1,22 +1,23 @@
-s3 = s3cmd --config ${HOME}/.amazon-aws.cfg
+s3     = s3cmd --config ${HOME}/.amazon-aws.cfg
 bucket = s3://nucleotid-es
+date   = $(shell date "+%Y-%m")
+fetch  = $(s3) get $(bucket)/website-data/$(date)/$(notdir $@) $@
 
-dir = ./tmp
+targets = data/benchmarks.yml data/ng50_voting.yml data/accuracy_voting.yml data/assemblers.yml
 
-all: data/benchmarks.yml data/ng50_voting.yml
+all: $(targets)
 
-$(dir):
-	mkdir -p $@
+data/assemblers.yml:
+	wget \
+		https://raw.githubusercontent.com/nucleotides/assembler-list/master/assembler.yml \
+		--quiet \
+		--output-document $@
 
-$(dir)/metrics: $(dir)
-	mkdir -p $@
-	$(s3) sync $(bucket)/metrics/quast/ $@
+data/%_voting.yml:
+	$(fetch)
 
-$(dir)/master.csv: $(dir)
-	$(s3) get --force $(bucket)/evaluation_master_list.csv $@
+data/benchmarks.yml:
+	$(fetch)
 
-data/benchmarks.yml: ./bin/data_processor $(dir)/metrics $(dir)/master.csv
-	 $^ > $@
-
-data/ng50_voting.yml: ./bin/voting data/benchmarks.yml data/ignore.yml
-	 bundle exec $^ ng50 true > $@
+clean:
+	rm -f $(targets)

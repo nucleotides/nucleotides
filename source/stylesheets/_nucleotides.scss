@@ -1,0 +1,71 @@
+.jumbotron {
+    background-color: #fff;
+}
+.jumboitem {
+    padding-top: 30px;
+}
+.front-item {
+    padding-bottom: 50px;
+}
+.footer {
+    padding-top: 100px;
+}
+
+img.sprite-lg {
+    width: 200px;
+    height: 200px;
+    background-size : 600%;
+    background-repeat: no-repeat;
+    background-image: url(/images/nucleotides.png);
+}
+
+img.sprite-md {
+    width: 150px;
+    height: 150px;
+    background-size : 600%;
+    background-repeat: no-repeat;
+    background-image: url(/images/nucleotides.png);
+}
+
+.spr-1-md { background-position: 0px 0px; }
+.spr-5-md { background-position: -600px 0px; }
+.spr-6-md { background-position: -750px 0px; }
+
+.spr-1-lg { background-position: 0px 0px; }
+.spr-2-lg { background-position: -200px 0px; }
+.spr-3-lg { background-position: -400px 0px; }
+.spr-4-lg { background-position: -600px 0px; }
+.spr-5-lg { background-position: -800px 0px; }
+.spr-6-lg { background-position: -1000px 0px; }
+
+
+.assembler-item-good {
+    color: green;
+}
+
+.assembler-item-bad {
+    color: red;
+}
+
+.assembler {
+    padding-bottom: 50px;
+}
+
+
+.vote-award {
+    padding-top: 35px;
+    padding-bottom: 35px;
+
+    text-align: center;
+    .title {
+        font-size: 200%;
+        padding-top: 20px;
+    }
+    .image {
+        font-size: 250%;
+    }
+    .proc {
+        font-size: 150%;
+    }
+}
+
