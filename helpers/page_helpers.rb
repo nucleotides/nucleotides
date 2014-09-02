@@ -6,10 +6,6 @@ VALUES = [
   {avail: lambda{|i| ! i[:image][:source].nil? },
    text:  ["Source Code Repository", "No source code repository available"],
    url:   lambda{|i| i[:image][:source] }},
-
-  {avail: lambda{|i| ! i[:pmid].nil? },
-   text:  ["Pubmed Entry", "No Pubmed entry available"],
-   url:   lambda{|i| pubmed_url(i) }}
 ]
 
 module PageHelpers
@@ -43,5 +39,10 @@ module PageHelpers
     chars = %w|_ /|
     chars.inject(docker_string){|s, char| s.gsub(char, '-')}
   end
+
+  def link_to_assembler(docker_string)
+    "/assemblers#" + assembler_id(docker_string)
+  end
+
 
 end

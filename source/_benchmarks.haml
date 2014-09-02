@@ -30,7 +30,7 @@
         - values.select{|i| i[:ng50]}.each do |value|
           %tr
             %td.text-left
-              %a{href: "/assemblers#" + assembler_id(value.image)}
+              %a{href: link_to_assembler(value.image)}
                 = value.image
             %td.text-left= value.proc
             %td.text-right= value.ng50
