@@ -1,13 +1,14 @@
 .vote-award
-  %img.logo_2{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
+  %img{src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7", class: logo}
   .title
     %p
-      Best Assembler by NG50 Results
+      Best Assembler by
+      = title
   .image
     %p
-      %a{href: link_to_assembler(winning_image(:ng50_voting)) }
-        = winning_image :ng50_voting
+      %a{href: link_to_assembler(winning_image(vote_type)) }
+        = winning_image vote_type
   .proc
     %p
       using procfile entry:
-      = winning_proc :ng50_voting
+      = winning_proc vote_type
