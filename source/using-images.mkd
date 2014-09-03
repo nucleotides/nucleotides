@@ -33,12 +33,12 @@ readonly IMAGE=$1
 readonly BUNDLE=$2
 
 # Location of the fastq.gz file of reads
-readonly READS=$(readlink -f $2)
+readonly READS=$(readlink -f $3)
 readonly SRC=$(dirname ${READS})
 readonly READ_FILE=$(basename ${READS})
 
 # The destination directory where output contigs should go
-readonly DST=$(readlink -f $3)
+readonly DST=$(readlink -f $4)
 mkdir -p $DST
 
 # Location of mounted volumes inside the container
