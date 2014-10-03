@@ -1,7 +1,11 @@
 module BenchmarkHelpers
 
+  def data_id(id)
+    id.to_s.rjust(4, "0")
+  end
+
   def data_description(id)
-    datum = data.genomes[id.to_sym]
+    datum = data.genomes[data_id(id).to_sym]
     raise ArgumentError, "No genome metrics found for dataset #{id}" if datum.nil?
 
     gc    = round_gc datum[:gc]
