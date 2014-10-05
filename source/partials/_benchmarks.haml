@@ -35,15 +35,15 @@
       %tbody
         - values.select{|i| i[:summary_metrics][:ng50]}.each do |value|
           %tr
-            %td.text-left
+            %td
               %a{href: link_to_assembler(value.metadata.image)}
                 = value.metadata.image
-            %td.text-left= table_value :proc, value
-            %td.text-right= table_value :ng50, value
-            %td.text-right= table_value :lg50, value
-            %td.text-right= table_value :contigs, value
-            %td.text-right= table_value :fraction, value
-            %td.text-right= table_value :incorrect, value
-            %td.text-right= table_value :cpu, value
-            %td.text-right= table_value :memory, value
+            %td= table_value :proc, value
+            %td.value= table_value :ng50, value
+            %td.value= table_value :lg50, value
+            %td.value= table_value :contigs, value
+            %td.value= table_value :fraction, value
+            %td.value= table_value :incorrect, value
+            %td.value= table_value :cpu, value
+            %td.value= table_value :memory, value
 
