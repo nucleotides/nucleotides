@@ -38,11 +38,12 @@
             %td.text-left
               %a{href: link_to_assembler(value.metadata.image)}
                 = value.metadata.image
-            %td.text-left= value.metadata.prc
-            %td.text-right= value.summary_metrics.ng50
-            %td.text-right= value.summary_metrics.lg50
-            %td.text-right= value.summary_metrics.n_contigs_gt_1000
-            %td.text-right= value.summary_metrics.genome_fraction
-            %td.text-right= value.summary_metrics.incorrect_per_100k
-            %td.text-right= value.summary_metrics.total_cpu_hours
-            %td.text-right= value.summary_metrics.max_memory_gbytes
+            %td.text-left= table_value :proc, value
+            %td.text-right= table_value :ng50, value
+            %td.text-right= table_value :lg50, value
+            %td.text-right= table_value :contigs, value
+            %td.text-right= table_value :fraction, value
+            %td.text-right= table_value :incorrect, value
+            %td.text-right= table_value :cpu, value
+            %td.text-right= table_value :memory, value
+
