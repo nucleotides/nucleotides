@@ -6,6 +6,10 @@ VALUES = [
   {avail: lambda{|i| ! i[:image][:source].nil? },
    text:  ["Source Code Repository", "No source code repository available"],
    url:   lambda{|i| i[:image][:source] }},
+
+  {avail: lambda{|i| ! i[:mailing_list].nil? },
+   text:  ["Mailing List", "No mailing list available"],
+   url:   lambda{|i| i[:mailing_list] }},
 ]
 
 module PageHelpers
