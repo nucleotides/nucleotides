@@ -35,6 +35,9 @@
           %th{:class => "text-right col-md-1"}
             Memory Usage (Gb)
             %span{:class => "glyphicon glyphicon-sort"}
+          %th{:class => "text-right col-md-1"}
+            CPU secs / Bp
+            %span{:class => "glyphicon glyphicon-sort"}
       %tbody
         - values.select{|i| i[:summary_metrics][:ng50]}.each do |value|
           %tr
@@ -50,4 +53,5 @@
             %td.value= table_value :mis, value
             %td.value= table_value :cpu, value
             %td.value= table_value :memory, value
+            %td.value= table_value :secs_per_base, value
 
