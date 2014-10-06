@@ -9,6 +9,8 @@ module BenchmarkHelpers
     incorrect: [:summary_metrics, :incorrect_per_100k],
     cpu:       [:summary_metrics, :total_cpu_hours],
     memory:    [:summary_metrics, :max_memory_gbytes],
+    local_mis: [:summary_metrics, :local_misassemblies],
+    mis:       [:summary_metrics, :misassemblies],
   }
 
   FORMATTERS = {

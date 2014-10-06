@@ -27,6 +27,12 @@
             IB
             %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-1"}
+            Loc. MisAssem
+            %span{:class => "glyphicon glyphicon-sort"}
+          %th{:class => "text-right col-md-1"}
+            MisAssem
+            %span{:class => "glyphicon glyphicon-sort"}
+          %th{:class => "text-right col-md-1"}
             CPU Hrs
             %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-1"}
@@ -44,6 +50,8 @@
             %td.value= table_value :contigs, value
             %td.value= table_value :fraction, value
             %td.value= table_value :incorrect, value
+            %td.value= table_value :local_mis, value
+            %td.value= table_value :mis, value
             %td.value= table_value :cpu, value
             %td.value= table_value :memory, value
 
