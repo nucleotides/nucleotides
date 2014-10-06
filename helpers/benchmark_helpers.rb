@@ -1,5 +1,9 @@
 module BenchmarkHelpers
 
+  SECONDS_TO_HOURS     = 3600.0
+  BYTES_TO_GIGABYTES   = 1e9
+  NANOSECONDS_TO_HOURS = 1e9 * 3600.0
+
   VALUES = {
     proc:      [:metadata, :prc],
     ng50:      [:summary_metrics, :ng50],
@@ -7,8 +11,8 @@ module BenchmarkHelpers
     contigs:   [:summary_metrics, :n_contigs_gt_1000],
     fraction:  [:summary_metrics, :genome_fraction],
     incorrect: [:summary_metrics, :incorrect_per_100k],
-    cpu:       [:summary_metrics, :total_cpu_hours],
-    memory:    [:summary_metrics, :max_memory_gbytes],
+    cpu:       [:summary_metrics, :total_cpu_nanoseconds],
+    memory:    [:summary_metrics, :max_memory_bytes],
     local_mis: [:summary_metrics, :local_misassemblies],
     mis:       [:summary_metrics, :misassemblies],
   }
@@ -21,8 +25,8 @@ module BenchmarkHelpers
     mis:       -> (v) {round_nearest(v, 1)},
     fraction:  -> (v) {sprintf "%.2f", v},
     incorrect: -> (v) {sprintf "%.2f", v},
-    cpu:       -> (v) {sprintf "%.2f", v},
-    memory:    -> (v) {sprintf "%.2f", v},
+    cpu:       -> (v) {sprintf "%.2f", v / NANOSECONDS_TO_HOURS},
+    memory:    -> (v) {sprintf "%.2f", v / BYTES_TO_GIGABYTES},
   }
 
   def table_value(name, v)
