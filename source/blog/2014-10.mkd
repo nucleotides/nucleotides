@@ -1,0 +1,82 @@
+---
+  title: October 2014 Update
+---
+
+This is the second update on recent updates to nucleotid.es. These changes
+include additional assemblers and updates to existing assemblers. There are
+additional metrics added to benchmark the performance of assemblers. Each
+organism is also benchmarked using five replicates.
+
+### More assemblers
+
+This project needs more assembler images. I have created six assembler images
+however there are many more assemblers that could be included. If you would be
+willing to create a Docker image of an existing assembler not included here
+this would extremely helpful. The more assemblers benchmarked the better the
+picture of genome assembly.
+
+This month was exciting because two assembler images were created by others.
+Aaron Darling at the University of Technology Sydney created an image of
+A5-miseq. Eugene Goltsman at the Joint Genome Institute made and image of
+Meraculous. These assemblers have both been tested, you can view how these
+assemblers perform in the benchmarks page.
+
+Shaun Jackman also provided feedback on the evaluation of the ABySS image.
+These comments as a [pull request][1] and on a [commit][2] are useful for
+improving the performance of an assembler image. The ABySS image now has an
+'adaptive' command bundle which uses [kmergenie][3] to search for the optimal
+kmer to use for assembly.
+
+[1]: https://github.com/nucleotides/docker-abyss/pull/2
+[2]: https://github.com/nucleotides/docker-abyss/commit/8d841532bae4ba69bf65c82aedde9e5f449d41ea
+[3]: http://kmergenie.bx.psu.edu/
+
+The reason of nucleotid.es is provide benchmarks for genome assemblers that can
+be immediately used in your own work. Therefore if you are interested in trying
+A5-miseq or Meraculous, then install Docker and you can start using the images
+immediately. The same applies for comparing a kmer search versus using a long
+kmer: you can use the ABySS 'adaptive' command bundle and compare this with the
+'k-96' command bundle and see how well each performs for your own data.
+
+### More metrics
+
+I have added additional metrics each benchmark. The first two are local
+misassemblies and global misassemblies. These are both useful for providing a
+information on larger incorrect arrangements in the assembled contigs. These
+are a useful in addition to the numbers of incorrect bases (IB) metric for
+determining the accuracy of each assembly. All of these assembly metrics on the
+benchmark page are generated using [QUAST][4] to compare the produced contigs
+with the reference genome.
+
+[4]: http://bioinf.spbau.ru/quast
+
+Docker runs using [control groups][5] to organise processes. This has allowed
+me to spawn a separate process that periodically queries the cgroup for the
+running container. I use this information to compute metrics for total CPU
+hours and memory usage in gigabytes. These are include in the benchmarks page
+and can be used to compare the requirements for running the assembler.
+
+[5]: https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt
+
+I computed an additional metric: CPU seconds required per assembled base. This
+the total number of CPU seconds used by the container divided by the total
+length of the assembly. I believe this metric provides a perspective on the
+efficiency of the assembler, where a smaller number indicates less CPU time for
+assembly.
+
+### More replicates
+
+Previously each assembler was benchmarked on a single FASTQ file from the
+reference genome. This presented the possibility that a benchmark may be
+over fitted to reads in the FASTQ. The benchmarks have now been updated so that
+each metrics is results of running the assembler on five different FASTQ files
+from the same reference genome. This therefore should provide a more accurate
+view of how the assembler performs, and I hope, inspire more confidence in the
+results.
+
+### More presentations and coverage
+
+I have had the opportunity to give several presentations in the last month. I
+have uploaded the [presentation slides][6].
+
+[6]: https://speakerdeck.com/michaelbarton/nucleotid-dot-es-objective-genome-assembler-benchmarking
