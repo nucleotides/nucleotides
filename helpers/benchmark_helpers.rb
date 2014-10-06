@@ -17,6 +17,8 @@ module BenchmarkHelpers
     ng50:      -> (v) {round_nearest(v, 1000)},
     lg50:      -> (v) {round_nearest(v, 1)},
     contigs:   -> (v) {round_nearest(v, 1)},
+    local_mis: -> (v) {round_nearest(v, 1)},
+    mis:       -> (v) {round_nearest(v, 1)},
     fraction:  -> (v) {sprintf "%.2f", v},
     incorrect: -> (v) {sprintf "%.2f", v},
     cpu:       -> (v) {sprintf "%.2f", v},
