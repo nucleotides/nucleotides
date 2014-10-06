@@ -15,9 +15,6 @@
             NG50
             %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-1"}
-            LG50
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-1"}
             \#contigs
             %span{:class => "glyphicon glyphicon-sort"}
           %th{:class => "text-right col-md-1"}
@@ -46,7 +43,6 @@
                 = value.metadata.image
             %td= table_value :proc, value
             %td.value= table_value :ng50, value
-            %td.value= table_value :lg50, value
             %td.value= table_value :contigs, value
             %td.value= table_value :fraction, value
             %td.value= table_value :incorrect, value
