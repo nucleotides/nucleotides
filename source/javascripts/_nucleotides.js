@@ -1,11 +1,7 @@
 $(document).ready(function()
-
   {
-    $(".score").tablesorter({
-      sortList: [[2,1]],
-      cssAsc: 'bg-primary',
-      cssDesc: 'bg-primary'
-    });
+
+    $('.score').dataTable();
 
     $('.key').popover({
       placement: 'right',
