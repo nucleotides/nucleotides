@@ -2,13 +2,14 @@ $(document).ready(function()
   {
 
     $('.score').dataTable({
-      "order"          : [[ 2, "desc" ]],
-      "bFilter"        : false,
-      "bInfo"          : false,
-      "scrollY"        : "400px",
-      "scrollCollapse" : true,
-      "paging"         : false,
-      dom: 'C<"clear">lfrtip'
+      order          : [[ 2, "desc" ]],
+      bFilter        : false,
+      bInfo          : false,
+      scrollY        : "400px",
+      scrollCollapse : true,
+      paging         : false,
+      columnDefs     : [ { visible        : false, targets : [3,7,8] } ],
+      dom            : 'C<"clear">lfrtip'
     });
 
     $('.key').popover({
