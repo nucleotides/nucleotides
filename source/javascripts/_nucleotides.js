@@ -1,7 +1,9 @@
 $(document).ready(function()
   {
 
-    $('.score').dataTable();
+    $('.score').dataTable({
+      "order": [[ 2, "desc" ]]
+    });
 
     $('.key').popover({
       placement: 'right',
