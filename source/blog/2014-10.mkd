@@ -1,0 +1,79 @@
+---
+  title: October 2014 Update
+---
+
+This is the second update on recent improvements to nucleotid.es. These include
+additional assemblers and updates to existing assemblers. There are additional
+metrics added to provide more detail on the  performance of each assembler. The
+generated data are also now more accurate by using five replicates for each
+genome.
+
+### More assemblers
+
+This project needs more assembler images. I created six assembler images
+however there are many more assemblers that could be included. If you are
+interested in creating an assembler Docker image please contact me through this
+mailing list or through my personal email. Additional assembler images included
+here this will extremely helpful and the more assemblers benchmarked the better
+the picture of genome assembly this project provides.
+
+This month was exciting for me because two assembler images were created by
+others. Aaron Darling at the University of Technology Sydney created an image
+of A5-miseq. Eugene Goltsman at the Joint Genome Institute made an image of
+Meraculous. These assemblers have both been benchmarked and you can view how
+these assemblers perform in the benchmarks page. These new results are
+particularly interesting as A5-miseq performs very well.
+
+Shaun Jackman provided feedback on the ABySS image. These comments came as a
+[pull request][1] and on a [commit][2] and are useful for improving the
+performance of the assembler image. The ABySS image now has an 'adaptive'
+command bundle which uses [kmergenie][3] to search for the optimal kmer to use
+for assembly.
+
+[1]: https://github.com/nucleotides/docker-abyss/pull/2
+[2]: https://github.com/nucleotides/docker-abyss/commit/8d841532bae4ba69bf65c82aedde9e5f449d41ea
+[3]: http://kmergenie.bx.psu.edu/
+
+The existence of nucleotid.es is provide accurate benchmarks of genome
+assemblers where the images can be immediately used by anyone. Therefore if you
+are interested in any of these assemblers, then install Docker and you can
+start using the images immediately. There are [simple instructions][4] provided
+that you can use to get started.
+
+[4]: http://nucleotid.es/using-images/
+
+### More metrics
+
+I have added additional metrics to each benchmark. Each benchmark now includes
+both local misassemblies and larger misassemblies. These are useful for
+providing detail on larger scale inaccuracies in addition to the already
+include granular incorrect bases metric. All of these assembly metrics on the
+benchmark page are generated using [QUAST][5] by comparing the produced
+scaffolds with the reference genome.
+
+[5]: http://bioinf.spbau.ru/quast
+
+The second set of metrics I have added relate to [Linux control groups][6].
+These cgroups are used by the Docker daemon to organise the container processes
+and include information about memory and CPU usage. I collect these metrics for
+each container by periodically querying the cgroup for the running container.
+These metrics are included in the benchmarks page and can be used to compare
+the computational requirements for running each assembler.
+
+[6]: https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt
+
+I further computed an additional metric: CPU seconds per assembled base. This
+is the total number of CPU seconds used by the container divided by the total
+length of the assembly. This metric provides a perspective on the computational
+efficiency of each assembler, where a smaller number indicates a
+computationally more efficient assembler.
+
+### More replicates
+
+Previously each assembler was benchmarked on a single FASTQ file from a
+reference genome. This allowed the possibility that a benchmark could be over
+fitted to the sampling of the reads. I have updated the benchmarks so that each
+calculated metric is the result of running the assembler on five different
+subsampling of reads. This should therefore provide a more accurate view of
+each how the assembler performs and I hope provide more confidence in the
+results.
