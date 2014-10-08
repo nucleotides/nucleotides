@@ -4,48 +4,50 @@
       %b= 'Read Set ' + data_id(data_set)
       %p
         %small= data_description data_set
-    %table{:class => "table table-condensed tablesorter score"}
+    %table{:class => "display score"}
       %thead
         %tr
-          %th{:class => "text-left col-md-2"}
-            Assembler Image
-          %th{:class => "text-left col-md-1"}
-            Command Bundle
-          %th{:class => "text-right col-md-1"}
-            NG50
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-1"}
-            \#contigs
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-1"}
-            UN
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-1"}
-            IB
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-1"}
-            Loc. MisAssem
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-1"}
-            MisAssem
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-1"}
-            CPU Hrs
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-1"}
-            Memory Usage (Gb)
-            %span{:class => "glyphicon glyphicon-sort"}
-          %th{:class => "text-right col-md-1"}
-            CPU secs / Bp
-            %span{:class => "glyphicon glyphicon-sort"}
+          %th Maintainer
+          %th Assembler Image
+          %th Command Bundle
+          %th NG50
+          %th LG50
+          %th \#contigs
+          %th
+            Percent
+            %br
+            Unassembled (UN)
+          %th
+            Incorrect
+            %br
+            Bases
+            %br
+            Per 100kb (IB)
+          %th
+            Local
+            %br
+            Misassemblies
+          %th Misassemblies
+          %th CPU Hrs
+          %th
+            Memory
+            %br
+            Usage (Gb)
+          %th
+            CPU secs per
+            %br
+            assembled Bp
       %tbody
         - values.select{|i| i[:summary_metrics][:ng50]}.each do |value|
           %tr
             %td
+              = value.metadata.image.split("/").first
+            %td
               %a{href: link_to_assembler(value.metadata.image)}
-                = value.metadata.image
+                = value.metadata.image.split("/").last
             %td= table_value :proc, value
             %td.value= table_value :ng50, value
+            %td.value= table_value :lg50, value
             %td.value= table_value :contigs, value
             %td.value= table_value :fraction, value
             %td.value= table_value :incorrect, value

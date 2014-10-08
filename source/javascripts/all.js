@@ -1,4 +1,5 @@
-//= require "_nucleotides"
 //= require "_prism"
-//= require "_tablesorter"
 //= require "_analytics"
+//= require "_jquery.datatables"
+//= require "_datatables.colvis"
+//= require "_nucleotides"
