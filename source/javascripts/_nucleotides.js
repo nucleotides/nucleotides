@@ -8,7 +8,7 @@ $(document).ready(function()
       scrollY        : "400px",
       scrollCollapse : true,
       paging         : false,
-      columnDefs     : [ { visible : false, targets : [0,4,8,9] } ],
+      columnDefs     : [{ visible : false, targets : [0,4,5,9,10] }],
       dom            : 'C<"clear">lfrtip'
     });
 

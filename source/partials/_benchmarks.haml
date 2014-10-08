@@ -11,6 +11,7 @@
           %th Assembler Image
           %th Command Bundle
           %th NG50
+          %th LG50
           %th \#contigs
           %th
             Percent
@@ -46,6 +47,7 @@
                 = value.metadata.image.split("/").last
             %td= table_value :proc, value
             %td.value= table_value :ng50, value
+            %td.value= table_value :lg50, value
             %td.value= table_value :contigs, value
             %td.value= table_value :fraction, value
             %td.value= table_value :incorrect, value
