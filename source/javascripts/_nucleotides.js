@@ -2,7 +2,8 @@ $(document).ready(function()
   {
 
     $('.score').dataTable({
-      "order": [[ 2, "desc" ]]
+      "order": [[ 2, "desc" ]],
+      "bFilter": false
     });
 
     $('.key').popover({
