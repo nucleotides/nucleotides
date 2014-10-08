@@ -14,11 +14,20 @@
           %th \#contigs
           %th UN
           %th IB
-          %th Loc. MisAssem
-          %th MisAssem
+          %th
+            Local
+            %br
+            Misassembly
+          %th Misassembly
           %th CPU Hrs
-          %th Memory Usage (Gb)
-          %th CPU secs / Bp
+          %th
+            Memory
+            %br
+            Usage (Gb)
+          %th
+            CPU secs per
+            %br
+            assembled Bp
       %tbody
         - values.select{|i| i[:summary_metrics][:ng50]}.each do |value|
           %tr
