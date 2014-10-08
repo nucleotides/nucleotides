@@ -7,6 +7,7 @@
     %table{:class => "display score"}
       %thead
         %tr
+          %th Maintainer
           %th Assembler Image
           %th Command Bundle
           %th NG50
@@ -22,8 +23,10 @@
         - values.select{|i| i[:summary_metrics][:ng50]}.each do |value|
           %tr
             %td
+              = value.metadata.image.split("/").first
+            %td
               %a{href: link_to_assembler(value.metadata.image)}
-                = value.metadata.image
+                = value.metadata.image.split("/").last
             %td= table_value :proc, value
             %td.value= table_value :ng50, value
             %td.value= table_value :contigs, value
