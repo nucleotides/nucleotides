@@ -7,7 +7,8 @@ $(document).ready(function()
       "bInfo"          : false,
       "scrollY"        : "400px",
       "scrollCollapse" : true,
-      "paging"         : false
+      "paging"         : false,
+      dom: 'C<"clear">lfrtip'
     });
 
     $('.key').popover({
