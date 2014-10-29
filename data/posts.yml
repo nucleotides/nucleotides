@@ -1,4 +1,4 @@
 ---
-- {url: "2014-10", date: "2014-10-08", name: "October 2014 Update",}
-- {url: "2014-09", date: "2014-09-02", name: "September 2014 Update"}
+- {url: "2014-10", date: "2014-10-08", name: "October 2014 Update",   uri: post-2}
+- {url: "2014-09", date: "2014-09-02", name: "September 2014 Update", uri: post-1}
 

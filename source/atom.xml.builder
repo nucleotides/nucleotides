@@ -1,9 +1,9 @@
 xml.instruct!
 xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
-  xml.site_url data.site.url
   xml.title data.site.title
+  xml.id data.site.url
   xml.link({href: data.site.url})
-  xml.link({href: URI.join(data.site.url, data.site.feed), rel: "self"})
+  xml.link({href: URI.join(data.site.url, data.site.feed), rel: "self", type: "application/atom+xml" })
   xml.author do |author|
     author.name  data.site.author.name
     author.email data.site.author.email
@@ -14,14 +14,16 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   data.posts.each do |post|
     xml.entry do
        xml.title post.name
-       xml.link({rel: "alternate", href: URI.join(data.site.url, "blog/", post.url)})
-       xml.published post.date.to_time.iso8601
-       xml.updated post.date.to_time.iso8601
+       xml.id blog_post_id(post)
+       xml.link({rel: "alternate", href: blog_post_url(post)})
+       xml.published blog_post_date(post)
+       xml.updated blog_post_date(post)
        xml.author do |author|
          author.name  data.site.author.name
          author.email data.site.author.email
          author.uri   data.site.author.uri
        end
+       xml.content({type: "html"}, blog_post_body(post))
     end
   end
 end
