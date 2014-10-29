@@ -1,5 +1,5 @@
-- data.posts.each do |post|
+- sitemap.resources.each do |post|
   %ul
     %li
       %a{href: "/blog/#{post.url}/"}
-        = post.name
+        = post.path
