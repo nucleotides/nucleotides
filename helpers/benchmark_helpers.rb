@@ -1,7 +1,9 @@
 module BenchmarkHelpers
 
   BYTES_TO_GIGABYTES   = 1e9
-  NANOSECONDS_TO_HOURS = 1e9 * 3600.0
+  NANOSECONDS_TO_HOURS = 2.77778e-13
+  NANOSECONDS_TO_SECS  = 1e-9
+  KILOBASE             = 1e3
 
   VALUES = {
     proc:          [:metadata, :prc],
@@ -14,7 +16,7 @@ module BenchmarkHelpers
     memory:        [:summary_metrics, :max_memory_bytes],
     local_mis:     [:summary_metrics, :local_misassemblies],
     mis:           [:summary_metrics, :misassemblies],
-    secs_per_base: [:summary_metrics, :cpu_nano_seconds_per_assembled_base],
+    secs_per_kbp:  [:summary_metrics, :cpu_nano_seconds_per_assembled_base],
   }
 
   FORMATTERS = {
@@ -25,9 +27,9 @@ module BenchmarkHelpers
     mis:           -> (v) {round_nearest(v, 1)},
     fraction:      -> (v) {sprintf "%.2f", v},
     incorrect:     -> (v) {sprintf "%.2f", v},
-    cpu:           -> (v) {sprintf "%.2f", v / NANOSECONDS_TO_HOURS},
+    cpu:           -> (v) {sprintf "%.2f", v * NANOSECONDS_TO_HOURS},
     memory:        -> (v) {sprintf "%.2f", v / BYTES_TO_GIGABYTES},
-    secs_per_base: -> (v) {round_nearest(v / 1000, 50)},
+    secs_per_kbp:  -> (v) {sprintf "%.2f", v.to_f * NANOSECONDS_TO_SECS * KILOBASE},
   }
 
   def table_value(name, v)
