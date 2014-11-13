@@ -1,23 +1,25 @@
+date   = $(shell date "+%Y-%m")
+
 s3     = s3cmd --config ${HOME}/.amazon-aws.cfg
 bucket = s3://nucleotid-es
-date   = $(shell date "+%Y-%m")
-fetch  = $(s3) get $(bucket)/website-data/$(date)/$(notdir $@) $@
 
-targets = data/benchmarks.yml data/ng50_voting.yml data/accuracy_voting.yml data/assemblers.yml
+##################################
+#
+#  Bootstrap required data
+#
+##################################
 
-all: $(targets)
+bootstrap: Gemfile.lock data/.fetched data/assemblers.yml
+
+Gemfile.lock: Gemfile
+	bundle install
+
+data/.fetched:
+	$(s3) sync $(bucket)/website-data/$(date)/ $(basename $@)
+	touch $@
 
 data/assemblers.yml:
 	wget \
 		https://raw.githubusercontent.com/nucleotides/assembler-list/master/assembler.yml \
 		--quiet \
 		--output-document $@
-
-data/%_voting.yml:
-	$(fetch)
-
-data/benchmarks.yml:
-	$(fetch)
-
-clean:
-	rm -f $(targets)
