@@ -1,0 +1,14 @@
+- data.coefficients.each do |datum|
+  %table{:class => ""}
+    %tbody
+      %tr
+        %td
+          = datum[:image]
+        %td
+          = datum[:ng50]
+        %td
+          = datum[:genome_fraction]
+        %td
+          = datum[:incorrect_per_100k]
+        %td
+          = datum[:local_misassemblies]
