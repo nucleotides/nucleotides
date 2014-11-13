@@ -20,6 +20,7 @@ data/.fetched:
 
 data/.copied:
 	cp versioned/data/* data/
+	cp versioned/images/* source/images/
 	touch $@
 
 data/assemblers.yml:

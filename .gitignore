@@ -15,5 +15,6 @@
 
 # Ignore data directory
 data
+source/images
 
 Gemfile.lock
