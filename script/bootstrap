@@ -2,4 +2,4 @@
 
 set -o errexit
 
-make bootstrap
+make .bootstrap
