@@ -24,4 +24,3 @@ page "/",                  :layout => "layouts/index"
 require "helpers/page_helpers"
 require "helpers/voting_helpers"
 helpers PageHelpers
-helpers VotingHelpers
