@@ -15,6 +15,5 @@
 
 # Ignore data directory
 data
-tmp
 
 Gemfile.lock

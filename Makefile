@@ -8,7 +8,7 @@ s3     = s3cmd --config ${HOME}/.amazon-aws.cfg
 #
 ##################################
 
-bootstrap: Gemfile.lock data/.fetched data/assemblers.yml
+bootstrap: Gemfile.lock data/.fetched data/.copied data/assemblers.yml
 
 Gemfile.lock: Gemfile
 	bundle install
@@ -16,6 +16,10 @@ Gemfile.lock: Gemfile
 data/.fetched:
 	$(s3) sync s3://nucleotid-es/website-data/$(date)/ $(basename $@)
 	mv data/*.png source/images
+	touch $@
+
+data/.copied:
+	cp versioned/data/* data/
 	touch $@
 
 data/assemblers.yml:
