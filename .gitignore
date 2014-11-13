@@ -15,6 +15,11 @@
 
 # Ignore data directory
 data
-tmp
+source/images
 
 Gemfile.lock
+
+.images
+.fetched
+.data
+.bootstrap
