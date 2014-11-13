@@ -15,6 +15,7 @@ Gemfile.lock: Gemfile
 
 data/.fetched:
 	$(s3) sync s3://nucleotid-es/website-data/$(date)/ $(basename $@)
+	mv data/*.png source/images
 	touch $@
 
 data/assemblers.yml:
