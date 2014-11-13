@@ -18,3 +18,8 @@ data
 source/images
 
 Gemfile.lock
+
+.images
+.fetched
+.data
+.bootstrap
