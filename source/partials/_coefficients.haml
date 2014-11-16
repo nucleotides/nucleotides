@@ -1,9 +1,16 @@
-- data.coefficients.each do |datum|
-  %table{:class => ""}
-    %tbody
+%table{:class => ""}
+  %thead
+    %tr
+      %th
+        = "Image"
+        - data.coefficient_headers.each do |header|
+          %th
+            = header.desc
+  %tbody
+    - data.coefficients.each do |datum|
       %tr
         %td
           = datum[:image]
         - data.coefficient_headers.each do |header|
           %td
-            = format_decimal datum[header]
+            = format_decimal datum[header.id]
