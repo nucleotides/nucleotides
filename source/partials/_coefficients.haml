@@ -4,11 +4,6 @@
       %tr
         %td
           = datum[:image]
-        %td
-          = datum[:ng50]
-        %td
-          = datum[:genome_fraction]
-        %td
-          = datum[:incorrect_per_100k]
-        %td
-          = datum[:local_misassemblies]
+        - data.coefficient_headers.each do |header|
+          %td
+            = datum[header]

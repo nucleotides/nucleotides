@@ -14,7 +14,7 @@
 .DS_Store
 
 # Ignore data directory
-data
+/data
 source/images
 
 Gemfile.lock
