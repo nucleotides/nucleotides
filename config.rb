@@ -20,7 +20,3 @@ page "/benchmarks.html",   :layout => "layouts/scores"
 page "/mailing-list.html", :layout => "layouts/mailing_list"
 page "/atom.xml",          :layout => false
 page "/",                  :layout => "layouts/index"
-
-require "helpers/page_helpers"
-require "helpers/voting_helpers"
-helpers PageHelpers
