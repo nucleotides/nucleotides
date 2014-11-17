@@ -9,15 +9,15 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
     author.email data.site.author.email
     author.uri   data.site.author.uri
   end
-  xml.updated data.posts.first.date.to_time.iso8601
+  xml.updated blog_posts.first.data.date.to_time.iso8601
 
-  data.posts.each do |post|
+  blog_posts.each do |post|
     xml.entry do
-       xml.title post.name
+       xml.title post.data.title
        xml.id blog_post_id(post)
        xml.link({rel: "alternate", href: blog_post_url(post)})
-       xml.published blog_post_date(post)
-       xml.updated blog_post_date(post)
+       xml.published post.data.date.to_time.iso8601
+       xml.updated post.data.date.to_time.iso8601
        xml.author do |author|
          author.name  data.site.author.name
          author.email data.site.author.email
