@@ -44,7 +44,7 @@ dev: .bootstrap
 	bundle exec middleman server
 
 build: $(shell find source) .bootstrap
-	rm -r $@
+	rm -fr $@
 	bundle exec middleman build --verbose
 
 publish: build
