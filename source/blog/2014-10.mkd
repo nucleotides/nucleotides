@@ -1,6 +1,6 @@
 ---
   title: October 2014 Update
-  date: 2014-10-08
+  date: !!timestamp 2014-10-08
   uri: post-2
 ---
 
