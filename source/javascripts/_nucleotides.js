@@ -18,7 +18,8 @@ $(document).ready(function()
       bFilter        : false,
       dom            : 'C<"clear">lfrtip',
       columnDefs: [
-       { type: 'signed-num', targets: [3,4,5,6] }
+       { type: 'signed-num', targets: [3,4,5,6] },
+       { visible : false,    targets : [0] }
      ]
     });
 
