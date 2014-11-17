@@ -79,4 +79,13 @@ img.sprite-md {
         text-align: right;
         font-family: 'PT Mono', ;
     }
+    th.sorting_asc {
+        background: image-url('/images/sort_asc.png') no-repeat center right !important;
+    }
+    th.sorting_desc {
+        background: image-url('/images/sort_desc.png') no-repeat center right !important;
+    }
+    th.sorting {
+        background: image-url('/images/sort_both.png') no-repeat center right !important;
+    }
 }
