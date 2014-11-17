@@ -72,10 +72,11 @@ img.sprite-md {
 }
 
 .numeric-table {
-    td {
-        font-family: 'PT Mono', ;
+    th.value {
+        text-align: right;
     }
     td.value {
         text-align: right;
+        font-family: 'PT Mono', ;
     }
 }
