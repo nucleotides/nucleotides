@@ -18,7 +18,7 @@ img.sprite-lg {
     height: 200px;
     background-size : 600%;
     background-repeat: no-repeat;
-    background-image: url(/images/nucleotides.png);
+    background-image: image-url('/images/nucleotides.png');
 }
 
 img.sprite-md {
@@ -26,7 +26,7 @@ img.sprite-md {
     height: 150px;
     background-size : 600%;
     background-repeat: no-repeat;
-    background-image: url(/images/nucleotides.png);
+    background-image: image-url('/images/nucleotides.png');
 }
 
 .spr-1-md { background-position: 0px 0px; }
