@@ -14,6 +14,8 @@ $(document).ready(function()
 
     $('.coefficient').dataTable({
       order          : [[ 3, "desc" ]],
+      paging         : false,
+      dom            : 'C<"clear">lfrtip',
       columnDefs: [
        { type: 'signed-num', targets: [3,4,5,6] }
      ]
