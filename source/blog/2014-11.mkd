@@ -1,0 +1,39 @@
+---
+  title: November 2014 Update
+  date: !!timestamp 2014-11-17
+  uri: post-2
+---
+
+This update to [nucleotid.es](http://nucleotid.es) includes additional
+assemblers and a new method of summarising the results across the benchmarks.
+There are also minor site changes and updates to the benchmark metrics.
+
+[summary]: http://nucleotid.es/results/
+
+### Additional assemblers
+
+New assemblers have been evaluated in the benchmarks. The assemblers added this
+month are SGA, sparse assembler, minia and megahit. The results of evaluating
+these assemblers are now available in on [benchmarks][] and the updated
+[summary page][summary].
+
+[benchmarks]: http://nucleotid.es/benchmarks/
+
+### Changes to benchmark metrics
+
+The incorrect bases measure has been changed. This measure now includes
+mismatching bases and indels. Previously this measure also included Ns however
+this would penalise assemblers which scaffolded contigs together. I believe
+that removing Ns from the incorrect bases measures provides a better metric.
+
+The CPU seconds per assembled base was incorrect by a factor of 1e6. The
+benchmarks now list this measure correctly which is now CPU seconds per
+assembled 1KBp.
+
+### Changes to site
+
+There are minor site usability improvements. There is now an [atom feed][feed]
+for blog updates. Users of firefox may have seen strange icons at the top of
+the benchmark tables - this has been fixed.
+
+[feed]: http://nucleotid.es/atom.xml
