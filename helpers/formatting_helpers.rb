@@ -12,6 +12,10 @@ module FormattingHelpers
     string.split('/')[2]
   end
 
+  def header(string)
+    string.gsub("\n", '<br/>')
+  end
+
 
   def format_decimal(v)
     if v.nil?

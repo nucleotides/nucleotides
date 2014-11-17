@@ -6,7 +6,7 @@
       %th= "Command Bundle"
       - data.coefficient_headers.each do |header|
         %th
-          = header.desc
+          = header header.desc
   %tbody
     - data.coefficients.each do |datum|
       %tr
