@@ -4,7 +4,7 @@
   desc: NG50
 -
   id: :genome_fraction
-  desc: "Percent\nAssembled"
+  desc: "Percent\nUnassembled"
 -
   id: :incorrect_per_100k
   desc: "Incorrect\nper 100KBp"
