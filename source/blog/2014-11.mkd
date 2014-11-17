@@ -12,72 +12,68 @@ are also minor site changes and updates to the benchmark metrics.
 
 I have made a large change to how the benchmarks are summarised. Instead of
 using a voting method, the results are now summarised using linear modelling.
-Each metric response is modelled as `metric ~ image + genome` using a
-generalised linear model. This model estimates the maximum likelihood
+Each benchmark metric is modelled as `metric ~ assembler + genome` using a
+generalised linear model. This model estimates the maximum-likelihood
 coefficients for how much each genome effects the evaluation metric and how
 well the assembler performs.
 
 [Last month I outlined][oct] how each set of reads for each genome was
-subsampled to generate five replicates. Each assembler was test against each
-replicated set for the 16 genomes leading to 80 data. Overall this lead to
-~1900 data to use for linear modelling to estimate the maximum likelihood
-parameters of assembler performance. I used the `glm()` function in R to model
-four assembly metrics this way: NG50, Percent Unassembled, Incorrect per
-100KBp, and N local misassemblies. The results are shown in the updated
+subsampled to generate five replicates and each assembler was evaluated against
+all replicates. There 16 genomes leading to 80 data for each assembler and
+~1900 data to use for linear modelling. I used the `glm()` function in R to
+model four assembly metrics: NG50, percent unassembled, incorrect per 100KBp,
+and number of local misassemblies. The results are shown in the updated
 [nucleotid.es summary page][summary].
 
 [oct]: http://nucleotid.es/blog/2014-10/
 [summary]: http://nucleotid.es/results/
 
 Each column shows the coefficients for a different model. For example the NG50
-column is the coefficients of the `image` term in the model: `NG50 ~ image +
-genome`. As the NG50 metrics are log-normally distributed the model was
-specified using a log-link e.g. `NG50 ~ e^(image + genome)`. This is why the
-coefficients are small, as they are exponentially additive terms rather than
-linearly additive terms.
+column is the coefficients of the `assembler` term in the model: `NG50 ~
+assembler + genome`. As the NG50 metrics are log-normally distributed the model
+was specified using log-link e.g. `NG50 ~ e^(assembler + genome)`. This is why
+the coefficients are small, as they are exponentially additive terms rather
+than linearly additive terms.
 
-As an example of how these summaries can be applied consider using ABySS with
-either a kmer size of 32 or 96. The NG50 coefficient for ABySS k-96 is 0.26
-while the coefficient for ABySS k-32 is -1.02. Therefore the difference between
-the two is 1.28. Taking the natural exponent of this `e^1.28` this shows that
-using k-96 over k-32 with ABySS should, on average, give you a 3.6 times larger
-NG50. We can check the results of this using the first three read sets as an
-example. Each row shows the NG50 for k-96 vs k-32.
+As an example of how these summaries can be applied we can consider the effect
+of using ABySS with a kmer size of either 32 or 96. The NG50 coefficient for
+ABySS k-96 is 0.26 while the coefficient for ABySS k-32 is -1.02. Therefore the
+difference between the two is 1.28. Taking the natural exponent of this
+(`e^1.28`) this shows that using k-96 over k-32 with ABySS should, on average,
+give you a 3.6 times larger NG50. We can check the results of this using the
+first three read sets as an example. Each row shows the NG50 for k-96 vs k-32.
 
   * Read set 0001: 460000 / 78000 = 5.89
   * Read set 0002: 97000 / 51000  = 1.90
   * Read set 0003: 171000 / 70000 = 2.44
 
-The aim of this is to provide a aggregate summary of how each assembler is
-performing rather than solely listing many tables of results. This is however
-my initial attempt at summarising the assemblers in this way and so I welcome
-suggestions on how this may be improved or possible deficiencies in this
-method.
+This is my initial attempt at summarising the assemblers in this way and so I
+welcome suggestions on how this may be improved or possible deficiencies in the
+method. The aim of this is to provide an aggregate summary of how each
+assembler is performing rather than solely listing many tables of results.
 
 ### Additional assemblers
 
-New assemblers have been evaluated in the benchmarks. The assemblers added this
-month are SGA, sparse assembler, minia and megahit. The results of evaluating
-these assemblers are now available in on [benchmarks][] and the updated
-[summary page][summary].
+New assemblers also have been evaluated in the benchmarks. The assemblers added
+this month are SGA, sparse assembler, minia and megahit. I added megahit, even
+though it is a metagenome assembler, as it can still be useful to compare
+isolate assemblies. The results of evaluating these assemblers are now
+available on [benchmarks][] and the updated [summary page][summary].
 
 [benchmarks]: http://nucleotid.es/benchmarks/
 
-### Changes to benchmark metrics
+### Minor changes to benchmark metrics and site
 
-The incorrect bases measure has been changed. This measure now includes
+The incorrect bases measure has been changed. This measure now only includes
 mismatching bases and indels. Previously this measure also included Ns however
 this would penalise assemblers which scaffolded contigs together. I believe
-that removing Ns from the incorrect bases measures provides a better metric.
+that removing Ns from the incorrect bases measure provides a better metric.
 
 The CPU seconds per assembled base was incorrect by a factor of 1e6. The
 benchmarks now list this measure correctly which is now CPU seconds per
 assembled 1KBp.
 
-### Changes to site
-
-There are minor site usability improvements. There is now an [atom feed][feed]
-for blog updates. Users of Firefox may have seen strange icons at the top of
-the benchmark tables - this has been fixed.
+There is also now an [atom feed][feed] for updates. Users of Firefox may have
+seen errors at the top of the benchmark tables - this should be fixed.
 
 [feed]: http://nucleotid.es/atom.xml
