@@ -21,7 +21,8 @@ Gemfile.lock: Gemfile
 
 .images: .fetched
 	mkdir -p source/images
-	mv -f data/*.png source/images
+	cp data/*.png source/images
+	cp versioned/images/* source/images
 	touch $@
 
 .data: .fetched
