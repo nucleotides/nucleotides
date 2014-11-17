@@ -21,3 +21,6 @@ def blog_post_date(post)
   post.date.to_time.iso8601
 end
 
+def blog_posts
+  sitemap.resources.select{|p| p.url =~ /blog\/./}.sort{|p| p.data.date}
+end

@@ -1,5 +1,7 @@
 ---
   title: October 2014 Update
+  date: 2014-10-08
+  uri: post-2
 ---
 
 This is the second update on recent improvements to nucleotid.es. These include

@@ -1,5 +1,7 @@
 ---
   title: September 2014 Update
+  date: 2014-09-02
+  uri: post-1
 ---
 
 Approximately a month ago nucleotid.es was a single page showing a handful of
