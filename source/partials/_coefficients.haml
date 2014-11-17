@@ -1,0 +1,20 @@
+%table{:class => "coefficient numeric-table"}
+  %thead
+    %tr
+      %th= "Maintainer"
+      %th= "Image"
+      %th= "Command Bundle"
+      - data.coefficient_headers.each do |header|
+        %th.value
+          = header header.desc
+  %tbody
+    - data.coefficients.each do |datum|
+      %tr
+        %td= maintainer datum[:image]
+        %td
+          %a{href: link_to_assembler(maintainer_image(datum[:image]))}
+            = image datum[:image]
+        %td= bundle datum[:image]
+        - data.coefficient_headers.each do |header|
+          %td.value
+            = format_decimal datum[header.id]

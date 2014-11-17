@@ -1,0 +1,13 @@
+---
+-
+  id: :ng50
+  desc: NG50
+-
+  id: :genome_fraction
+  desc: "Percent\nUnassembled"
+-
+  id: :incorrect_per_100k
+  desc: "Incorrect\nper 100KBp"
+-
+  id: :local_misassemblies
+  desc: "Local\nmisassemblies"

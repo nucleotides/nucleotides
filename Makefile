@@ -21,7 +21,8 @@ Gemfile.lock: Gemfile
 
 .images: .fetched
 	mkdir -p source/images
-	mv -f data/*.png source/images
+	cp data/*.png source/images
+	cp versioned/images/* source/images
 	touch $@
 
 .data: .fetched
@@ -44,7 +45,7 @@ dev: .bootstrap
 	bundle exec middleman server
 
 build: $(shell find source) .bootstrap
-	rm -r $@
+	rm -fr $@
 	bundle exec middleman build --verbose
 
 publish: build
