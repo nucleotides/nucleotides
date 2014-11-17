@@ -50,7 +50,7 @@ build: $(shell find source) .bootstrap
 
 publish: build
 	git push
-	$(s3) sync --delete-removed $@/* s3://nucleotidl.es/
+	$(s3) sync --delete-removed $^/* s3://nucleotid.es/
 
 clean:
 	rm -rf data source/images .images .data .bootstrap .fetched
