@@ -1,0 +1,24 @@
+---
+  title: Evaluation Summary
+---
+
+The table belows the aggregate of each assembler's evaluation across multiple
+genomes shown in the [benchmarks](/benchmarks/). Each table entry is the
+coefficient of each assembler `image` term in a generalised linear model in the
+form of `response ~ image + genome`. The aim of this table is to provide an
+overview of how assemblers perform, instead of examining individual results.
+Each column is represented as:
+
+  * **NG50**: Log-normal - larger values are better and represent an
+    exponential larger NG50.
+
+  * **Percent Unassembled**: Log-normal - smaller values are better and
+    represent an exponentially decreasing amount of the genome left
+    unassembled.
+
+  * **Incorrect per 100KBp**: Log-normal - smaller values are better and
+    represent an exponentially decreasing numbers of incorrect bases in the
+    assembly.
+
+  * **Local misassemblies**: Poisson - smaller values are better and represent
+    an exponentially decreasing misassemblies.
