@@ -1,4 +1,4 @@
-%table{:class => "coefficient"}
+%table{:class => "coefficient numeric-table"}
   %thead
     %tr
       %th= "Maintainer"
@@ -14,5 +14,5 @@
         %td= image datum[:image]
         %td= bundle datum[:image]
         - data.coefficient_headers.each do |header|
-          %td
+          %td.value
             = format_decimal datum[header.id]
