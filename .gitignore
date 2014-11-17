@@ -14,7 +14,12 @@
 .DS_Store
 
 # Ignore data directory
-data
-tmp
+/data
+source/images
 
 Gemfile.lock
+
+.images
+.fetched
+.data
+.bootstrap

@@ -12,6 +12,18 @@ $(document).ready(function()
       dom            : 'C<"clear">lfrtip'
     });
 
+    $('.coefficient').dataTable({
+      order          : [[ 3, "desc" ]],
+      paging         : false,
+      bFilter        : false,
+      bInfo          : false,
+      dom            : 'C<"clear">lfrtip',
+      columnDefs: [
+       { type: 'signed-num', targets: [3,4,5,6] },
+       { visible : false,    targets : [0] }
+     ]
+    });
+
     $('.key').popover({
       placement: 'right',
       container: 'body',

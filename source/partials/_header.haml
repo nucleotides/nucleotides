@@ -4,6 +4,9 @@
 
   // Metadata
   %meta{charset: "UTF-8"}
+  %meta{"http-equiv"=> "X-UA-Compatible", "content" => "IE=edge"}
+  %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
+
   %meta{name: "keywords", content: "docker,linux containers,bioinformatics,genomics,assembly"}
   %meta{name: "author", content: "Michael Barton"}
   %meta{name: "description", content: "continuous, objective and reproducible evaluation of genome assemblers using docker containers"}
@@ -16,3 +19,6 @@
   %script{:src => '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'}
   %script{:src => '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'}
   %script{:src => '/javascripts/all.js'}
+
+  // Atom feed
+  %link{rel: "alternate", type: "application/atom+xml", title: "Updates", href: "/atom.xml"}

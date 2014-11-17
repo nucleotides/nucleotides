@@ -4,7 +4,7 @@
       %b= 'Read Set ' + data_id(data_set)
       %p
         %small= data_description data_set
-    %table{:class => "display score"}
+    %table{:class => "display score numeric-table"}
       %thead
         %tr
           %th Maintainer
@@ -30,13 +30,13 @@
           %th Misassemblies
           %th CPU Hrs
           %th
-            Memory
+            Peak Memory
             %br
             Usage (Gb)
           %th
             CPU secs per
             %br
-            assembled Bp
+            assembled KBp
       %tbody
         - values.select{|i| i[:summary_metrics][:ng50]}.each do |value|
           %tr
@@ -55,5 +55,5 @@
             %td.value= table_value :mis, value
             %td.value= table_value :cpu, value
             %td.value= table_value :memory, value
-            %td.value= table_value :secs_per_base, value
+            %td.value= table_value :secs_per_kbp, value
 

@@ -8,4 +8,5 @@ end
 group :development do
   gem 'middleman', '~> 3.2'
   gem 'rake',      '~> 10.1'
+  gem 'builder',   '~> 3.2.2'
 end
