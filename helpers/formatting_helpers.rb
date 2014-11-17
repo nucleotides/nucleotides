@@ -12,6 +12,10 @@ module FormattingHelpers
     string.split('/')[2]
   end
 
+  def maintainer_image(string)
+    maintainer(string) + "/" + image(string)
+  end
+
   def header(string)
     string.gsub("\n", '<br/>')
   end
