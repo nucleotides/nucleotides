@@ -11,7 +11,7 @@ applicability of using containers for this kind of approach. In particular one
 question is how does this lend to reproducibility in science? For example Titus
 Brown wrote a blog post describing [a post-apocalyptic world of binary
 containers][titus] and a [discussion started on twitter by Shaun
-Jackman][twitter] lead to many replies. I also have also recieved similar
+Jackman][twitter] lead to many replies. I also have also received similar
 questions when I presented nucleotid.es.
 
 [titus]: http://ivory.idyll.org/blog/2014-containers.html
@@ -29,7 +29,7 @@ system layers. The act of containerising scientific software does not obscure
 how the software works or make it inaccessible.
 
 Instead I think that Docker containers make for more reproducible science. A
-Dockerfile allows for the oppourtinity to explicitly show the steps to compile
+Dockerfile allows for the opportunity to explicitly show the steps to compile
 and organise the code. This is better than simply providing the source code
 alone and expecting the user to compile it. I can illustrate this with two
 example Dockerfiles for genome assembly containers:
@@ -46,7 +46,7 @@ More importantly it saves them from having to **learn** how to do this. There
 is a case for encouraging non-computational biologists to learn to code but not
 for forcing them to debug g++ errors.
 
-My favorite way to describe this is as "deduplicaton of agony". We can take the
+My favourite way to describe this is as "deduplicaton of agony". We can take the
 pain of compiling and installing, often buggy and undocumented, bioinformatics
 code which we force on our users and move that to into a container. Instead of
 making everyone else do this work we can just ask the person who knows best to
@@ -65,12 +65,12 @@ Importantly these have all been standardised behind the same interface so that
 they all operate in the same way. This means that if you are using assembler X
 and then new data suggests that assembler Y is better, you can immediately
 switch the two containers because the have the same API. You can use all these
-containers interchangably in your own custom pipelines with minimal development
+containers interchangeably in your own custom pipelines with minimal development
 effort.
 
 This nucleotid.es project aims to provide the data to make the decisions about
 which container to use. Furthermore because the software was tested inside
-using container, the results are garanteed be the same for you as they were for
+using container, the results are guaranteed be the same for you as they were for
 me when they were benchmarked. This would not be the case if there was not a
 standardised interface as you would have to work out which parameters were
 used.
@@ -102,7 +102,7 @@ being reproducibly examined.
 ### Summary
 
 At the JGI we produce thousands of assemblies and terabases of sequence data
-each year. The days where large sequencing centers manually improve genomes
+each year. The days where large sequencing centres manually improve genomes
 have long passed, I believe as sequencing becomes cheaper and generated in ever
 larger volumes this will be the case for most research labs. Nucleotid.es,
 through the use of Docker containers, allows us to understand what kind of
