@@ -11,8 +11,7 @@ the applicability of using containers for this kind of approach. In particular
 one question is how does this lend to reproducibility in science? For example
 Titus Brown wrote a blog post describing [a post-apocalyptic world of binary
 containers][titus] and a [discussion started on twitter by Shaun
-Jackman][twitter] lead to many replies. I also have also received similar
-questions when I presented nucleotid.es in person.
+Jackman][twitter] led to many replies.
 
 [titus]: http://ivory.idyll.org/blog/2014-containers.html
 [nucleotid.es]: http://nucleotid.es
@@ -57,8 +56,8 @@ do it: the developer.
 A second argument is that containers are 'black boxes' and cannot be used with
 other tools. For instance if I can give you a container with a working version
 of Spades or ABySS. This has solved the problem of getting the software to run
-but now you have to use it to produce results. This is the problem nuclotid.es
-aims to solve.
+but now you have to use it to produce results. This is what nucleotid.es aims
+to solve.
 
 I have taken some of the most popular genome assemblers and containerised them.
 Importantly these have all been standardised behind the same interface so they
@@ -69,21 +68,24 @@ command line identically. You can use all these containers interchangeably in
 your own custom pipelines with minimal development effort.
 
 Nucleotid.es provides the data to allow you to make the decisions about which
-assembler to use. Furthermore because the assembler was benchmarked as a
-container, the results are guaranteed to be the same for you as they were for
-me when I ran the analysis. This would not be the case if there was not a
-standardised interface because I couldn't share the container with you and
-expect you to reproduce my results. This is why standardisation is equally as
-important as containerisation.
+assembler to use. I have taken Illumina reads from bacterial organisms of
+different sizes and %GC content and assembled them using the assembler
+containers. This provides concrete information how you might expect each
+assembler to perform on variety of data. Furthermore because the assembler was
+benchmarked as a container, the results are guaranteed to be the same for you
+as they were for me when I ran the analysis. This would not be the case if
+there was not a standardised interface because I couldn't share the container
+with you and expect you to reproduce my results. This is why standardisation is
+equally as important as containerisation.
 
 ### Summary
 
 At the JGI we produce thousands of assemblies and terabases of sequence data
-each year. The days where we manually improve genomes drafts have long passed.
+each year. The days where we manually improved genomes drafts have long passed.
 This may not be the case for smaller research labs, however as sequencing
 becomes cheaper and generated in ever larger volumes it soon will be.
 Nucleotid.es aims to allow us to make data-driven decisions about what kind of
-software we use so that we can do assembly at-large.
+software to use that we can do assembly in-the-large.
 
 Using containers allows us to reliably understand what kind of results we might
 expect from an assembler and when someone inevitably produces a better
