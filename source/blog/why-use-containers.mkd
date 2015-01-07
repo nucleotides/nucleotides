@@ -1,0 +1,91 @@
+---
+  title: Why use containers for scientific software?
+  date: !!timestamp 2015-01-07
+  uri: post-4
+---
+
+Nucleotid.es benchmarking data has been available for seven months beginning
+with a single table of results for one organism to the current ~1,900
+replicated benchmarks across multiple organisms. There have been discussions on
+the applicability of using containers for this kind of approach. In particular
+one question is how does this lend to reproducibility in science? For example
+Titus Brown wrote a blog post describing [a post-apocalyptic world of binary
+containers][titus] and a [discussion started on twitter by Shaun
+Jackman][twitter] lead to many replies. I also have also received similar
+questions when I presented nucleotid.es in person.
+
+[titus]: http://ivory.idyll.org/blog/2014-containers.html
+[nucleotid.es]: http://nucleotid.es
+[twitter]: https://twitter.com/sjackman/status/537723151057039362
+
+### Reproducibility
+
+If we specifically discuss the Docker implementation when we talk about
+containers, and we almost certainly are, then I disagree with the description
+of these as 'binary blobs' that cannot be understood. You can run the `docker
+export` command to get a .tar of the container's file system. A Docker
+container is not compiled in the way a C or Java program is, instead it is a
+series of transparent file system layers. The act of containerising scientific
+software does not obscure how it works or make it inaccessible.
+
+I think that containers make for more reproducible science. A Dockerfile allows
+for the opportunity to explicitly show the steps required to compile and
+organise the code. This is better than simply providing the source code alone.
+I can illustrate this with two example Dockerfiles for genome assembly
+containers:
+
+  * [velvet + kmergenie][velvet]
+  * [idba][idba]
+
+[velvet]: https://github.com/nucleotides/docker-velvet/blob/master/Dockerfile
+[idba]: https://github.com/nucleotides/docker-idba/blob/master/Dockerfile
+
+I hope that we can agree that neither of these are trivial installs. The
+advantage of using a container is that it saves everyone else from having to do
+this. More importantly it saves them from having to **learn** how to do this.
+There is a case for encouraging non-computational biologists to learn to code
+but not for forcing them to debug g++ errors.
+
+My favourite way to describe this is as "deduplicaton of agony". We can take the
+pain of compiling and installing, often buggy and undocumented, bioinformatics
+code which we force on our users and move that into a container. Instead of
+making everyone else do this work we can just ask the person who knows best to
+do it: the developer.
+
+### Standardisation
+
+A second argument is that containers are 'black boxes' and cannot be used with
+other tools. For instance if I can give you a container with a working version
+of Spades or ABySS. This has solved the problem of getting the software to run
+but now you have to use it to produce results. This is the problem nuclotid.es
+aims to solve.
+
+I have taken some of the most popular genome assemblers and containerised them.
+Importantly these have all been standardised behind the same interface so they
+can all be used in exactly the same way. This means that if you are using
+assembler X and then new data suggests that assembler Y is better, you can
+immediately switch between the two containers because they are run on the
+command line identically. You can use all these containers interchangeably in
+your own custom pipelines with minimal development effort.
+
+Nucleotid.es provides the data to allow you to make the decisions about which
+assembler to use. Furthermore because the assembler was benchmarked as a
+container, the results are guaranteed to be the same for you as they were for
+me when I ran the analysis. This would not be the case if there was not a
+standardised interface because I couldn't share the container with you and
+expect you to reproduce my results. This is why standardisation is equally as
+important as containerisation.
+
+### Summary
+
+At the JGI we produce thousands of assemblies and terabases of sequence data
+each year. The days where we manually improve genomes drafts have long passed.
+This may not be the case for smaller research labs, however as sequencing
+becomes cheaper and generated in ever larger volumes it soon will be.
+Nucleotid.es aims to allow us to make data-driven decisions about what kind of
+software we use so that we can do assembly at-large.
+
+Using containers allows us to reliably understand what kind of results we might
+expect from an assembler and when someone inevitably produces a better
+assembler we can identify it immediately and insert it into our pipelines, and
+allows you to do the same.
