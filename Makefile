@@ -35,4 +35,7 @@ data/evaluations.yml.xz: Gemfile.lock
 ##################################
 
 test: Gemfile.lock
-	bundle exec rspec --color --format=progress
+	bundle exec rspec
+
+autotest: Gemfile.lock
+	bundle exec autotest
