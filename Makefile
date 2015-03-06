@@ -24,5 +24,6 @@ data/evaluations.yml: data/evaluations.yml.xz
 	xz --decompress < $< > $@
 
 data/evaluations.yml.xz: Gemfile.lock
+	mkdir -p $(dir $@)
 	$(credentials) bundle exec \
 		./plumbing/s3/fetch s3://nucleotid-es/evaluation-data/$(date)/$(notdir $@) $@
