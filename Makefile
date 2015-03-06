@@ -24,4 +24,5 @@ data/evaluations.yml: data/evaluations.yml.xz
 	xz --decompress < $< > $@
 
 data/evaluations.yml.xz: Gemfile.lock
-	$(credentials) ./plumbing/s3/fetch s3://nucleotid-es/evaluation-data/$(date)/$(notdir $@) $@
+	$(credentials) bundle exec \
+		./plumbing/s3/fetch s3://nucleotid-es/evaluation-data/$(date)/$(notdir $@) $@
