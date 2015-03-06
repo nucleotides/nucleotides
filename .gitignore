@@ -1,9 +1,6 @@
 # Ignore environment data
 .env
 
-# Ignore bundler config
-/.bundle
-
 # Ignore the build directory
 /build
 
@@ -17,9 +14,7 @@
 /data
 source/images
 
+# Bundler files
+/.bundle
 Gemfile.lock
-
-.images
-.fetched
-.data
-.bootstrap
+vendor
