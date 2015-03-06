@@ -27,3 +27,12 @@ data/evaluations.yml.xz: Gemfile.lock
 	mkdir -p $(dir $@)
 	$(credentials) bundle exec \
 		./plumbing/s3/fetch s3://nucleotid-es/evaluation-data/$(date)/$(notdir $@) $@
+
+##################################
+#
+#  Run tests
+#
+##################################
+
+test: Gemfile.lock
+	bundle exec rspec --color --format=progress
