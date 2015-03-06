@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'fog/aws'
+
+connection = Fog::Storage.new({
+  :provider                 => 'AWS',
+  :region                   => 'us-west-1',
+  :aws_access_key_id        => ENV['AWS_ACCESS_KEY'],
+  :aws_secret_access_key    => ENV['AWS_SECRET_KEY'],
+  :persistent               => false
+})
+
+src, dst = ARGV
+
+directory, path = src.gsub("s3://","").split("/",2)
+file = connection.directories.get(directory).files.get(path)
+
+if file.nil?
+  STDERR.puts "Could not find file: #{src}"
+  exit 1
+end
+
+File.open(dst, 'w') do |out|
+  out.write file.body
+end
