@@ -1,12 +1,5 @@
 source 'https://rubygems.org'
 
-group :default do
-  gem 'rack'
-  gem 'puma', '~> 2.7'
-end
-
-group :development do
-  gem 'middleman', '~> 3.2'
-  gem 'rake',      '~> 10.1'
-  gem 'builder',   '~> 3.2.2'
-end
+gem 'middleman', '~>  3.2.0'
+gem 'rake',      '~> 10.4.0'
+gem 'fog-aws',   '~>  0.1.0'
