@@ -39,3 +39,14 @@ test: Gemfile.lock
 
 autotest: Gemfile.lock
 	bundle exec autotest
+
+##################################
+#
+#  Build the website
+#
+##################################
+
+data/benchmarks.yml: ./plumbing/evaluation/aggregate ./data/evaluations.yml
+	bundle exec $^ > $@
+
+build: data/benchmarks.yml
