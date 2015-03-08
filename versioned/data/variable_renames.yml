@@ -1,0 +1,57 @@
+---
+  - :raw: "# contigs (>= 0 bp)"
+    :id: n_contigs_gt_0
+  - :raw: "# contigs (>= 1000 bp)"
+    :id: n_contigs_gt_1000
+  - :raw: Total length (>= 0 bp)
+    :id: contigs_total_length
+  - :raw: Total length (>= 1000 bp)
+    :id: contigs_total_length_gt_1000
+  - :raw: "# contigs"
+    :id: n_contigs
+  - :raw: Largest contig
+  - :raw: Total length
+  - :raw: Reference length
+  - :raw: GC (%)
+    :id: percent_gc
+  - :raw: Reference GC (%)
+    :id: reference_gc
+  - :raw: N50
+  - :raw: NG50
+  - :raw: N75
+  - :raw: NG75
+  - :raw: L50
+  - :raw: LG50
+  - :raw: L75
+  - :raw: LG75
+  - :raw: "# misassemblies"
+    :id: n_missassemblies
+  - :raw: "# misassembled contigs"
+    :id: n_missassembled_contigs
+  - :raw: Misassembled contigs length
+    :id:
+  - :raw: "# local misassemblies"
+    :id: n_local_missassemblies
+  - :raw: "# unaligned contigs"
+    :id: n_unaligned_contigs
+  - :raw: Unaligned length
+  - :raw: Genome fraction (%)
+    :id: genome_fraction
+  - :raw: Duplication ratio
+  - :raw: "# N's per 100 kbp"
+    :id: ns_per_100kbp
+  - :raw: "# mismatches per 100 kbp"
+    :id: mismatches_per_100kbp
+  - :raw: "# indels per 100 kbp"
+    :id: indels_per_100kbp
+  - :raw: Largest alignment
+  - :raw: NA50
+  - :raw: NGA50
+  - :raw: NA75
+  - :raw: NGA75
+  - :raw: LA50
+  - :raw: LGA50
+  - :raw: LA75
+  - :raw: LGA75
+  - :raw: max_cpu
+  - :raw: max_mem
