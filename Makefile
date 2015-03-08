@@ -5,6 +5,8 @@ credentials      = AWS_SECRET_KEY=$(call fetch_cred,AWS_SECRET_KEY) \
 
 date = $(shell date +%Y-%V)
 
+data_objects = data/benchmarks.yml data/data.yml
+
 ##################################
 #
 #  Bootstrap required data
@@ -19,6 +21,12 @@ Gemfile.lock: Gemfile
 
 $(credentials_file): ./plumbing/credential/create
 	$< $@
+
+data/data.yml:
+	wget \
+	--output-document $@ \
+	--quiet \
+	'https://raw.githubusercontent.com/nucleotides/nucleotides-data/master/data/data.yml'
 
 data/evaluations.yml: data/evaluations.yml.xz
 	xz --decompress < $< > $@
@@ -49,4 +57,5 @@ autotest: Gemfile.lock
 data/benchmarks.yml: ./plumbing/evaluation/aggregate ./data/evaluations.yml
 	bundle exec $^ > $@
 
-build: data/benchmarks.yml
+dev: $(data_objects)
+	bundle exec middleman server
