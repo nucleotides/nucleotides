@@ -23,4 +23,12 @@ RSpec.describe Evaluation::Rename do
         raise_error(ArgumentError, "No mapping found for : 'value a'.")
     end
 
+    it "should reformat the values according to given formatters" do
+      values  = {"value a" => 1.4, "value b" => 1.5}
+      mapping = [{raw: "value a", formatters: [[:nearest, 1]]},
+                 {raw: "value b", formatters: [[:nearest, 1]]}]
+      output = described_class.rename(values, mapping)
+      expect(output).to eq({value_a: 1, value_b: 2})
+    end
+
 end
