@@ -49,7 +49,10 @@
                     = image[:key].split("/").last
                 %td
                   = task[:key]
-                - if task[:values][:status] == :ok
+                - if task[:values][:status] != :ok
+                  %td{colspan: 9}
+                    No data available
+                - else
                   %td
                     = task[:values][:metrics][:ng50]
                   %td
