@@ -13,7 +13,7 @@ data_objects = data/benchmarks.yml data/data.yml data/genomes.yml data/site.yml 
 #
 ##################################
 
-bootstrap: Gemfile.lock $(credentials_file) data/evaluations.yml
+bootstrap: Gemfile.lock $(credentials_file) $(data_objects)
 
 Gemfile.lock: Gemfile
 	bundle install --path vendor/bundle
@@ -72,5 +72,5 @@ data/benchmarks.yml: ./plumbing/evaluation/reformat versioned/data/variable_rena
 dev: $(data_objects)
 	bundle exec middleman server
 
-build: $(data_objects) $(shell find source data)
+build: $(data_objects) $(shell find source)
 	bundle exec middleman build
