@@ -74,3 +74,27 @@
                     %td
                       = task[:values][:metrics][:max_mem]
 
+        %table
+          %thead
+            %tr
+              %th Maintainer
+              %th Assembler Image
+              %th Command Bundle
+              %th Status
+          %tbody
+            - entry[:values].each do |image|
+              - image[:values].each do |task|
+                - if task[:values][:status] != :ok
+                  %tr
+                    %td
+                      = image[:key].split("/").first
+                    %td
+                      %a{href: link_to_assembler(image[:key])}
+                        = image[:key].split("/").last
+                    %td
+                      = task[:key]
+                    %td
+                      - if task[:values][:status] == :no_data
+                        Not yet benchmarked
+                      - if task[:values][:status] == :missing_data
+                        Some benchmarks failed to complete
