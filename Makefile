@@ -5,7 +5,7 @@ credentials      = AWS_SECRET_KEY=$(call fetch_cred,AWS_SECRET_KEY) \
 
 date = $(shell date +%Y-%V)
 
-data_objects = data/benchmarks.yml data/data.yml
+data_objects = data/benchmarks.yml data/data.yml data/genomes.yml
 
 ##################################
 #
@@ -21,6 +21,9 @@ Gemfile.lock: Gemfile
 
 $(credentials_file): ./plumbing/credential/create
 	$< $@
+
+data/genomes.yml: versioned/data/genomes.yml
+	cp $< $@
 
 data/data.yml:
 	wget \

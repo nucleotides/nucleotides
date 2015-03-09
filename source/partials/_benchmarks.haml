@@ -7,68 +7,70 @@
       %p
         = data.data[data_types[:key]].description
 
-    - data_types[:values].each do |entry|
-      %table{:class => "display score numeric-table"}
-        %thead
-          %tr
-            %th Maintainer
-            %th Assembler Image
-            %th Command Bundle
-            %th NG50
-            %th LG50
-            %th \#contigs
-            %th
-              Percent
-              %br
-              Unassembled (UN)
-            %th
-              Incorrect
-              %br
-              Bases
-              %br
-              Per 100kb (IB)
-            %th
-              Local
-              %br
-              Misassemblies
-            %th Misassemblies
-            %th CPU Hrs
-            %th
-              Peak Memory
-              %br
-              Usage (Gb)
+    - data_types[:values].sort_by{|i| i[:key] }.each do |entry|
+      %div{:class => "panel panel-default"}
+        .panel-heading
+          %b= 'Read Set ' + data_id(entry[:key])
+          %p
+            %small= data_description entry[:key]
+        %table{:class => "display score numeric-table"}
+          %thead
+            %tr
+              %th Maintainer
+              %th Assembler Image
+              %th Command Bundle
+              %th NG50
+              %th LG50
+              %th \#contigs
+              %th
+                Percent
+                %br
+                Unassembled (UN)
+              %th
+                Incorrect
+                %br
+                Bases
+                %br
+                Per 100kb (IB)
+              %th
+                Local
+                %br
+                Misassemblies
+              %th Misassemblies
+              %th CPU Hrs
+              %th
+                Peak Memory
+                %br
+                Usage (Gb)
 
-        %tbody
-          - entry[:values].each do |image|
-            - image[:values].each do |task|
-              %tr
-                %td
-                  = image[:key].split("/").first
-                %td
-                  %a{href: link_to_assembler(image[:key])}
-                    = image[:key].split("/").last
-                %td
-                  = task[:key]
-                - if task[:values][:status] != :ok
-                  %td{colspan: 9}
-                    No data available
-                - else
-                  %td
-                    = task[:values][:metrics][:ng50]
-                  %td
-                    = task[:values][:metrics][:lg50]
-                  %td
-                    = task[:values][:metrics][:n_contigs]
-                  %td
-                    = task[:values][:metrics][:genome_fraction]
-                  %td
-                    = task[:values][:metrics][:mismatches_per_100kbp]
-                  %td
-                    = task[:values][:metrics][:n_local_misassemblies]
-                  %td
-                    = task[:values][:metrics][:n_misassemblies]
-                  %td
-                    = task[:values][:metrics][:max_cpu]
-                  %td
-                    = task[:values][:metrics][:max_mem]
+          %tbody
+            - entry[:values].each do |image|
+              - image[:values].each do |task|
+                - if task[:values][:status] == :ok
+                  %tr
+                    %td
+                      = image[:key].split("/").first
+                    %td
+                      %a{href: link_to_assembler(image[:key])}
+                        = image[:key].split("/").last
+                    %td
+                      = task[:key]
+                    %td
+                      = task[:values][:metrics][:ng50]
+                    %td
+                      = task[:values][:metrics][:lg50]
+                    %td
+                      = task[:values][:metrics][:n_contigs]
+                    %td
+                      = task[:values][:metrics][:genome_fraction]
+                    %td
+                      = task[:values][:metrics][:mismatches_per_100kbp]
+                    %td
+                      = task[:values][:metrics][:n_local_misassemblies]
+                    %td
+                      = task[:values][:metrics][:n_misassemblies]
+                    %td
+                      = task[:values][:metrics][:max_cpu]
+                    %td
+                      = task[:values][:metrics][:max_mem]
 
