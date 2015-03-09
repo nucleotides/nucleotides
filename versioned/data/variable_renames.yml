@@ -25,13 +25,12 @@
   - :raw: L75
   - :raw: LG75
   - :raw: "# misassemblies"
-    :id: n_missassemblies
+    :id: n_misassemblies
   - :raw: "# misassembled contigs"
-    :id: n_missassembled_contigs
+    :id: n_misassembled_contigs
   - :raw: Misassembled contigs length
-    :id:
   - :raw: "# local misassemblies"
-    :id: n_local_missassemblies
+    :id: n_local_misassemblies
   - :raw: "# unaligned contigs"
     :id: n_unaligned_contigs
   - :raw: Unaligned length

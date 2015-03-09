@@ -49,4 +49,23 @@
                     = image[:key].split("/").last
                 %td
                   = task[:key]
+                - if task[:values][:status] == :ok
+                  %td
+                    = task[:values][:metrics][:ng50]
+                  %td
+                    = task[:values][:metrics][:lg50]
+                  %td
+                    = task[:values][:metrics][:n_contigs]
+                  %td
+                    = task[:values][:metrics][:genome_fraction]
+                  %td
+                    = task[:values][:metrics][:mismatches_per_100kbp]
+                  %td
+                    = task[:values][:metrics][:n_local_misassemblies]
+                  %td
+                    = task[:values][:metrics][:n_misassemblies]
+                  %td
+                    = task[:values][:metrics][:max_cpu]
+                  %td
+                    = task[:values][:metrics][:max_mem]
 
