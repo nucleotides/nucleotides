@@ -62,3 +62,6 @@ data/benchmarks.yml: ./plumbing/evaluation/reformat versioned/data/variable_rena
 
 dev: $(data_objects)
 	bundle exec middleman server
+
+build: $(data_objects) $(shell find source)
+	bundle exec middleman build
