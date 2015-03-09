@@ -1,5 +1,5 @@
 module Evaluation
-  module Rename
+  module Reformat
     class << self
 
       def default_key_remap(k)
