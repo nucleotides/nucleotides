@@ -13,7 +13,7 @@
           %b= 'Read Set ' + data_id(entry[:key])
           %p
             %small= data_description entry[:key]
-        %table{:class => "display score numeric-table"}
+        %table{:class => "display data-benchmark numeric-table"}
           %thead
             %tr
               %th Maintainer
@@ -74,7 +74,9 @@
                     %td
                       = task[:values][:metrics][:max_mem]
 
-        %table
+        %h4
+          Images not included
+        %table{:class => "data-missing"}
           %thead
             %tr
               %th Maintainer
@@ -95,6 +97,6 @@
                       = task[:key]
                     %td
                       - if task[:values][:status] == :no_data
-                        Not yet benchmarked
+                        Not enough data available
                       - if task[:values][:status] == :missing_data
                         Some benchmarks failed to complete

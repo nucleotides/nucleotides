@@ -1,7 +1,7 @@
 $(document).ready(function()
   {
 
-    $('.score').dataTable({
+    $('.data-benchmark').dataTable({
       order          : [[ 3, "desc" ]],
       bFilter        : false,
       bInfo          : false,
@@ -10,6 +10,15 @@ $(document).ready(function()
       paging         : false,
       columnDefs     : [{ visible : false, targets : [0,4,5,9,10] }],
       dom            : 'C<"clear">lfrtip'
+    });
+
+    $('.data-missing').dataTable({
+      scrollY        : "150px",
+      scrollCollapse : true,
+      bFilter        : false,
+      bInfo          : false,
+      paging         : false,
+      order          : [[ 2, "desc" ]]
     });
 
     $('.coefficient').dataTable({
