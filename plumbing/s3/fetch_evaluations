@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'date'
 require 'fog/aws'
 
 connection = Fog::Storage.new({
@@ -10,15 +11,17 @@ connection = Fog::Storage.new({
   :persistent               => false
 })
 
-src, dst = ARGV
+dst = ARGV.first
+directory, re = 'nucleotid-es', /evaluation-data\/(.+)\/evaluations\.yml\.xz/
 
-directory, path = src.gsub("s3://","").split("/",2)
-file = connection.directories.get(directory).files.get(path)
-
-if file.nil?
-  STDERR.puts "Could not find file: #{src}"
-  exit 1
-end
+file = connection.
+  directories.
+  get(directory).
+  files.
+  select{|f| f.key =~ re}.
+  map{|f| [Date.commercial(*f.key.split('/')[1].split('-').map(&:to_i)), f]}.
+  max_by(&:first).
+  last
 
 File.open(dst, 'w') do |out|
   out.write file.body

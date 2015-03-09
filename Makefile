@@ -23,15 +23,18 @@ $(credentials_file): ./plumbing/credential/create
 	$< $@
 
 data/%.yml: versioned/data/%.yml
+	mkdir -p $(dir $@)
 	cp $< $@
 
 data/data.yml:
+	mkdir -p $(dir $@)
 	wget \
 	--output-document $@ \
 	--quiet \
 	'https://raw.githubusercontent.com/nucleotides/nucleotides-data/master/data/data.yml'
 
 data/images.yml:
+	mkdir -p $(dir $@)
 	wget \
 	--output-document $@ \
 	--quiet \
@@ -43,7 +46,7 @@ data/evaluations.yml: data/evaluations.yml.xz
 data/evaluations.yml.xz: Gemfile.lock
 	mkdir -p $(dir $@)
 	$(credentials) bundle exec \
-		./plumbing/s3/fetch s3://nucleotid-es/evaluation-data/$(date)/$(notdir $@) $@
+		./plumbing/s3/fetch_evaluations $@
 
 ##################################
 #
