@@ -5,7 +5,7 @@ credentials      = AWS_SECRET_KEY=$(call fetch_cred,AWS_SECRET_KEY) \
 
 date = $(shell date +%Y-%V)
 
-data_objects = data/benchmarks.yml data/data.yml data/genomes.yml
+data_objects = data/benchmarks.yml data/data.yml data/genomes.yml data/site.yml data/images.yml
 
 ##################################
 #
@@ -22,7 +22,7 @@ Gemfile.lock: Gemfile
 $(credentials_file): ./plumbing/credential/create
 	$< $@
 
-data/genomes.yml: versioned/data/genomes.yml
+data/%.yml: versioned/data/%.yml
 	cp $< $@
 
 data/data.yml:
@@ -30,6 +30,12 @@ data/data.yml:
 	--output-document $@ \
 	--quiet \
 	'https://raw.githubusercontent.com/nucleotides/nucleotides-data/master/data/data.yml'
+
+data/images.yml:
+	wget \
+	--output-document $@ \
+	--quiet \
+	'https://raw.githubusercontent.com/nucleotides/nucleotides-data/master/data/image.yml'
 
 data/evaluations.yml: data/evaluations.yml.xz
 	xz --decompress < $< > $@
@@ -63,5 +69,5 @@ data/benchmarks.yml: ./plumbing/evaluation/reformat versioned/data/variable_rena
 dev: $(data_objects)
 	bundle exec middleman server
 
-build: $(data_objects) $(shell find source)
+build: $(data_objects) $(shell find source data)
 	bundle exec middleman build
