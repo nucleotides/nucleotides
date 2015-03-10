@@ -5,7 +5,7 @@ credentials      = AWS_SECRET_KEY=$(call fetch_cred,AWS_SECRET_KEY) \
 
 date = $(shell date +%Y-%V)
 
-data_objects = data/benchmarks.yml data/data.yml data/genomes.yml data/site.yml data/images.yml
+data_objects = data/data.yml data/genomes.yml data/site.yml data/images.yml
 
 ##################################
 #
@@ -69,8 +69,8 @@ autotest: Gemfile.lock
 data/benchmarks.yml: ./plumbing/evaluation/reformat versioned/data/variable_renames.yml data/evaluations.yml
 	bundle exec $^ > $@
 
-dev: $(data_objects)
+dev: data/benchmarks.yml $(data_objects)
 	bundle exec middleman server
 
-build: $(data_objects) $(shell find source)
+build: data/benchmarks.yml $(data_objects) $(shell find source)
 	bundle exec middleman build
