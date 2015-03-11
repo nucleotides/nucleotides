@@ -46,7 +46,7 @@
           %tbody
             - entry[:values].each do |image|
               - image[:values].each do |task|
-                - if task[:values][:status] == :ok
+                - if task[:values][:summary][:status] == :complete
                   %tr
                     %td
                       = image[:key].split("/").first
@@ -56,23 +56,23 @@
                     %td
                       = task[:key]
                     %td
-                      = task[:values][:metrics][:ng50]
+                      = task[:values][:summary][:metrics][:ng50]
                     %td
-                      = task[:values][:metrics][:lg50]
+                      = task[:values][:summary][:metrics][:lg50]
                     %td
-                      = task[:values][:metrics][:n_contigs]
+                      = task[:values][:summary][:metrics][:n_contigs]
                     %td
-                      = task[:values][:metrics][:genome_fraction]
+                      = task[:values][:summary][:metrics][:genome_fraction]
                     %td
-                      = task[:values][:metrics][:mismatches_per_100kbp]
+                      = task[:values][:summary][:metrics][:mismatches_per_100kbp]
                     %td
-                      = task[:values][:metrics][:n_local_misassemblies]
+                      = task[:values][:summary][:metrics][:n_local_misassemblies]
                     %td
-                      = task[:values][:metrics][:n_misassemblies]
+                      = task[:values][:summary][:metrics][:n_misassemblies]
                     %td
-                      = task[:values][:metrics][:max_cpu]
+                      = task[:values][:summary][:metrics][:max_cpu]
                     %td
-                      = task[:values][:metrics][:max_mem]
+                      = task[:values][:summary][:metrics][:max_mem]
 
         %h4
           Images not included
@@ -86,7 +86,7 @@
           %tbody
             - entry[:values].each do |image|
               - image[:values].each do |task|
-                - if task[:values][:status] != :ok
+                - if task[:values][:summary][:status] != :complete
                   %tr
                     %td
                       = image[:key].split("/").first
@@ -96,7 +96,4 @@
                     %td
                       = task[:key]
                     %td
-                      - if task[:values][:status] == :no_data
-                        Not enough data available
-                      - if task[:values][:status] == :missing_data
-                        Some benchmarks failed to complete
+                      = task[:values][:summary][:status]

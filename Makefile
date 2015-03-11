@@ -66,7 +66,7 @@ autotest: Gemfile.lock
 #
 ##################################
 
-data/benchmarks.yml: ./plumbing/evaluation/reformat versioned/data/variable_renames.yml data/evaluations.yml
+data/benchmarks.yml: ./plumbing/evaluation/organise versioned/data/variable_renames.yml data/evaluations.yml
 	bundle exec $^ > $@
 
 dev: data/benchmarks.yml $(data_objects)

@@ -9,19 +9,30 @@ module Evaluation
       end
 
       def cgroup_metric(hash, key)
-        hash[:cgroup].map{|i| i[key] }.compact.max
+        hash[:trial][:metrics].map{|i| i[key] }.compact.max
       end
+
+      def any?(benchmarks, state)
+        benchmarks.any?{|b| b[:status] == state}
+      end
+
 
       def aggregate(benchmarks)
         if benchmarks.length < NUMBER_OF_REPLICATES
           {status: :not_enough_replicates}
-        elsif benchmarks.any?{|b| b[:cgroup].nil? or b[:evaluation].nil?}
-          {status: :no_data}
+        elsif any? benchmarks, :not_started
+          {status: :not_started}
+        elsif any? benchmarks, :trial_failed
+          {status: :trial_failed}
+        elsif any? benchmarks, :not_assessed
+          {status: :not_assessed}
+        elsif any? benchmarks, :assessment_failed
+          {status: :assessment_failed}
         else
           data = benchmarks.map do |b|
             cgroup = [{key: "max_cpu", value: cgroup_metric(b, :cpu_usage)},
                       {key: "max_mem", value: cgroup_metric(b, :mem_usage)}]
-            b[:evaluation] + cgroup
+            b[:assessment][:metrics] + cgroup
           end
 
           data_keys = data.inject(Set.new) do |set, datum|
@@ -41,7 +52,7 @@ module Evaluation
             end
             [key, mean(values)]
           end]
-          {status: :ok, metrics: metrics}
+          {status: :complete, metrics: metrics}
         end
       end
 
