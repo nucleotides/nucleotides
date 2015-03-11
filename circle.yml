@@ -9,6 +9,9 @@ dependencies:
   override:
     - ./script/bootstrap
 
+compile:
+  override:
+
 test:
   override:
     - ./script/test

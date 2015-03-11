@@ -73,4 +73,4 @@ dev: data/benchmarks.yml $(data_objects)
 	bundle exec middleman server
 
 build: data/benchmarks.yml $(data_objects) $(shell find source)
-	bundle exec middleman build
+	bundle exec middleman build --verbose
