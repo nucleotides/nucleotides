@@ -5,7 +5,8 @@ credentials      = AWS_SECRET_KEY=$(call fetch_cred,AWS_SECRET_KEY) \
 
 image = r-base
 
-data_objects = data/data.yml data/genomes.yml data/site.yml data/images.yml
+initial_data = data/data.yml data/genomes.yml data/site.yml data/images.yml
+created_data = data/benchmarks.yml
 
 ##################################
 #
@@ -13,7 +14,7 @@ data_objects = data/data.yml data/genomes.yml data/site.yml data/images.yml
 #
 ##################################
 
-bootstrap: Gemfile.lock $(credentials_file) $(data_objects) .image
+bootstrap: Gemfile.lock $(credentials_file) $(initial_data) .image
 
 .image: Dockerfile
 	docker build -t $(image) .
@@ -51,6 +52,7 @@ data/evaluations.yml.xz: Gemfile.lock
 	$(credentials) bundle exec \
 		./plumbing/s3/fetch_evaluations $@
 
+
 ##################################
 #
 #  Run tests
@@ -63,17 +65,28 @@ test: Gemfile.lock
 autotest: Gemfile.lock
 	bundle exec autotest
 
+
 ##################################
 #
-#  Build the website
+#  Create intermediate data
 #
 ##################################
 
 data/benchmarks.yml: ./plumbing/evaluation/organise versioned/data/variable_renames.yml data/evaluations.yml
 	bundle exec $^ > $@
 
-dev: data/benchmarks.yml $(data_objects)
+data/modelling_inputs.csv: ./plumbing/evaluation/generate_modelling_inputs data/benchmarks.yml
+	bundle exec $^ > $@
+
+
+##################################
+#
+#  Build the website
+#
+##################################
+
+dev: $(created_data) $(initial_data)
 	bundle exec middleman server
 
-build: data/benchmarks.yml $(data_objects) $(shell find source)
+build: $(created_data) $(initial_data) $(shell find source)
 	bundle exec middleman build --verbose
