@@ -1,9 +1,17 @@
 module Evaluation
   class << self
 
-    def remap(depth, data, &block)
-      data.each do |i|
-        i[:values] = (depth == 0) ? block.call(i[:values]) : remap(depth - 1, i[:values], &block)
+    def group(data, keys, &block)
+      if keys.empty?
+        block.call data
+      else
+        head, *tail = keys
+        grouped = data.group_by do |datum|
+          head.inject(datum){|h, k| h[k] }
+        end
+        grouped.map do |k, v|
+          {id: head.join('_'), key: k, values: group(v, tail, &block)}
+        end
       end
     end
 
