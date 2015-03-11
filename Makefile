@@ -3,7 +3,7 @@ fetch_cred       = $$(./plumbing/credential/get $(credentials_file) $(1))
 credentials      = AWS_SECRET_KEY=$(call fetch_cred,AWS_SECRET_KEY) \
                    AWS_ACCESS_KEY=$(call fetch_cred,AWS_ACCESS_KEY)
 
-date = $(shell date +%Y-%V)
+image = r-base
 
 data_objects = data/data.yml data/genomes.yml data/site.yml data/images.yml
 
@@ -13,7 +13,10 @@ data_objects = data/data.yml data/genomes.yml data/site.yml data/images.yml
 #
 ##################################
 
-bootstrap: Gemfile.lock $(credentials_file) $(data_objects)
+bootstrap: Gemfile.lock $(credentials_file) $(data_objects) .image
+
+.image: Dockerfile
+	docker build -t $(image) .
 
 Gemfile.lock: Gemfile
 	bundle install --path vendor/bundle
