@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', '..', 'lib'))
 
-require 'set'
 require 'yaml'
 require 'evaluation'
 require 'evaluation/aggregate'
@@ -20,8 +19,19 @@ output = Evaluation.group(evaluations, keys) do |replicates|
   if summary[:status] == :complete
     summary[:metrics] = Evaluation::Reformat.rename(summary[:metrics], mapping)
   end
-  {summary:    summary,
-   replicates: replicates}
+
+
+
+  {metadata: {
+    benchmark: {
+      type: replicates.first[:benchmark][:type]
+    },
+    image:      replicates.first[:image],
+    input_data: {
+      data_type_id: replicates.first[:input_data][:data_type_id],
+      data_id:      replicates.first[:input_data][:data_id],
+      entry_id:     replicates.first[:input_data][:entry_id]
+    }}}.merge(summary)
 end
 
 puts YAML.dump(output)

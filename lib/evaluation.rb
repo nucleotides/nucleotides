@@ -15,5 +15,17 @@ module Evaluation
       end
     end
 
+    def descend(data, depth, &block)
+      depth == 0 ? yield(data) : data.each{|datum| descend(datum[:values], depth - 1, &block) }
+    end
+
+    def enumerator(data, depth)
+      values = []
+      descend(data, depth) do |i|
+        values << i
+      end
+      values.each
+    end
+
   end
 end

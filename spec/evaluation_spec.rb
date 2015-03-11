@@ -28,4 +28,15 @@ RSpec.describe Evaluation do
 
   end
 
+  describe "#descend" do
+    it "should descend one level" do
+      input  = [{:id=>"a", :key=>1, :values=>[4]}, {:id=>"a", :key=>2, :values=>[4]}]
+      depth  = 1
+      values = []
+
+      described_class.descend(input, depth, &lambda{|i| values << i})
+      expect(values).to eq([[4], [4]])
+    end
+  end
+
 end
