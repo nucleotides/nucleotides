@@ -78,6 +78,9 @@ data/benchmarks.yml: ./plumbing/evaluation/organise versioned/data/variable_rena
 data/modelling_inputs.csv: ./plumbing/evaluation/generate_modelling_inputs data/benchmarks.yml
 	bundle exec $^ > $@
 
+data/scores/%.csv: plumbing/docker/model plumbing/model/scores data/modelling_inputs.csv
+	mkdir -p $(dir $@)
+	./plumbing/docker/model $(image) $*
 
 ##################################
 #
