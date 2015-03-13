@@ -1,1 +1,2 @@
-ng50 0
+ng50 0 max
+genome_fraction 0 min

@@ -5,6 +5,7 @@ data <- read.csv(args[1])
 
 var_selector  = args[2]
 type_selector = args[3]
+optimum       = args[4]
 
 # All IDs should be treated as categorical values
 # I.e. their order is not relevant.
@@ -25,7 +26,7 @@ names(coefs) <- c("value")
 
 coefs <- within(coefs, {
   value <- exp(value)
-  value <- value / max(value) * 100
+  value <- value / get(optimum)(value) * 100
   value <- round(value, 1)
 })
 
