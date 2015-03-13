@@ -99,3 +99,12 @@ dev: $(created_data) $(initial_data)
 
 build: $(created_data) $(initial_data) $(shell find source)
 	bundle exec middleman build --verbose
+
+##################################
+#
+#  Test the website
+#
+##################################
+
+feature: build Gemfile.lock
+	bundle exec htmlproof $<
