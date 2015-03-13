@@ -6,20 +6,27 @@ data <- read.csv(args[1])
 var_selector  = args[2]
 type_selector = args[3]
 
-if (args[4] == "log") {
-  link <- gaussian(link="log")
-} else {
-  link <- args[4]
-}
-
-
 # All IDs should be treated as categorical values
 # I.e. their order is not relevant.
 data$data_id        <- factor(data$data_id)
 data$entry_id       <- factor(data$entry_id)
 data$benchmark_type <- factor(data$benchmark_type)
 
-data <- subset(data, variable == var_selector & benchmark_type == type_selector)
-model <- glm(value ~  task + entry_id - 1, family=link, data = data)
 
-write.table(coef(model), quote = FALSE, col.names = FALSE, sep = ',')
+# Fit genearalised linear model
+data <- subset(data, variable == var_selector & benchmark_type == type_selector)
+model <- glm(value ~  task + entry_id - 1, family=gaussian(link="log"), data = data)
+
+# Select image coefficients
+coefs <- as.data.frame(coef(model))
+coefs <- coefs[grep("task", row.names(coefs)), ,drop = FALSE]
+
+names(coefs) <- c("value")
+
+coefs <- within(coefs, {
+  value <- exp(value)
+  value <- value / max(value) * 100
+  value <- round(value, 1)
+})
+
+write.table(coefs, quote = FALSE, col.names = FALSE, sep = ',')

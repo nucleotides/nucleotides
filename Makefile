@@ -80,7 +80,7 @@ data/modelling_inputs.csv: ./plumbing/evaluation/generate_modelling_inputs data/
 
 data/scores/%.csv: plumbing/docker/model plumbing/model/scores data/modelling_inputs.csv
 	mkdir -p $(dir $@)
-	./plumbing/docker/model $(image) $*
+	./plumbing/docker/model $(image) $(shell grep $* versioned/data/model_types.txt) > $@
 
 ##################################
 #
