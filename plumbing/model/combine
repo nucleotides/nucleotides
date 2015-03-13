@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+require 'yaml'
+
+output = ARGV.
+  map{|f| CSV.read(f)}.
+  flatten(1).
+  map{|var, image, score| [var, image.split('/'), score].flatten }.
+  map{|i| [:var, :maintainer, :image, :task, :score].zip(i) }.
+  map{|i| Hash[i]}.
+  group_by{|i| i[:var]}
+
+puts YAML.dump(output)

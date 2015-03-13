@@ -6,7 +6,10 @@ credentials      = AWS_SECRET_KEY=$(call fetch_cred,AWS_SECRET_KEY) \
 image = r-base
 
 initial_data = data/data.yml data/genomes.yml data/site.yml data/images.yml
-created_data = data/benchmarks.yml
+created_data = data/benchmarks.yml data/scores.yml
+scores       = $(addprefix data/scores/,$(addsuffix .csv,$(shell cat versioned/data/model_types.txt | cut -f 1 -d ' ')))
+
+all: build
 
 ##################################
 #
@@ -81,6 +84,9 @@ data/modelling_inputs.csv: ./plumbing/evaluation/generate_modelling_inputs data/
 data/scores/%.csv: plumbing/docker/model plumbing/model/scores data/modelling_inputs.csv
 	mkdir -p $(dir $@)
 	./plumbing/docker/model $(image) $(shell grep $* versioned/data/model_types.txt) > $@
+
+data/scores.yml: ./plumbing/model/combine $(scores)
+	bundle exec $^ > $@
 
 ##################################
 #
