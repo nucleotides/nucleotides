@@ -1,20 +1,26 @@
 %table{:class => "coefficient numeric-table"}
   %thead
     %tr
-      %th= "Maintainer"
-      %th= "Image"
-      %th= "Command Bundle"
-      - data.coefficient_headers.each do |header|
+      %th
+        = "Maintainer"
+      %th
+        = "Image"
+      %th
+        = "Command Bundle"
+      - data.scores.names.each do |variable|
         %th.value
-          = header header.desc
+          = variable
   %tbody
-    - data.coefficients.each do |datum|
-      %tr
-        %td= maintainer datum[:image]
-        %td
-          %a{href: link_to_assembler(maintainer_image(datum[:image]))}
-            = image datum[:image]
-        %td= bundle datum[:image]
-        - data.coefficient_headers.each do |header|
-          %td.value
-            = format_decimal datum[header.id]
+    - data.scores.variables.each do |maintainer, images|
+      - images.each do |image, tasks|
+        - tasks.each do |task, scores|
+          %tr
+            %td
+              = maintainer
+            %td
+              = image
+            %td
+              = task
+            - data.scores.names.each do |name|
+              %td
+                = scores[name]
