@@ -1,24 +1,10 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', '..', 'lib'))
 
-require 'set'
 require 'yaml'
+require 'evaluation'
 require 'evaluation/aggregate'
 require 'evaluation/reformat'
-
-def group(data, keys, &block)
-  if keys.empty?
-    block.call data
-  else
-    head, *tail = keys
-    grouped = data.group_by do |datum|
-      head.inject(datum){|h, k| h[k] }
-    end
-    grouped.map do |k, v|
-      {id: head.join('_'), key: k, values: group(v, tail, &block)}
-    end
-  end
-end
 
 mapping, evaluations = ARGV.map{|i| YAML.load(File.read(i)) }
 
@@ -28,13 +14,24 @@ keys = [[:benchmark,  :type],
         [:image,      :dockerhub],
         [:image,      :task]]
 
-output = group(evaluations, keys) do |replicates|
+output = Evaluation.group(evaluations, keys) do |replicates|
   summary =  Evaluation::Aggregate.aggregate(replicates)
   if summary[:status] == :complete
     summary[:metrics] = Evaluation::Reformat.rename(summary[:metrics], mapping)
   end
-  {summary:    summary,
-   replicates: replicates}
+
+
+
+  {metadata: {
+    benchmark: {
+      type: replicates.first[:benchmark][:type]
+    },
+    image:      replicates.first[:image],
+    input_data: {
+      data_type_id: replicates.first[:input_data][:data_type_id],
+      data_id:      replicates.first[:input_data][:data_id],
+      entry_id:     replicates.first[:input_data][:entry_id]
+    }}}.merge(summary)
 end
 
 puts YAML.dump(output)

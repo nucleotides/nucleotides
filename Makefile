@@ -3,9 +3,13 @@ fetch_cred       = $$(./plumbing/credential/get $(credentials_file) $(1))
 credentials      = AWS_SECRET_KEY=$(call fetch_cred,AWS_SECRET_KEY) \
                    AWS_ACCESS_KEY=$(call fetch_cred,AWS_ACCESS_KEY)
 
-date = $(shell date +%Y-%V)
+image = r-base
 
-data_objects = data/data.yml data/genomes.yml data/site.yml data/images.yml
+initial_data = data/data.yml data/genomes.yml data/site.yml data/images.yml
+created_data = data/benchmarks.yml data/scores.yml
+scores       = $(addprefix data/scores/,$(addsuffix .csv,$(shell cat versioned/data/model_types.txt | cut -f 1 -d ' ')))
+
+all: build
 
 ##################################
 #
@@ -13,7 +17,10 @@ data_objects = data/data.yml data/genomes.yml data/site.yml data/images.yml
 #
 ##################################
 
-bootstrap: Gemfile.lock $(credentials_file) $(data_objects)
+bootstrap: Gemfile.lock $(credentials_file) $(initial_data) .image
+
+.image: Dockerfile
+	docker build -t $(image) .
 
 Gemfile.lock: Gemfile
 	bundle install --path vendor/bundle
@@ -48,6 +55,7 @@ data/evaluations.yml.xz: Gemfile.lock
 	$(credentials) bundle exec \
 		./plumbing/s3/fetch_evaluations $@
 
+
 ##################################
 #
 #  Run tests
@@ -60,17 +68,34 @@ test: Gemfile.lock
 autotest: Gemfile.lock
 	bundle exec autotest
 
+
 ##################################
 #
-#  Build the website
+#  Create intermediate data
 #
 ##################################
 
 data/benchmarks.yml: ./plumbing/evaluation/organise versioned/data/variable_renames.yml data/evaluations.yml
 	bundle exec $^ > $@
 
-dev: data/benchmarks.yml $(data_objects)
+data/modelling_inputs.csv: ./plumbing/evaluation/generate_modelling_inputs data/benchmarks.yml
+	bundle exec $^ > $@
+
+data/scores/%.csv: plumbing/docker/model plumbing/model/scores data/modelling_inputs.csv
+	mkdir -p $(dir $@)
+	./plumbing/docker/model $(image) $(shell grep $* versioned/data/model_types.txt) > $@
+
+data/scores.yml: ./plumbing/model/combine $(scores)
+	bundle exec $^ > $@
+
+##################################
+#
+#  Build the website
+#
+##################################
+
+dev: $(created_data) $(initial_data)
 	bundle exec middleman server
 
-build: data/benchmarks.yml $(data_objects) $(shell find source)
+build: $(created_data) $(initial_data) $(shell find source)
 	bundle exec middleman build --verbose

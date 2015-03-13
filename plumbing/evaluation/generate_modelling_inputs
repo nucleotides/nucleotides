@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', '..', 'lib'))
+
+require 'yaml'
+require 'csv'
+require 'evaluation'
+
+data  = YAML.load(File.read(ARGV.first))
+depth = 5
+
+completed = Evaluation.
+  enumerator(data, depth).
+  select{|i| i[:status] == :complete}
+
+output = CSV.generate do |csv|
+  csv << %w|task benchmark_type data_id entry_id variable value|
+  completed.each do |evaluation|
+    headers = [
+      evaluation[:metadata][:image][:dockerhub] + '/' + evaluation[:metadata][:image][:task],
+      evaluation[:metadata][:benchmark][:type],
+      evaluation[:metadata][:input_data][:data_id],
+      evaluation[:metadata][:input_data][:entry_id],
+    ]
+    evaluation[:metrics].map do |key, value|
+      csv << headers + [key, value]
+    end
+  end
+end
+
+puts output

@@ -21,3 +21,6 @@ vendor
 
 # Don't put passwords in VCS
 .aws_credentials
+
+# Docker
+.image

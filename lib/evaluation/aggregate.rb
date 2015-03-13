@@ -16,7 +16,6 @@ module Evaluation
         benchmarks.any?{|b| b[:status] == state}
       end
 
-
       def aggregate(benchmarks)
         if benchmarks.length < NUMBER_OF_REPLICATES
           {status: :not_enough_replicates}
@@ -53,12 +52,6 @@ module Evaluation
             [key, mean(values)]
           end]
           {status: :complete, metrics: metrics}
-        end
-      end
-
-      def remap(depth, data, &block)
-        data.each do |i|
-          i[:values] = (depth == 0) ? block.call(i[:values]) : remap(depth - 1, i[:values], &block)
         end
       end
 

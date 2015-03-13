@@ -2,27 +2,41 @@ require 'evaluation'
 
 RSpec.describe Evaluation do
 
-  describe "#remap" do
+  describe "#group" do
 
-    def increment(a)
-      a.map{|i| i + 1}
+    def increment_c(values)
+      values.map{|v| v[:c] = v[:c] + 1}
     end
 
-    def data(values)
-      {id: "id", key: "key", values: values}
+    def data(values = {})
+      {a: 1, b: 2, c: 3}.merge(values)
     end
 
-    it "remap a single-level data structure" do
-      expect(described_class.remap(0, [data([1,2,3])], &method(:increment))).to \
-        eq([data([2,3,4])])
+    it "should not group when no keys given" do
+      input  = [data]
+      output = [4]
+      keys   = []
+      expect(described_class.group(input, keys, &method(:increment_c))).to eq(output)
     end
 
-    it "remap a two-level data structure" do
-      input = [data([data([1,2,3]), data([1,2,3])])]
-      expect(described_class.remap(1, input, &method(:increment))).to \
-        eq([data([data([2,3,4]), data([2,3,4])])])
+    it "should group when one key is given" do
+      input  = [data, data(a: 2)]
+      output = [{:id=>"a", :key=>1, :values=>[4]}, {:id=>"a", :key=>2, :values=>[4]}]
+      keys   = [[:a]]
+      expect(described_class.group(input, keys, &method(:increment_c))).to eq(output)
     end
 
+  end
+
+  describe "#descend" do
+    it "should descend one level" do
+      input  = [{:id=>"a", :key=>1, :values=>[4]}, {:id=>"a", :key=>2, :values=>[4]}]
+      depth  = 1
+      values = []
+
+      described_class.descend(input, depth, &lambda{|i| values << i})
+      expect(values).to eq([[4], [4]])
+    end
   end
 
 end
