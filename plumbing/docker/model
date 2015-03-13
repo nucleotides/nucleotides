@@ -1,0 +1,14 @@
+#!/bin/bash
+
+IMAGE=$1
+VAR=$2
+
+docker run \
+  --volume=$(pwd)/plumbing/model:/rbin:ro \
+  --volume=$(pwd)/data:/data:ro \
+  ${IMAGE} \
+  /rbin/scores \
+  /data/modelling_inputs.csv \
+  $(grep ${VAR} versioned/data/model_types.txt) \
+    | sed "s/^/${VAR},/" \
+    | sed 's/task//'

@@ -1,12 +1,7 @@
 source 'https://rubygems.org'
 
-group :default do
-  gem 'rack'
-  gem 'puma', '~> 2.7'
-end
-
-group :development do
-  gem 'middleman', '~> 3.2'
-  gem 'rake',      '~> 10.1'
-  gem 'builder',   '~> 3.2.2'
-end
+gem 'middleman',           '~>  3.3.0'
+gem 'fog-aws',             '~>  0.1.0'
+gem 'rspec',               '~>  3.2.0'
+gem 'rspec-autotest',      '~>  1.0.0'
+gem 'autotest-standalone', '~>  4.5.0'

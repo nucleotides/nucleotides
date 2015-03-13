@@ -1,59 +1,99 @@
-- datasets.group_by{|i| i[:metadata][:library_id]}.each do |(data_set, values)|
-  %div{:class => "panel panel-default"}
-    .panel-heading
-      %b= 'Read Set ' + data_id(data_set)
+- data.benchmarks.each do |benchmark|
+  - benchmark[:values].each do |data_types|
+    %div{:class => "panel panel-default"}
+      .panel-heading
+        %b
+          Description
       %p
-        %small= data_description data_set
-    %table{:class => "display score numeric-table"}
-      %thead
-        %tr
-          %th Maintainer
-          %th Assembler Image
-          %th Command Bundle
-          %th NG50
-          %th LG50
-          %th \#contigs
-          %th
-            Percent
-            %br
-            Unassembled (UN)
-          %th
-            Incorrect
-            %br
-            Bases
-            %br
-            Per 100kb (IB)
-          %th
-            Local
-            %br
-            Misassemblies
-          %th Misassemblies
-          %th CPU Hrs
-          %th
-            Peak Memory
-            %br
-            Usage (Gb)
-          %th
-            CPU secs per
-            %br
-            assembled KBp
-      %tbody
-        - values.select{|i| i[:summary_metrics][:ng50]}.each do |value|
-          %tr
-            %td
-              = value.metadata.image.split("/").first
-            %td
-              %a{href: link_to_assembler(value.metadata.image)}
-                = value.metadata.image.split("/").last
-            %td= table_value :proc, value
-            %td.value= table_value :ng50, value
-            %td.value= table_value :lg50, value
-            %td.value= table_value :contigs, value
-            %td.value= table_value :fraction, value
-            %td.value= table_value :incorrect, value
-            %td.value= table_value :local_mis, value
-            %td.value= table_value :mis, value
-            %td.value= table_value :cpu, value
-            %td.value= table_value :memory, value
-            %td.value= table_value :secs_per_kbp, value
+        = data.data[data_types[:key]].description
 
+    - data_types[:values].sort_by{|i| i[:key] }.each do |entry|
+      %div{:class => "panel panel-default"}
+        .panel-heading
+          %b= 'Read Set ' + data_id(entry[:key])
+          %p
+            %small= data_description entry[:key]
+        %table{:class => "display data-benchmark numeric-table"}
+          %thead
+            %tr
+              %th Maintainer
+              %th Assembler Image
+              %th Command Bundle
+              %th NG50
+              %th LG50
+              %th \#contigs
+              %th
+                Percent
+                %br
+                Unassembled (UN)
+              %th
+                Incorrect
+                %br
+                Bases
+                %br
+                Per 100kb (IB)
+              %th
+                Local
+                %br
+                Misassemblies
+              %th Misassemblies
+              %th CPU Hrs
+              %th
+                Peak Memory
+                %br
+                Usage (Gb)
+
+          %tbody
+            - entry[:values].each do |image|
+              - image[:values].each do |task|
+                - if task[:values][:status] == :complete
+                  %tr
+                    %td
+                      = image[:key].split("/").first
+                    %td
+                      %a{href: link_to_assembler(image[:key])}
+                        = image[:key].split("/").last
+                    %td
+                      = task[:key]
+                    %td
+                      = task[:values][:metrics][:ng50]
+                    %td
+                      = task[:values][:metrics][:lg50]
+                    %td
+                      = task[:values][:metrics][:n_contigs]
+                    %td
+                      = task[:values][:metrics][:genome_fraction]
+                    %td
+                      = task[:values][:metrics][:mismatches_per_100kbp]
+                    %td
+                      = task[:values][:metrics][:n_local_misassemblies]
+                    %td
+                      = task[:values][:metrics][:n_misassemblies]
+                    %td
+                      = task[:values][:metrics][:max_cpu]
+                    %td
+                      = task[:values][:metrics][:max_mem]
+
+        %h4
+          Images not included
+        %table{:class => "data-missing"}
+          %thead
+            %tr
+              %th Maintainer
+              %th Assembler Image
+              %th Command Bundle
+              %th Status
+          %tbody
+            - entry[:values].each do |image|
+              - image[:values].each do |task|
+                - if task[:values][:status] != :complete
+                  %tr
+                    %td
+                      = image[:key].split("/").first
+                    %td
+                      %a{href: link_to_assembler(image[:key])}
+                        = image[:key].split("/").last
+                    %td
+                      = task[:key]
+                    %td
+                      = task[:values][:status]

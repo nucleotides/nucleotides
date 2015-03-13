@@ -1,0 +1,21 @@
+---
+machine:
+  ruby:
+    version: 2.2.0
+  services:
+    - docker
+
+dependencies:
+  cache_directories:
+    - "vendor/bundle"
+  override:
+    - ./script/bootstrap
+
+compile:
+  override:
+    - echo "skipped"
+
+test:
+  override:
+    - ./script/test
+    - ./script/build

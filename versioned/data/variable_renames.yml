@@ -1,0 +1,103 @@
+---
+  - :raw: "# contigs (>= 0 bp)"
+    :id: n_contigs_gt_0
+    :formatters:
+      - ["nearest", 0]
+  - :raw: "# contigs (>= 1000 bp)"
+    :id: n_contigs_gt_1000
+    :formatters:
+      - ["nearest", 0]
+  - :raw: Total length (>= 0 bp)
+    :id: contigs_total_length
+  - :raw: Total length (>= 1000 bp)
+    :id: contigs_total_length_gt_1000
+  - :raw: "# contigs"
+    :id: n_contigs
+  - :raw: Largest contig
+  - :raw: Total length
+  - :raw: Reference length
+  - :raw: GC (%)
+    :id: percent_gc
+  - :raw: Reference GC (%)
+    :id: reference_gc
+  - :raw: N50
+    :formatters:
+      - ["nearest", -3]
+  - :raw: NG50
+    :formatters:
+      - ["nearest", -3]
+  - :raw: N75
+    :formatters:
+      - ["nearest", -3]
+  - :raw: NG75
+    :formatters:
+      - ["nearest", -3]
+  - :raw: L50
+    :formatters:
+      - ["nearest", -3]
+  - :raw: LG50
+    :formatters:
+      - ["nearest", 0]
+  - :raw: L75
+    :formatters:
+      - ["nearest", 0]
+  - :raw: LG75
+    :formatters:
+      - ["nearest", 0]
+  - :raw: "# misassemblies"
+    :id: n_misassemblies
+    :formatters:
+      - ["nearest", 0]
+  - :raw: "# misassembled contigs"
+    :id: n_misassembled_contigs
+    :formatters:
+      - ["nearest", 0]
+  - :raw: Misassembled contigs length
+  - :raw: "# local misassemblies"
+    :formatters:
+      - ["nearest", 0]
+    :id: n_local_misassemblies
+  - :raw: "# unaligned contigs"
+    :id: n_unaligned_contigs
+    :formatters:
+      - ["nearest", 0]
+  - :raw: Unaligned length
+  - :raw: Genome fraction (%)
+    :id: genome_fraction
+    :formatters:
+      - ["one_hundred_minus"]
+      - ["nearest", 2]
+  - :raw: Duplication ratio
+  - :raw: "# N's per 100 kbp"
+    :id: ns_per_100kbp
+    :formatters:
+      - ["nearest", 2]
+      - ["format", 2]
+  - :raw: "# mismatches per 100 kbp"
+    :id: mismatches_per_100kbp
+    :formatters:
+      - ["nearest", 2]
+      - ["format", 2]
+  - :raw: "# indels per 100 kbp"
+    :id: indels_per_100kbp
+  - :raw: Largest alignment
+  - :raw: NA50
+  - :raw: NGA50
+  - :raw: NA75
+  - :raw: NGA75
+  - :raw: LA50
+  - :raw: LGA50
+  - :raw: LA75
+  - :raw: LGA75
+  - :raw: max_cpu
+    :formatters:
+      - ["nano_seconds_to_hours"]
+      - ["nearest", 2]
+      - ["format", 2]
+  - :raw: Duplication ratio
+  - :raw: max_mem
+    :formatters:
+      - ["bytes_to_gigabytes"]
+      - ["nearest", 2]
+      - ["format", 2]
+  - :raw: Duplication ratio

@@ -1,24 +1,24 @@
-- data.assemblers.each do |assembler|
-  %div{class: "assembler", id: assembler_id(assembler[:image][:dockerhub])}
+- data.images.each do |image|
+  %div{class: "assembler", id: assembler_id(image[:image][:dockerhub])}
     %h3
-      = assembler[:image][:dockerhub]
+      = image[:image][:dockerhub]
     %p
-      = assembler[:description]
+      = image[:description]
     %table.table
       %tr
         %td
           %span{class: "glyphicon glyphicon-cog" }
         %td
-          %a{href: dockerhub_url(assembler)}
+          %a{href: dockerhub_url(image)}
             Docker Image
-      - if assembler[:pmid]
+      - if image[:pmid]
         %tr
           %td
             %span{class: "glyphicon glyphicon-file" }
           %td
-            %a{href: pubmed_url(assembler)}
+            %a{href: pubmed_url(image)}
               Pubmed Entry
-      - assembler_values(assembler).each do |(avail, url, text)|
+      - assembler_values(image).each do |(avail, url, text)|
         %tr
           %td
             - if avail

@@ -1,9 +1,6 @@
 # Ignore environment data
 .env
 
-# Ignore bundler config
-/.bundle
-
 # Ignore the build directory
 /build
 
@@ -17,9 +14,13 @@
 /data
 source/images
 
+# Bundler files
+/.bundle
 Gemfile.lock
+vendor
 
-.images
-.fetched
-.data
-.bootstrap
+# Don't put passwords in VCS
+.aws_credentials
+
+# Docker
+.image

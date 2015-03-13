@@ -1,6 +1,15 @@
-date   = $(shell date "+%Y-%m")
+credentials_file = .aws_credentials
+fetch_cred       = $$(./plumbing/credential/get $(credentials_file) $(1))
+credentials      = AWS_SECRET_KEY=$(call fetch_cred,AWS_SECRET_KEY) \
+                   AWS_ACCESS_KEY=$(call fetch_cred,AWS_ACCESS_KEY)
 
-s3     = s3cmd --config ${HOME}/.amazon-aws.cfg
+image = r-base
+
+initial_data = data/data.yml data/genomes.yml data/site.yml data/images.yml
+created_data = data/benchmarks.yml data/scores.yml
+scores       = $(addprefix data/scores/,$(addsuffix .csv,$(shell cat versioned/data/model_types.txt | cut -f 1 -d ' ')))
+
+all: build
 
 ##################################
 #
@@ -8,49 +17,85 @@ s3     = s3cmd --config ${HOME}/.amazon-aws.cfg
 #
 ##################################
 
-.bootstrap: Gemfile.lock .images .data data/assemblers.yml
-	touch $@
+bootstrap: Gemfile.lock $(credentials_file) $(initial_data) .image
+
+.image: Dockerfile
+	docker build -t $(image) .
 
 Gemfile.lock: Gemfile
-	bundle install
-
-.fetched:
-	mkdir -p data
-	$(s3) sync s3://nucleotid-es/website-data/$(date)/ data
+	bundle install --path vendor/bundle
 	touch $@
 
-.images: .fetched
-	mkdir -p source/images
-	cp data/*.png source/images
-	cp versioned/images/* source/images
-	touch $@
+$(credentials_file): ./plumbing/credential/create
+	$< $@
 
-.data: .fetched
-	cp versioned/data/* data/
-	touch $@
+data/%.yml: versioned/data/%.yml
+	mkdir -p $(dir $@)
+	cp $< $@
 
-data/assemblers.yml:
+data/data.yml:
+	mkdir -p $(dir $@)
 	wget \
-		https://raw.githubusercontent.com/nucleotides/assembler-list/master/assembler.yml \
-		--quiet \
-		--output-document $@
+	--output-document $@ \
+	--quiet \
+	'https://raw.githubusercontent.com/nucleotides/nucleotides-data/master/data/data.yml'
+
+data/images.yml:
+	mkdir -p $(dir $@)
+	wget \
+	--output-document $@ \
+	--quiet \
+	'https://raw.githubusercontent.com/nucleotides/nucleotides-data/master/data/image.yml'
+
+data/evaluations.yml: data/evaluations.yml.xz
+	xz --decompress < $< > $@
+
+data/evaluations.yml.xz: Gemfile.lock
+	mkdir -p $(dir $@)
+	$(credentials) bundle exec \
+		./plumbing/s3/fetch_evaluations $@
+
 
 ##################################
 #
-#  Building the site
+#  Run tests
 #
 ##################################
 
-dev: .bootstrap
+test: Gemfile.lock
+	bundle exec rspec
+
+autotest: Gemfile.lock
+	bundle exec autotest
+
+
+##################################
+#
+#  Create intermediate data
+#
+##################################
+
+data/benchmarks.yml: ./plumbing/evaluation/organise versioned/data/variable_renames.yml data/evaluations.yml
+	bundle exec $^ > $@
+
+data/modelling_inputs.csv: ./plumbing/evaluation/generate_modelling_inputs data/benchmarks.yml
+	bundle exec $^ > $@
+
+data/scores/%.csv: plumbing/docker/model plumbing/model/scores data/modelling_inputs.csv
+	mkdir -p $(dir $@)
+	./plumbing/docker/model $(image) $(shell grep $* versioned/data/model_types.txt) > $@
+
+data/scores.yml: ./plumbing/model/combine $(scores)
+	bundle exec $^ > $@
+
+##################################
+#
+#  Build the website
+#
+##################################
+
+dev: $(created_data) $(initial_data)
 	bundle exec middleman server
 
-build: $(shell find source) .bootstrap
-	rm -fr $@
+build: $(created_data) $(initial_data) $(shell find source)
 	bundle exec middleman build --verbose
-
-publish: build
-	git push
-	$(s3) sync --delete-removed $^/* s3://nucleotid.es/
-
-clean:
-	rm -rf data source/images .images .data .bootstrap .fetched

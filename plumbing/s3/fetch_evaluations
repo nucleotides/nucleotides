@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'date'
+require 'fog/aws'
+
+connection = Fog::Storage.new({
+  :provider                 => 'AWS',
+  :region                   => 'us-west-1',
+  :aws_access_key_id        => ENV['AWS_ACCESS_KEY'],
+  :aws_secret_access_key    => ENV['AWS_SECRET_KEY'],
+  :persistent               => false
+})
+
+dst = ARGV.first
+directory, re = 'nucleotid-es', /evaluation-data\/(.+)\/evaluations\.yml\.xz/
+
+file = connection.
+  directories.
+  get(directory).
+  files.
+  select{|f| f.key =~ re}.
+  map{|f| [Date.commercial(*f.key.split('/')[1].split('-').map(&:to_i)), f]}.
+  max_by(&:first).
+  last
+
+File.open(dst, 'w') do |out|
+  out.write file.body
+end
