@@ -12,7 +12,7 @@ following three arguments:
 
   * A command bundle - this is a short text handle than specifies different
     ways an assembler can be run. These allow the developer to provide
-    different ways an assembler can be used. For example of this could be
+    different ways an assembler can be used. For example, this could be
     `single-cell` or `default`.
   * The location of a gzipped interleaved fastq. This will be passed as a
     string path to a read-only file inside the container.
